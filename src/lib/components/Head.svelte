@@ -4,6 +4,7 @@
   export let url: string
   export let imageUrl: string
   export let gtagId: string | null
+  export let cfToken: object | null
 </script>
 
 <svelte:head>
@@ -25,7 +26,6 @@
   {/if}
 
   {#if gtagId}
-    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={gtagId}"></script>
     <script>
       window.dataLayer = window.dataLayer || []
@@ -35,5 +35,12 @@
       gtag('js', new Date())
       gtag('config', { gtagId })
     </script>
+  {/if}
+  {#if cfToken}
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify(cfToken)}
+    ></script>
   {/if}
 </svelte:head>

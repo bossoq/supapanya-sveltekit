@@ -6,6 +6,11 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        'blue-light-key': '#41bfd0',
+        'blue-dark-key': '#1e3d59',
+        'green-light-key': '#60ceb0'
+      },
       animation: {
         fadeIn: 'fadeIn 0.4s ease-in-out',
         fadeOut: 'fadeOut 0.4s ease-in-out'
