@@ -1,4 +1,5 @@
 <script lang="ts">
+  // @ts-ignore
   import { Facebook, Twitter, Line } from 'svelte-share-buttons-component'
 
   export let url: string

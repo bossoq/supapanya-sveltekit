@@ -34,21 +34,21 @@
         {#if themeEnabler}
           <div class="hidden sm:flex flex-row gap-2">
             <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <p
+            <button
               on:click={() => ($darkTheme = !$darkTheme)}
               class="text-xs sm:text-base cursor-pointer select-none bg-sky-800 text-white rounded p-2"
             >
               {$darkTheme ? themeIcons[1] : themeIcons[0]}
-            </p>
+            </button>
           </div>
           <div class="flex sm:hidden flex-row gap-2">
             <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <p
+            <button
               on:click={() => ($darkTheme = !$darkTheme)}
               class="text-xs sm:text-base cursor-pointer select-none bg-sky-800 text-white rounded p-2"
             >
               {$darkTheme ? themeIcons[1].slice(0, 2) : themeIcons[0].slice(0, 2)}
-            </p>
+            </button>
           </div>
         {/if}
       </div>
