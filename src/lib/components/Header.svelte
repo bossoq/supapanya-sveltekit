@@ -5,6 +5,9 @@
   import { faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
   export let themeIcons: string[]
   export let themeEnabler: boolean
+
+  let showNav1 = false
+  let showNav2 = false
 </script>
 
 <header class="flex flex-col gap-2 sm:gap-4 w-full sticky top-0 pb-2 justify-center items-center">
@@ -62,16 +65,12 @@
   >
     <div class="text-slate-600">
       <button
-        data-collapse-toggle="navbar-dropdown"
         type="button"
         class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        aria-controls="navbar-dropdown"
-        aria-expanded="false"
       >
         <span class="sr-only">Open main menu</span>
         <svg
           class="w-6 h-6"
-          aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +86,6 @@
           class="flex flex-col flex-wrap p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:gap-2 md:py-0 md:mt-0 md:border-none md:bg-transparent"
         >
           <li
-            aria-current="page"
             class="p-1 rounded border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
           >
             <a href="/">หน้าหลัก</a>
@@ -97,16 +95,18 @@
           >
             <a href="/">คอร์สเรียน</a>
           </li>
-          <li>
+          <li
+            class="flex flex-col items-center justify-between"
+            on:mouseenter={() => (showNav1 = true)}
+            on:mouseleave={() => (showNav1 = false)}
+          >
             <button
               id="dropdownNavbarReview"
-              data-dropdown-toggle="dropdownNavbarReviewItem"
               class="flex items-center justify-between p-1 rounded border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
             >
               ประวัติของเรา
               <svg
                 class="w-5 h-5 ml-1"
-                aria-hidden="true"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -116,24 +116,30 @@
                   clip-rule="evenodd"
                 /></svg
               >
+            </button>
+            {#if showNav1}
               <div
                 id="dropdownNavbarReviewItem"
-                class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
+                class="z-20 absolute top-[calc(11rem-2px)] bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
               >
-                <ul class="py-2" aria-labelledby="dropdownReviewButton">
-                  <li
-                    class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-                  >
-                    <a href="/">รีวิว</a>
-                  </li>
-                  <li
-                    class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-                  >
-                    <a href="/">ความสำเร็จของเรา</a>
-                  </li>
+                <ul class="pb-2">
+                  <a href="/">
+                    <li
+                      class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                    >
+                      รีวิว
+                    </li>
+                  </a>
+                  <a href="/">
+                    <li
+                      class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                    >
+                      ความสำเร็จของเรา
+                    </li>
+                  </a>
                 </ul>
               </div>
-            </button>
+            {/if}
           </li>
           <li
             class="p-1 rounded border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
@@ -160,47 +166,58 @@
           >
             <a href="/">ออกจากระบบ</a>
           </li>
-          <button
-            id="dropdownNavbarAdmin"
-            data-dropdown-toggle="dropdownNavbarAdminItem"
-            class="flex items-center justify-between p-1 rounded border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+          <li
+            class="flex flex-col items-center justify-between"
+            on:mouseenter={() => (showNav2 = true)}
+            on:mouseleave={() => (showNav2 = false)}
           >
-            สำหรับผู้ดูแลระบบ
-            <svg
-              class="w-5 h-5 ml-1"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              ><path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              /></svg
+            <button
+              id="dropdownNavbarAdmin"
+              class="flex items-center justify-between p-1 rounded border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
             >
-            <div
-              id="dropdownNavbarAdminItem"
-              class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
-            >
-              <ul class="py-2" aria-labelledby="dropdownAdminButton">
-                <li
-                  class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-                >
-                  <a href="/">ลงทะเบียน</a>
-                </li>
-                <li
-                  class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-                >
-                  <a href="/">รายชื่อวิดีโอ</a>
-                </li>
-                <li
-                  class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-                >
-                  <a href="/">เพิ่มวิดีโอ</a>
-                </li>
-              </ul>
-            </div>
-          </button>
+              สำหรับผู้ดูแลระบบ
+              <svg
+                class="w-5 h-5 ml-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                /></svg
+              >
+            </button>
+            {#if showNav2}
+              <div
+                class="z-20 absolute top-[calc(11rem-2px)] bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
+              >
+                <ul class="pb-2">
+                  <a href="/">
+                    <li
+                      class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                    >
+                      ลงทะเบียน
+                    </li>
+                  </a>
+                  <a href="/">
+                    <li
+                      class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                    >
+                      รายชื่อวิดีโอ
+                    </li>
+                  </a>
+                  <a href="/">
+                    <li
+                      class="border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                    >
+                      เพิ่มวิดีโอ
+                    </li>
+                  </a>
+                </ul>
+              </div>
+            {/if}
+          </li>
         </ul>
       </div>
     </div>
