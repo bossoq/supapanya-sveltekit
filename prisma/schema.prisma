@@ -24,13 +24,13 @@ model postTable {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model userTable {
-  id             BigInt    @id(map: "userTable1_pkey") @default(autoincrement())
-  userLogin      String?
-  userPassword   String?
-  displayName    String?
-  meta           Json?     @db.Json
-  registeredDate DateTime? @default(now()) @db.Timestamp(6)
-  authorised     Boolean?
+  id             BigInt   @id(map: "userTable1_pkey") @default(autoincrement())
+  userLogin      String
+  userPassword   String
+  displayName    String
+  meta           Json     @db.Json
+  registeredDate DateTime @default(now()) @db.Timestamp(6)
+  authorised     Boolean  @default(false)
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
