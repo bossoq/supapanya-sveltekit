@@ -22,15 +22,22 @@ const isPathAllowed = (path: string) => {
 export const handle: Handle = async ({ event, resolve }) => {
   let user: string | null = null
   let role: string | null = null
-  if (event.cookies.get('user') !== undefined && event.cookies.get('user') !== null) {
-    const accessToken = event.cookies.get('user')
+  let decrypted: UserInfo | null = null
+  if (event.cookies.get('accessToken') !== undefined && event.cookies.get('accessToken') !== null) {
+    const accessToken = event.cookies.get('accessToken')
     if (accessToken) {
       try {
-        const decrypted = jwt.decode(accessToken, JWT_SECRET)
-        user = decrypted.username
-        role = decrypted.role
+        decrypted = jwt.decode(accessToken, JWT_SECRET, false, 'HS256') as UserInfo
+        user = decrypted.userLogin
+        role = decrypted.meta.role
       } catch (e) {
-        return redirect(302, '/logout')
+        event.cookies.set('accessToken', '', {
+          httpOnly: true,
+          sameSite: 'lax',
+          maxAge: 0,
+          path: '/'
+        })
+        redirect(302, '/')
       }
     }
   }
@@ -47,7 +54,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     return redirect(302, '/')
   }
   if (user && role) {
-    event.locals.user = { username: user, role }
+    event.locals.user = decrypted
     if (url.pathname === '/login') {
       return redirect(302, '/')
     }

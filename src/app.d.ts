@@ -4,7 +4,7 @@ declare global {
   namespace App {
     // interface Error {}
     interface Locals {
-      user: UserInfo
+      user: UserInfo | null
     }
     // interface PageData {}
     // interface Platform {}
@@ -15,8 +15,14 @@ declare global {
     }
   }
   interface UserInfo {
-    username: string
-    role: string
+    id: number
+    userLogin: string
+    displayName: string
+    meta: {
+      isAdmin: boolean
+      role: string
+      live: boolean
+    }
   }
 }
 

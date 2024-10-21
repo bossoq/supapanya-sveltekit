@@ -30,7 +30,7 @@
   {#if $modalViewed}
     <Modal />
   {/if}
-  <main class="overflow-y-scroll mb-6">
+  <main class="overflow-y-scroll hide-scrollbar">
     <slot />
   </main>
   <Footer />

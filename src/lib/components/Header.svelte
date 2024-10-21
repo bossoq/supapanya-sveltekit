@@ -8,7 +8,7 @@
 
   export let themeIcons: string[]
   export let themeEnabler: boolean
-  export let userData: UserInfo
+  export let userData: UserInfo | null
   let mobileMenu = false
 
   onMount(() => {
@@ -273,15 +273,16 @@
             </button>
             <a
               class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-              href="/about">ออกจากระบบ</a
+              on:click={() => (userData = null)}
+              href="/logout">ออกจากระบบ</a
             >
           {:else}
             <a
               class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-              href="/about">เข้าสู่ระบบ</a
+              href="/login">เข้าสู่ระบบ</a
             >
           {/if}
-          {#if userData && userData.role === 'admin'}
+          {#if userData && userData.meta.isAdmin}
             <button
               class="flex flex-col items-center justify-between"
               on:mouseenter|preventDefault={() => toggleSubMenu(3, 'in')}
