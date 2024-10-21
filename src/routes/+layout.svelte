@@ -29,5 +29,5 @@
   <main class="overflow-y-scroll mb-6">
     <slot />
   </main>
-  <Footer {url} {title} />
+  <Footer />
 </div>

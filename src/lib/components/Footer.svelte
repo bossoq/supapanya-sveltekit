@@ -1,15 +1,23 @@
 <script lang="ts">
-  // @ts-ignore
-  import { Facebook, Twitter, Line } from 'svelte-share-buttons-component'
-
-  export let url: string
-  export let title: string
+  import Fa from 'svelte-fa'
+  import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 </script>
 
-{#if url}
-  <footer class="w-full sticky bottom-4 center flex gap-2 pr-4 sm:pr-0 justify-center">
-    <Facebook class="h-10 w-10 rounded-full" {url} quote={title} />
-    <Twitter class="h-10 w-10 rounded-full" {url} text={title} />
-    <Line class="h-10 w-10 rounded-full" {url} />
+<footer class="w-full sticky bottom-0 center flex gap-2 justify-center bg-gray-100 text-gray-800">
+  <footer class="pt-5 pb-5 w-full container">
+    <div class="flex flex-row justify-between items-center">
+      <span>© 2021 สงวนลิขสิทธิ์ โดย สถาบันศุภปัญญา ไอ.เค.</span>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/supapanyaik"
+        title="facebook"
+        rel="noreferrer"
+      >
+        <div class="text-right flex flex-row gap-2 items-center justify-center">
+          <Fa icon={faFacebook} size="lg" />
+          <span>สถาบันศุภปัญญาไอ.เค.</span>
+        </div>
+      </a>
+    </div>
   </footer>
-{/if}
+</footer>
