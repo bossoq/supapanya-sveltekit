@@ -1,5 +1,7 @@
 import { redirect } from '@sveltejs/kit'
+import jwt from 'jwt-simple'
 import type { Handle } from '@sveltejs/kit'
+import { JWT_SECRET } from '$env/static/private'
 
 const publicPaths = [
   '/',
@@ -22,8 +24,15 @@ export const handle: Handle = async ({ event, resolve }) => {
   let role: string | null = null
   if (event.cookies.get('user') !== undefined && event.cookies.get('user') !== null) {
     const accessToken = event.cookies.get('user')
-    user = 'kittipos'
-    role = 'admin'
+    if (accessToken) {
+      try {
+        const decrypted = jwt.decode(accessToken, JWT_SECRET)
+        user = decrypted.username
+        role = decrypted.role
+      } catch (e) {
+        return redirect(302, '/logout')
+      }
+    }
   }
   const url = new URL(event.request.url)
 
