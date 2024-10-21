@@ -1,10 +1,21 @@
 <script lang="ts">
+  import { page } from '$app/stores'
+
   export let title: string
   export let description: string
   export let url: string
   export let imageUrl: string
   export let gtagId: string | null
   export let cfToken: object | null
+
+  $: {
+    if (typeof gtag !== 'undefined' && gtagId) {
+      gtag('config', gtagId, {
+        page_title: document.title,
+        page_path: $page.url.pathname
+      })
+    }
+  }
 </script>
 
 <svelte:head>
