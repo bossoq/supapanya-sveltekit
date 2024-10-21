@@ -3,7 +3,9 @@
 declare global {
   namespace App {
     // interface Error {}
-    // interface Locals {}
+    interface Locals {
+      user: UserInfo
+    }
     // interface PageData {}
     // interface Platform {}
   }
@@ -11,6 +13,10 @@ declare global {
     interface HTMLProps<T> {
       onclick_outside?: (event: Event) => void
     }
+  }
+  interface UserInfo {
+    username: string
+    role: string
   }
 }
 

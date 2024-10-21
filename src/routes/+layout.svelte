@@ -6,6 +6,7 @@
   import Modal from '$lib/components/Modal.svelte'
   import { darkTheme, modalViewed } from '$lib/store'
   import { PUBLIC_GOOGLE_ANALYTICS } from '$env/static/public'
+  import type { LayoutData } from './$types'
 
   const url = 'https://supapanya.com'
   const title = 'สถาบันศุภปัญญาไอ.เค.'
@@ -18,11 +19,14 @@
   const cfToken = null
   const themeIcons = ['🌞 ธีมสว่าง', '🌙 ธีมมืด']
   const themeEnabler = false
+
+  export let data: LayoutData
+  const userData = data.user
 </script>
 
 <Head {title} {description} {url} {imageUrl} {gtagId} {cfToken} />
 <div class="{$darkTheme && themeEnabler ? 'dark' : ''} w-full h-screen flex flex-col">
-  <Header {themeIcons} {themeEnabler} />
+  <Header {themeIcons} {themeEnabler} {userData} />
   {#if $modalViewed}
     <Modal />
   {/if}

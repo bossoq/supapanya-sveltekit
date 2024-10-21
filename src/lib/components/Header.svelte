@@ -8,6 +8,7 @@
 
   export let themeIcons: string[]
   export let themeEnabler: boolean
+  export let userData: UserInfo
   let mobileMenu = false
 
   onMount(() => {
@@ -216,64 +217,128 @@
             class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
             href="/about">บทความ</a
           >
-          <!-- <a class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key" href="/about">เข้าสู่ระบบ</a> -->
           <a
             class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
             href="/about">ติดต่อเรา</a
           >
-          <button
-            class="flex flex-col items-center justify-between"
-            on:mouseenter|preventDefault={() => toggleSubMenu(2, 'in')}
-            on:mouseleave|preventDefault={() => toggleSubMenu(2, 'out')}
-            on:focusin|preventDefault={() => toggleSubMenu(2, 'in')}
-            on:focusout|preventDefault={() => toggleSubMenu(2, 'out')}
-            on:click|preventDefault={() => toggleSubMenu(2, 'click')}
-          >
+          {#if userData}
             <button
-              class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+              class="flex flex-col items-center justify-between"
+              on:mouseenter|preventDefault={() => toggleSubMenu(2, 'in')}
+              on:mouseleave|preventDefault={() => toggleSubMenu(2, 'out')}
+              on:focusin|preventDefault={() => toggleSubMenu(2, 'in')}
+              on:focusout|preventDefault={() => toggleSubMenu(2, 'out')}
+              on:click|preventDefault={() => toggleSubMenu(2, 'click')}
             >
-              ห้องเรียน
-              <svg
-                class="w-5 h-5 ml-1 {showNav2 ? 'transition rotate-180' : 'transition rotate-0'}"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-                ><path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                /></svg
+              <button
+                class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
               >
+                ห้องเรียน
+                <svg
+                  class="w-5 h-5 ml-1 {showNav2 ? 'transition rotate-180' : 'transition rotate-0'}"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  /></svg
+                >
+              </button>
+              {#if showNav2}
+                <div
+                  id="dropdownNavbarReviewItem"
+                  class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
+                  transition:slide
+                >
+                  <ul class="pb-2">
+                    <a href="/">
+                      <li
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      >
+                        ห้องเรียนออนไลน์
+                      </li>
+                    </a>
+                    <a href="/">
+                      <li
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      >
+                        บันทึกการสอน
+                      </li>
+                    </a>
+                  </ul>
+                </div>
+              {/if}
             </button>
-            {#if showNav2}
-              <div
-                id="dropdownNavbarReviewItem"
-                class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
-                transition:slide
+            <a
+              class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+              href="/about">ออกจากระบบ</a
+            >
+          {:else}
+            <a
+              class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+              href="/about">เข้าสู่ระบบ</a
+            >
+          {/if}
+          {#if userData && userData.role === 'admin'}
+            <button
+              class="flex flex-col items-center justify-between"
+              on:mouseenter|preventDefault={() => toggleSubMenu(3, 'in')}
+              on:mouseleave|preventDefault={() => toggleSubMenu(3, 'out')}
+              on:focusin|preventDefault={() => toggleSubMenu(3, 'in')}
+              on:focusout|preventDefault={() => toggleSubMenu(3, 'out')}
+              on:click|preventDefault={() => toggleSubMenu(3, 'click')}
+            >
+              <button
+                class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
               >
-                <ul class="pb-2">
-                  <a href="/">
-                    <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-                    >
-                      ห้องเรียนออนไลน์
-                    </li>
-                  </a>
-                  <a href="/">
-                    <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-                    >
-                      บันทึกการสอน
-                    </li>
-                  </a>
-                </ul>
-              </div>
-            {/if}
-          </button>
-          <a
-            class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-            href="/about">ออกจากระบบ</a
-          >
+                Admin
+                <svg
+                  class="w-5 h-5 ml-1 {showNav3 ? 'transition rotate-180' : 'transition rotate-0'}"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  /></svg
+                >
+              </button>
+              {#if showNav3}
+                <div
+                  id="dropdownNavbarReviewItem"
+                  class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
+                  transition:slide
+                >
+                  <ul class="pb-2">
+                    <a href="/">
+                      <li
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      >
+                        Register
+                      </li>
+                    </a>
+                    <a href="/">
+                      <li
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      >
+                        Video List
+                      </li>
+                    </a>
+                    <a href="/">
+                      <li
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      >
+                        Add Video
+                      </li>
+                    </a>
+                  </ul>
+                </div>
+              {/if}
+            </button>
+          {/if}
         </ul>
       {/if}
     </nav>
