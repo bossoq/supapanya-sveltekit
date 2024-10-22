@@ -1,23 +1,81 @@
 <script lang="ts">
+  import type { PageServerData } from './$types'
+  export let data: PageServerData
 </script>
 
-<div class="flex flex-col justify-center items-center bg-white dark:bg-black">
-  <h1 class="text-6xl dark:text-teal-200 text-teal-800 flex flex-col">
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-    <span>Simple</span><span>Sveltekit</span><span>Template</span>
-  </h1>
+<div class="flex flex-col items-center bg-white gap-6 h-screen">
+  <div class="container relative">
+    <img
+      src="/images/home.jpg"
+      alt="Classroom"
+      class="h-[430px] w-full object-cover object-[100%_12%] brightness-50"
+    />
+    <div class="absolute top-0 left-0 w-full h-full">
+      <div class="flex flex-col justify-center items-center h-full w-full gap-2">
+        <h1
+          class="text-4xl md:text-6xl text-blue-light-key font-bold border-t-4 border-b-4 border-gray-400 p-4 w-11/12 text-center"
+        >
+          สถาบันศุภปัญญาไอ.เค.
+        </h1>
+        <p class="text-md md:text-2xl text-white italic font-light text-center">
+          สถาบันกวดวิชาที่มีประสบการณ์การสอนกว่า 30 ปี ส่งต่อความสำเร็จให้นักเรียนจากรุ่นสู่รุ่น
+        </p>
+        <p class="text-md md:text-2xl text-white italic font-light text-center">
+          มั่นใจได้ว่าสถาบันศุภปัญญาไอ.เค. คือสถาบันกวดวิชาที่ดีที่สุดในย่านหนองแขม
+        </p>
+        <p class="text-md md:text-2xl text-white italic font-light text-center">
+          “วันนี้ระบบการสอนสดออนไลน์ของเราพร้อมแล้ว ด้วยความคมชัด Full HD พร้อมวิดีโอย้อนหลังกว่า <span
+            class="underline">300</span
+          > วิดีโอ”
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="container flex flex-col justify-center text-gray-800">
+    <h2 class="text-2xl md:text-4xl font-semibold">วิดีโอที่น่าสนใจ</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <button
+        class="flex flex-col justify-center items-center"
+        on:click|preventDefault={() => console.log('test')}
+      >
+        <img
+          src="https://vod.supapanya.com/NewNormal_Promote-FullHD/cover.jpg"
+          alt="New Normal"
+          class="aspect-video object-fill hover:scale-110 transition-all duration-300 ease-in-out"
+        />
+        <p>New Normal Supapanya</p>
+      </button>
+      <a class="flex flex-col justify-center items-center" href="/studytips">
+        <img
+          src="https://vod.supapanya.com/Factorial-ForHLS+Dash/cover.jpg"
+          alt="New Normal"
+          class="aspect-video object-fill hover:scale-110 transition-all duration-300 ease-in-out"
+        />
+        <p>เกร็ดความรู้</p>
+      </a>
+      <a class="flex flex-col justify-center items-center" href="/portfolio">
+        <img
+          src="https://vod.supapanya.com/M4-20-HLSNew/cover.jpg"
+          alt="New Normal"
+          class="aspect-video object-fill hover:scale-110 transition-all duration-300 ease-in-out"
+        />
+        <p>ความสำเร็จของเรา</p>
+      </a>
+    </div>
+  </div>
+  <div class="container flex flex-col justify-center">
+    <h2 class="text-2xl md:text-4xl font-semibold">บทความล่าสุด</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+      {#each data.props.posts as { title, link, picture }}
+        <a class="flex flex-col justify-center items-center" href="/blog/{link}">
+          <img
+            src={picture}
+            alt={title}
+            class="aspect-video object-fill hover:scale-110 transition-all duration-300 ease-in-out"
+          />
+          <p>{title}</p>
+        </a>
+      {/each}
+    </div>
+  </div>
 </div>
