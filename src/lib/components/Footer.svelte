@@ -6,7 +6,7 @@
 <footer class="w-full sticky bottom-0 center flex gap-2 justify-center bg-gray-100 text-gray-800">
   <footer class="pt-5 pb-5 w-full container">
     <div class="flex flex-row justify-between items-center">
-      <span>© 2021 สงวนลิขสิทธิ์ โดย สถาบันศุภปัญญา ไอ.เค.</span>
+      <span>© 2024 สงวนลิขสิทธิ์ โดย สถาบันศุภปัญญา ไอ.เค.</span>
       <a
         target="_blank"
         href="https://www.facebook.com/supapanyaik"
