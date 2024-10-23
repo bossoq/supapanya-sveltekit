@@ -1,15 +1,19 @@
 <script lang="ts">
   import { modalViewed } from '$lib/store'
-  import Modal from '$lib/components/Modal.svelte'
+  import VideoModal from '$lib/components/VideoModal.svelte'
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
+
+  const handleVideoModal = (e: Event) => {
+    e.preventDefault()
+    modalViewed.set(true)
+  }
 </script>
 
 <div class="flex flex-col items-center bg-white gap-6 h-screen">
-  <button onclick={() => modalViewed.set(true)}> Open Modal </button>
   {#if $modalViewed}
-    <Modal />
+    <VideoModal />
   {/if}
   <div class="container relative">
     <img
@@ -41,7 +45,7 @@
   <div class="container flex flex-col justify-center text-gray-800">
     <h2 class="text-2xl md:text-4xl font-semibold">วิดีโอที่น่าสนใจ</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-      <button class="flex flex-col justify-center items-center" onclick={() => console.log('test')}>
+      <button class="flex flex-col justify-center items-center" onclick={handleVideoModal}>
         <img
           src="https://vod.supapanya.com/NewNormal_Promote-FullHD/cover.jpg"
           alt="New Normal"
