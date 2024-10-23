@@ -28,6 +28,7 @@
   let showNav1 = false
   let showNav2 = false
   let showNav3 = false
+  let showNav4 = false
 
   const toggleNavbar = (e: Event) => {
     e.preventDefault()
@@ -39,42 +40,68 @@
         showNav1 = true
         showNav2 = false
         showNav3 = false
+        showNav4 = false
       } else if (event === 'out' && !mobileMenu) {
         showNav1 = false
         showNav2 = false
         showNav3 = false
+        showNav4 = false
       } else if (event === 'click' && mobileMenu) {
         showNav1 = !showNav1
         showNav2 = false
         showNav3 = false
+        showNav4 = false
       }
     } else if (num === 2) {
       if (event === 'in' && !mobileMenu) {
         showNav1 = false
         showNav2 = true
         showNav3 = false
+        showNav4 = false
       } else if (event === 'out' && !mobileMenu) {
         showNav1 = false
         showNav2 = false
         showNav3 = false
+        showNav4 = false
       } else if (event === 'click' && mobileMenu) {
         showNav1 = false
         showNav2 = !showNav2
         showNav3 = false
+        showNav4 = false
       }
-    } else {
+    } else if (num === 3) {
       if (event === 'in' && !mobileMenu) {
         showNav1 = false
         showNav2 = false
         showNav3 = true
+        showNav4 = false
       } else if (event === 'out' && !mobileMenu) {
         showNav1 = false
         showNav2 = false
         showNav3 = false
+        showNav4 = false
       } else if (event === 'click' && mobileMenu) {
         showNav1 = false
         showNav2 = false
         showNav3 = !showNav3
+        showNav4 = false
+      }
+    } else if (num === 4) {
+      if (event === 'in' && !mobileMenu) {
+        showNav1 = false
+        showNav2 = false
+        showNav3 = false
+        showNav4 = true
+      } else if (event === 'out' && !mobileMenu) {
+        showNav1 = false
+        showNav2 = false
+        showNav3 = false
+        showNav4 = false
+      } else if (event === 'click' && mobileMenu) {
+        showNav1 = false
+        showNav2 = false
+        showNav3 = false
+        showNav4 = !showNav4
       }
     }
   }
@@ -164,7 +191,7 @@
         >
           <a
             class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-            href="/blog">คอร์สเรียน</a
+            href="/course">คอร์สเรียน</a
           >
           <button
             class="flex flex-col items-center justify-between"
@@ -197,14 +224,14 @@
                 transition:slide
               >
                 <ul class="pb-2">
-                  <a href="/">
+                  <a href="/review">
                     <li
                       class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
                     >
                       รีวิว
                     </li>
                   </a>
-                  <a href="/">
+                  <a href="/portfolio">
                     <li
                       class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
                     >
@@ -215,29 +242,78 @@
               </div>
             {/if}
           </button>
+          <button
+            class="flex flex-col items-center justify-between"
+            onmouseenter={(e) => toggleSubMenu(e, 2, 'in')}
+            onmouseleave={(e) => toggleSubMenu(e, 2, 'out')}
+            onfocusin={(e) => toggleSubMenu(e, 2, 'in')}
+            onfocusout={(e) => toggleSubMenu(e, 2, 'out')}
+            onclick={(e) => toggleSubMenu(e, 2, 'click')}
+          >
+            <p
+              class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+            >
+              บทความ
+              <svg
+                class="w-5 h-5 ml-1 {showNav2 ? 'transition rotate-180' : 'transition rotate-0'}"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                /></svg
+              >
+            </p>
+            {#if showNav2}
+              <div
+                id="dropdownNavbarBlogItem"
+                class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
+                transition:slide
+              >
+                <ul class="pb-2">
+                  <a href="/blog">
+                    <li
+                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                    >
+                      บทความที่น่าสนใจ
+                    </li>
+                  </a>
+                  <a href="/studytips">
+                    <li
+                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                    >
+                      เกร็ดความรู้
+                    </li>
+                  </a>
+                </ul>
+              </div>
+            {/if}
+          </button>
           <a
             class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-            href="/about">บทความ</a
+            href="/blog">บทความ</a
           >
           <a
             class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-            href="/about">ติดต่อเรา</a
+            href="/contact">ติดต่อเรา</a
           >
           {#if userData}
             <button
               class="flex flex-col items-center justify-between"
-              onmouseenter={(e) => toggleSubMenu(e, 2, 'in')}
-              onmouseleave={(e) => toggleSubMenu(e, 2, 'out')}
-              onfocusin={(e) => toggleSubMenu(e, 2, 'in')}
-              onfocusout={(e) => toggleSubMenu(e, 2, 'out')}
-              onclick={(e) => toggleSubMenu(e, 2, 'click')}
+              onmouseenter={(e) => toggleSubMenu(e, 3, 'in')}
+              onmouseleave={(e) => toggleSubMenu(e, 3, 'out')}
+              onfocusin={(e) => toggleSubMenu(e, 3, 'in')}
+              onfocusout={(e) => toggleSubMenu(e, 3, 'out')}
+              onclick={(e) => toggleSubMenu(e, 3, 'click')}
             >
               <p
                 class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
               >
                 ห้องเรียน
                 <svg
-                  class="w-5 h-5 ml-1 {showNav2 ? 'transition rotate-180' : 'transition rotate-0'}"
+                  class="w-5 h-5 ml-1 {showNav3 ? 'transition rotate-180' : 'transition rotate-0'}"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -248,21 +324,21 @@
                   /></svg
                 >
               </p>
-              {#if showNav2}
+              {#if showNav3}
                 <div
-                  id="dropdownNavbarReviewItem"
+                  id="dropdownNavbarLiveItem"
                   class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
                   transition:slide
                 >
                   <ul class="pb-2">
-                    <a href="/">
+                    <a href="/live">
                       <li
                         class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
                       >
                         ห้องเรียนออนไลน์
                       </li>
                     </a>
-                    <a href="/">
+                    <a href="/vod">
                       <li
                         class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
                       >
@@ -287,18 +363,18 @@
           {#if userData && userData.meta.isAdmin}
             <button
               class="flex flex-col items-center justify-between"
-              onmouseenter={(e) => toggleSubMenu(e, 3, 'in')}
-              onmouseleave={(e) => toggleSubMenu(e, 3, 'out')}
-              onfocusin={(e) => toggleSubMenu(e, 3, 'in')}
-              onfocusout={(e) => toggleSubMenu(e, 3, 'out')}
-              onclick={(e) => toggleSubMenu(e, 3, 'click')}
+              onmouseenter={(e) => toggleSubMenu(e, 4, 'in')}
+              onmouseleave={(e) => toggleSubMenu(e, 4, 'out')}
+              onfocusin={(e) => toggleSubMenu(e, 4, 'in')}
+              onfocusout={(e) => toggleSubMenu(e, 4, 'out')}
+              onclick={(e) => toggleSubMenu(e, 4, 'click')}
             >
               <p
                 class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
               >
                 Admin
                 <svg
-                  class="w-5 h-5 ml-1 {showNav3 ? 'transition rotate-180' : 'transition rotate-0'}"
+                  class="w-5 h-5 ml-1 {showNav4 ? 'transition rotate-180' : 'transition rotate-0'}"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -309,28 +385,28 @@
                   /></svg
                 >
               </p>
-              {#if showNav3}
+              {#if showNav4}
                 <div
-                  id="dropdownNavbarReviewItem"
+                  id="dropdownNavbarAdminItem"
                   class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
                   transition:slide
                 >
                   <ul class="pb-2">
-                    <a href="/">
+                    <a href="/register">
                       <li
                         class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
                       >
                         Register
                       </li>
                     </a>
-                    <a href="/">
+                    <a href="/vodlist">
                       <li
                         class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
                       >
                         Video List
                       </li>
                     </a>
-                    <a href="/">
+                    <a href="/vodedit">
                       <li
                         class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
                       >
