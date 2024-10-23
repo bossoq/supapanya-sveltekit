@@ -15,13 +15,10 @@
   {#if $modalViewed}
     <VideoModal />
   {/if}
-  <div class="container relative">
-    <img
-      src="/images/home.jpg"
-      alt="Classroom"
-      class="h-[430px] w-full object-cover object-[100%_12%] brightness-50"
-    />
-    <div class="absolute top-0 left-0 w-full h-full">
+  <div class="container flex">
+    <div
+      class="flex w-full justify-center items-center h-[430px] bg-[url('/images/home.jpg')] bg-[100%_12%] bg-cover"
+    >
       <div class="flex flex-col justify-center items-center h-full w-full gap-2">
         <h1
           class="text-4xl md:text-6xl text-blue-light-key font-bold border-t-4 border-b-4 border-gray-400 p-4 w-11/12 text-center"
