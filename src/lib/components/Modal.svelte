@@ -1,8 +1,32 @@
 <script lang="ts">
   import { fade } from 'svelte/transition'
   import { modalViewed } from '$lib/store'
-  import { clickOutside } from '$lib/clickOutside'
-  import { handleModalClass } from '$lib/handleModal'
+  import type { Action } from 'svelte/action'
+
+  const handleModalClass = (e: Event, disabled = false) => {
+    e.preventDefault()
+    if (disabled && !$modalViewed) {
+      return
+    }
+    if ($modalViewed) {
+      modalViewed.set(false)
+    } else {
+      modalViewed.set(true)
+    }
+  }
+
+  const clickOutside: Action = (node: HTMLElement & CustomEventInit) => {
+    const handleClick = (e: MouseEvent) => {
+      const elem = e.target as HTMLElement
+      if (node && !node.contains(elem) && !e.defaultPrevented) {
+        node.dispatchEvent(new CustomEvent('clickOutside', node))
+      }
+    }
+    $effect(() => {
+      document.addEventListener('click', handleClick, true)
+      return () => document.removeEventListener('click', handleClick, true)
+    })
+  }
 </script>
 
 <div
@@ -22,15 +46,14 @@
       <div
         class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
         use:clickOutside
-        on:click_outside={(e) => handleModalClass(e, $modalViewed, true)}
+        onclickOutside={(e) => handleModalClass(e, true)}
       >
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <p
+        <button
           class="absolute my-2 mx-3 sm:my-3 sm:mx-4 right-0 top-0 cursor-pointer text-black dark:text-white"
-          on:click={(e) => handleModalClass(e, $modalViewed)}
+          onclick={handleModalClass}
         >
           x
-        </p>
+        </button>
         <div class="bg-white px-4 pt-2 pb-4 sm:pt-5 sm:p-6 sm:pb-4 dark:bg-slate-800">
           <div class="sm:flex sm:items-start">
             <div class="w-full mt-3 text-center sm:mt-0 sm:mx-4 sm:text-left dark:text-white">

@@ -3,8 +3,7 @@
   import Head from '$lib/components/Head.svelte'
   import Header from '$lib/components/Header.svelte'
   import Footer from '$lib/components/Footer.svelte'
-  import Modal from '$lib/components/Modal.svelte'
-  import { darkTheme, modalViewed } from '$lib/store'
+  import { darkTheme } from '$lib/store'
   import { PUBLIC_GOOGLE_ANALYTICS } from '$env/static/public'
   import type { LayoutData } from './$types'
 
@@ -27,9 +26,6 @@
 <Head {title} {description} {url} {imageUrl} {gtagId} {cfToken} />
 <div class="{$darkTheme && themeEnabler ? 'dark' : ''} w-full h-screen flex flex-col">
   <Header {themeIcons} {themeEnabler} {userData} />
-  {#if $modalViewed}
-    <Modal />
-  {/if}
   <main class="overflow-y-scroll hide-scrollbar">
     <slot />
   </main>

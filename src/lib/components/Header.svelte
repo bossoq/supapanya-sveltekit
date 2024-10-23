@@ -29,10 +29,11 @@
   let showNav2 = false
   let showNav3 = false
 
-  const toggleNavbar = () => {
+  const toggleNavbar = (e: Event) => {
+    e.preventDefault()
     showMenu = !showMenu
   }
-  const toggleSubMenu = (num: number, event: string) => {
+  const toggleSubMenu = (e: Event, num: number, event: string) => {
     if (num === 1) {
       if (event === 'in' && !mobileMenu) {
         showNav1 = true
@@ -106,7 +107,7 @@
         {#if themeEnabler}
           <div class="hidden sm:flex flex-row gap-2">
             <button
-              on:click={() => ($darkTheme = !$darkTheme)}
+              onclick={() => ($darkTheme = !$darkTheme)}
               class="text-xs sm:text-base cursor-pointer select-none bg-sky-800 text-white rounded p-2"
             >
               {$darkTheme ? themeIcons[1] : themeIcons[0]}
@@ -114,7 +115,7 @@
           </div>
           <div class="flex sm:hidden flex-row gap-2">
             <button
-              on:click={() => ($darkTheme = !$darkTheme)}
+              onclick={() => ($darkTheme = !$darkTheme)}
               class="text-xs sm:text-base cursor-pointer select-none bg-sky-800 text-white rounded p-2"
             >
               {$darkTheme ? themeIcons[1].slice(0, 2) : themeIcons[0].slice(0, 2)}
@@ -136,7 +137,8 @@
           <button
             type="button"
             class="text-gray-800 hover:text-gray-400 focus:outline-none focus:text-gray-400"
-            on:click|preventDefault={toggleNavbar}
+            aria-labelledby="Show Navigation"
+            onclick={toggleNavbar}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -166,13 +168,13 @@
           >
           <button
             class="flex flex-col items-center justify-between"
-            on:mouseenter|preventDefault={() => toggleSubMenu(1, 'in')}
-            on:mouseleave|preventDefault={() => toggleSubMenu(1, 'out')}
-            on:focusin|preventDefault={() => toggleSubMenu(1, 'in')}
-            on:focusout|preventDefault={() => toggleSubMenu(1, 'out')}
-            on:click|preventDefault={() => toggleSubMenu(1, 'click')}
+            onmouseenter={(e) => toggleSubMenu(e, 1, 'in')}
+            onmouseleave={(e) => toggleSubMenu(e, 1, 'out')}
+            onfocusin={(e) => toggleSubMenu(e, 1, 'in')}
+            onfocusout={(e) => toggleSubMenu(e, 1, 'out')}
+            onclick={(e) => toggleSubMenu(e, 1, 'click')}
           >
-            <button
+            <p
               class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
             >
               ประวัติ
@@ -187,7 +189,7 @@
                   clip-rule="evenodd"
                 /></svg
               >
-            </button>
+            </p>
             {#if showNav1}
               <div
                 id="dropdownNavbarReviewItem"
@@ -224,13 +226,13 @@
           {#if userData}
             <button
               class="flex flex-col items-center justify-between"
-              on:mouseenter|preventDefault={() => toggleSubMenu(2, 'in')}
-              on:mouseleave|preventDefault={() => toggleSubMenu(2, 'out')}
-              on:focusin|preventDefault={() => toggleSubMenu(2, 'in')}
-              on:focusout|preventDefault={() => toggleSubMenu(2, 'out')}
-              on:click|preventDefault={() => toggleSubMenu(2, 'click')}
+              onmouseenter={(e) => toggleSubMenu(e, 2, 'in')}
+              onmouseleave={(e) => toggleSubMenu(e, 2, 'out')}
+              onfocusin={(e) => toggleSubMenu(e, 2, 'in')}
+              onfocusout={(e) => toggleSubMenu(e, 2, 'out')}
+              onclick={(e) => toggleSubMenu(e, 2, 'click')}
             >
-              <button
+              <p
                 class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
               >
                 ห้องเรียน
@@ -245,7 +247,7 @@
                     clip-rule="evenodd"
                   /></svg
                 >
-              </button>
+              </p>
               {#if showNav2}
                 <div
                   id="dropdownNavbarReviewItem"
@@ -273,7 +275,7 @@
             </button>
             <a
               class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-              on:click={() => (userData = null)}
+              onclick={() => (userData = null)}
               href="/logout">ออกจากระบบ</a
             >
           {:else}
@@ -285,13 +287,13 @@
           {#if userData && userData.meta.isAdmin}
             <button
               class="flex flex-col items-center justify-between"
-              on:mouseenter|preventDefault={() => toggleSubMenu(3, 'in')}
-              on:mouseleave|preventDefault={() => toggleSubMenu(3, 'out')}
-              on:focusin|preventDefault={() => toggleSubMenu(3, 'in')}
-              on:focusout|preventDefault={() => toggleSubMenu(3, 'out')}
-              on:click|preventDefault={() => toggleSubMenu(3, 'click')}
+              onmouseenter={(e) => toggleSubMenu(e, 3, 'in')}
+              onmouseleave={(e) => toggleSubMenu(e, 3, 'out')}
+              onfocusin={(e) => toggleSubMenu(e, 3, 'in')}
+              onfocusout={(e) => toggleSubMenu(e, 3, 'out')}
+              onclick={(e) => toggleSubMenu(e, 3, 'click')}
             >
-              <button
+              <p
                 class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
               >
                 Admin
@@ -306,7 +308,7 @@
                     clip-rule="evenodd"
                   /></svg
                 >
-              </button>
+              </p>
               {#if showNav3}
                 <div
                   id="dropdownNavbarReviewItem"

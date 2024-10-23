@@ -1,4 +1,7 @@
 // See https://kit.svelte.dev/docs/types#app
+
+import type { CompositionEventHandler } from 'svelte/elements'
+
 // for information about these interfaces
 declare global {
   namespace App {
@@ -9,9 +12,9 @@ declare global {
     // interface PageData {}
     // interface Platform {}
   }
-  namespace svelte.JSX {
-    interface HTMLProps<T> {
-      onclick_outside?: (event: Event) => void
+  namespace svelteHTML {
+    interface HTMLAttributes<T> {
+      onclickOutside?: CompositionEventHandler<T>
     }
   }
   interface UserInfo {
