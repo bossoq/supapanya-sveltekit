@@ -36,9 +36,9 @@ model userTable {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model videoTable {
   id        BigInt   @id(map: "videoTable1_pkey") @default(autoincrement())
-  name      String?
-  baseUrl   String?
-  type      String?
+  name      String
+  baseUrl   String
+  type      String
   allowAll  Boolean? @default(true)
   allowList Json?
   fileType  String   @default("HLS")
