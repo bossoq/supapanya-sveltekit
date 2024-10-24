@@ -68,15 +68,17 @@
   aria-modal="true"
   transition:fade|global
 >
-  <div
-    class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
-  >
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75" aria-hidden="true" id="baseBg">
-      <span class="hidden sm:inline-block sm:align-middle h-1/2 sm:h-screen" aria-hidden="true"
+  <div class="block items-end justify-center min-h-screentext-center">
+    <div
+      class="flex items-center justify-center w-full h-screen bg-gray-500 bg-opacity-75"
+      aria-hidden="true"
+      id="baseBg"
+    >
+      <!-- <span class="inline-block align-middle h-1/3 md:h-1/5 lg:h-screen" aria-hidden="true"
         >&#8203;</span
-      >
+      > -->
       <div
-        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full"
+        class="flex align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-fit h-fit"
         use:clickOutside
         onclickOutside={(e) => handleModalClass(e, true)}
       >
@@ -87,8 +89,8 @@
           x
         </button>
         <div class="bg-white px-4 pt-2 pb-4 sm:pt-5 sm:p-6 sm:pb-4 dark:bg-slate-800">
-          <div class="sm:flex sm:items-start">
-            <div class="w-full mt-3 text-center sm:mt-0 sm:mx-4 sm:text-left dark:text-white">
+          <div class="flex items-start justify-center">
+            <div class="container mt-3 text-center sm:mt-0 sm:mx-4 sm:text-left dark:text-white">
               <Player {title} {src} {poster} restart />
             </div>
           </div>
