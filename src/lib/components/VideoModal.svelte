@@ -48,7 +48,7 @@
     {
       src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_480p.mp4',
       type: 'video/mp4',
-      width: 853,
+      width: 854,
       height: 480
     },
     {
@@ -68,7 +68,7 @@
   aria-modal="true"
   transition:fade|global
 >
-  <div class="block items-end justify-center min-h-screentext-center">
+  <div class="block items-end justify-center min-h-screen text-center">
     <div
       class="flex items-center justify-center w-full h-screen bg-gray-500 bg-opacity-75"
       aria-hidden="true"
