@@ -9,7 +9,8 @@
   export let poster: string
   export let src: HLSSrc | VideoSrc[]
   export let restart = false
-  let player: MediaPlayerElement
+  export let autoPlay = false
+  export let player: MediaPlayerElement | null = null
 
   onMount(() => {
     if (player) {
@@ -18,6 +19,8 @@
           ;(src as VideoSrc[]).forEach((source) => {
             window.localStorage.removeItem(`${source.src}:0:0`)
           })
+        } else {
+          window.localStorage.removeItem(`${(src as HLSSrc).src}:0:0`)
         }
       }
       player.title = title
@@ -29,6 +32,7 @@
       player.storage = 'vidstack'
       player.src = src
       player.poster = poster
+      player.autoPlay = autoPlay
     }
   })
 </script>
