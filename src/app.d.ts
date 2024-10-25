@@ -27,6 +27,12 @@ declare global {
       live: boolean
     }
   }
+  interface VideoData {
+    id: number
+    title: string
+    url: string
+    fileType: string
+  }
 }
 
 export {}

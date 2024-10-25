@@ -91,7 +91,7 @@
         <div class="bg-white px-4 pt-2 pb-4 sm:pt-5 sm:p-6 sm:pb-4 dark:bg-slate-800">
           <div class="flex items-start justify-center">
             <div class="container mt-3 text-center sm:mt-0 sm:mx-4 sm:text-left dark:text-white">
-              <Player {title} {src} {poster} restart />
+              <Player {title} {src} {poster} autoPlay restart />
             </div>
           </div>
         </div>
