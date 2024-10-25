@@ -61,3 +61,7 @@
   font-style: normal;
   font-display: swap;
 }
+
+.vds-accessibility-menu {
+  display: none !important;
+}
