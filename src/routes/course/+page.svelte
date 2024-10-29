@@ -1,4 +1,140 @@
 <script lang="ts">
+  import TipTapRender from '$lib/components/TipTapRender.svelte'
+  import { toastsList } from '$lib/store'
+  import type { JSONContent } from '@tiptap/core'
+  import type { PageServerData } from './$types'
+
+  export let data: PageServerData
+  const { user, props } = data
+  let editMode = false
+
+  const handleSave = async (payload: JSONContent) => {
+    const response = await fetch('/api/courseUpdate', {
+      method: 'POST',
+      body: JSON.stringify({
+        authorId: user?.id,
+        postContent: payload
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
+    if (data.success) {
+      content = data.course.postContent
+      editMode = false
+      toastsList.update((toasts) => [
+        ...toasts,
+        {
+          uuid: Math.random().toString(36).substring(2),
+          message: 'บันทึกข้อมูลสำเร็จ',
+          type: 'success'
+        }
+      ])
+    } else {
+      toastsList.update((toasts) => [
+        ...toasts,
+        {
+          uuid: Math.random().toString(36).substring(2),
+          message: 'บันทึกข้อมูลไม่สำเร็จ',
+          type: 'error'
+        }
+      ])
+    }
+  }
+  const defaultContent: JSONContent = {
+    type: 'doc',
+    content: [
+      {
+        type: 'heading',
+        attrs: {
+          textAlign: 'left',
+          level: 1
+        },
+        content: [
+          {
+            type: 'text',
+            text: 'คอร์สปิดเทอม 2563'
+          }
+        ]
+      },
+      {
+        type: 'table',
+        content: [
+          {
+            type: 'tableRow',
+            content: [
+              {
+                type: 'tableCell',
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null
+                },
+                content: [
+                  {
+                    type: 'heading',
+                    attrs: {
+                      textAlign: 'left',
+                      level: 2
+                    },
+                    content: [
+                      {
+                        type: 'text',
+                        text: 'คอร์สสอบเข้า ม.1'
+                      }
+                    ]
+                  },
+                  {
+                    type: 'image',
+                    attrs: {
+                      src: 'https://ceoyctjctahurvmlupfh.supabase.in/storage/v1/object/public/supapanya-assets/course-images/Page Post 048-summer-Course63_3.jpg',
+                      alt: null,
+                      title: null,
+                      aspect: '2/3'
+                    }
+                  }
+                ]
+              },
+              {
+                type: 'tableCell',
+                attrs: {
+                  colspan: 1,
+                  rowspan: 1,
+                  colwidth: null
+                },
+                content: [
+                  {
+                    type: 'heading',
+                    attrs: {
+                      textAlign: 'left',
+                      level: 2
+                    },
+                    content: [
+                      {
+                        type: 'text',
+                        text: 'คอร์สเสริมทักษะ (ประถม)'
+                      }
+                    ]
+                  },
+                  {
+                    type: 'image',
+                    attrs: {
+                      src: 'https://ceoyctjctahurvmlupfh.supabase.in/storage/v1/object/public/supapanya-assets/course-images/Page%20Post%20049-summer-Course63_4.jpg',
+                      alt: null,
+                      title: null,
+                      aspect: '2/3'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  let content = (props.course as JSONContent) ?? defaultContent
 </script>
 
 <svelte:head>
@@ -7,26 +143,6 @@
 
 <div class="flex flex-col items-center bg-white gap-6 h-screen">
   <div class="container flex flex-col">
-    <h1 class="text-2xl md:text-4xl text-gray-800 font-bold py-2">คอร์สปิดเทอม 2563</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <section>
-        <h2 class="text-2xl md:text-4xl text-gray-800 font-semibold py-2">คอร์สสอบเข้า ม.1</h2>
-        <img
-          src="https://ceoyctjctahurvmlupfh.supabase.in/storage/v1/object/public/supapanya-assets/course-images/Page Post 048-summer-Course63_3.jpg"
-          alt="m1 course"
-          class="aspect-[2/3] object-cover"
-        />
-      </section>
-      <section>
-        <h2 class="text-2xl md:text-4xl text-gray-800 font-semibold py-2">
-          คอร์สเสริมทักษะ (ประถม)
-        </h2>
-        <img
-          src="https://ceoyctjctahurvmlupfh.supabase.in/storage/v1/object/public/supapanya-assets/course-images/Page Post 049-summer-Course63_4.jpg"
-          alt="prathom course"
-          class="aspect-[2/3] object-cover"
-        />
-      </section>
-    </div>
+    <TipTapRender bind:content bind:editMode editable={user?.meta.isAdmin} {handleSave} />
   </div>
 </div>

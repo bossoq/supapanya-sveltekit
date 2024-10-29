@@ -1,5 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
+import type { JSONContent } from '@tiptap/core'
 import type { CompositionEventHandler } from 'svelte/elements'
 
 // for information about these interfaces
@@ -37,6 +38,10 @@ declare global {
     title: string
     url: string
     fileType: string
+  }
+  interface CourseData {
+    authorId: number
+    postContent: JSONContent
   }
 }
 
