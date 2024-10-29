@@ -65,3 +65,11 @@
 .vds-accessibility-menu {
   display: none !important;
 }
+
+.tiptap a {
+  color: #485fc7;
+  cursor: pointer;
+}
+.tiptap a:hover {
+  color: unset;
+}
