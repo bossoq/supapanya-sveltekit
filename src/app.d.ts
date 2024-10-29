@@ -17,6 +17,11 @@ declare global {
       onclickOutside?: CompositionEventHandler<T>
     }
   }
+  interface ToastNotify {
+    uuid: string
+    type: string
+    message: string
+  }
   interface UserInfo {
     id: number
     userLogin: string

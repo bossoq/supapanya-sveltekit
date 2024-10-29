@@ -3,7 +3,8 @@
   import Head from '$lib/components/Head.svelte'
   import Header from '$lib/components/Header.svelte'
   import Footer from '$lib/components/Footer.svelte'
-  import { darkTheme } from '$lib/store'
+  import ToastNotify from '$lib/components/ToastNotify.svelte'
+  import { darkTheme, toastsList } from '$lib/store'
   import { PUBLIC_GOOGLE_ANALYTICS } from '$env/static/public'
   import type { LayoutData } from './$types'
 
@@ -27,6 +28,7 @@
 <div class="{$darkTheme && themeEnabler ? 'dark' : ''} w-full h-screen flex flex-col">
   <Header {themeIcons} {themeEnabler} {userData} />
   <main class="overflow-y-scroll hide-scrollbar">
+    <ToastNotify {toastsList} />
     <slot />
   </main>
   <Footer />
