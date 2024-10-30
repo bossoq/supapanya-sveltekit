@@ -141,7 +141,7 @@
   <title>คอร์สเรียน - สถาบันศุภปัญญาไอ.เค.</title>
 </svelte:head>
 
-<div class="flex flex-col items-center bg-white gap-6 h-screen">
+<div class="flex flex-col items-center bg-white gap-6 h-[calc(100vh-10.2rem)]">
   <div class="container flex flex-col">
     <TipTapRender bind:content bind:editMode editable={user?.meta.isAdmin} {handleSave} />
   </div>
