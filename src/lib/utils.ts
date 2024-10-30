@@ -1,3 +1,4 @@
+import sharp from 'sharp'
 import type { HLSSrc, VideoSrc } from 'vidstack'
 
 const resolutions = [
@@ -54,4 +55,21 @@ export const convertVideo = (baseUrl: string, videoType: string): HLSSrc | Video
 
 export const getPoster = (baseUrl: string): string => {
   return `${baseUrl}/cover.jpg`
+}
+
+export const resizeImage = async (data: Buffer, imageType = 'full'): Promise<string> => {
+  if (!data) {
+    throw new Error('Invalid image')
+  }
+  const image = sharp(data)
+  const metadata = await image.metadata()
+  if (metadata.width && metadata.height) {
+    const aspectRatio = metadata.width / metadata.height
+    const newWidth = Math.min(metadata.width, imageType === 'full' ? 2048 : 640)
+    const newHeight = newWidth / aspectRatio
+    const resizedImage = await image.resize(newWidth, newHeight).webp().toBuffer()
+    return `data:image/webp;base64,${resizedImage.toString('base64')}`
+  } else {
+    throw new Error('Invalid image')
+  }
 }

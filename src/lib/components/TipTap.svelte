@@ -483,9 +483,9 @@
   style="visibility: hidden;"
 >
   <input
-    id="link"
+    id="file"
     type="file"
-    accept="image/*"
+    accept="image/png, image/jpeg, image/jpg, image/webp"
     class="w-full p-1 bg-gray-800 text-white invalid:text-red-500"
     onchange={(e) => {
       file = (e.target as HTMLInputElement).files?.[0]
@@ -493,14 +493,29 @@
   />
   <button
     class="p-1 bg-gray-600 text-white rounded-lg"
-    aria-label="Insert Link"
+    aria-label="Upload Image"
     disabled={!file}
-    onclick={() => {
+    onclick={async () => {
       if (file) {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () => {
-          editor.chain().focus().setImage({ src: reader.result as string }).run()
+        const formData = new FormData()
+        formData.append('image', file)
+        formData.append('imageType', 'full')
+        const response = await fetch('/api/processImage', {
+          method: 'POST',
+          body: formData
+        })
+        const { success, image }: { success: boolean, image: string } = await response.json()
+        if (success) {
+          editor.chain().focus().setImage({ src: image }).run()
+        } else {
+          toastsList.update((toasts) => [
+            ...toasts,
+            {
+              uuid: Math.random().toString(36).substring(2),
+              type: 'error',
+              message: 'Failed to process image'
+            }
+          ])
         }
         showEditPicture = false
       } else {
