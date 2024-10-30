@@ -32,7 +32,6 @@
     showMenu = !showMenu
   }
   const toggleSubMenu = (e: Event, num: number, event: string) => {
-    e.preventDefault()
     if (event === 'in' && !mobileMenu) {
       showNav = showNav.map((_, i) => {
         return i === num - 1 ? true : false
@@ -95,9 +94,9 @@
   <div class="border-t border-b border-gray-300">
     <nav class="container px-2 py-2 mx-auto md:flex md:justify-between md:items-center">
       <div class="flex items-center justify-between">
-        <a href="/">
+        <a data-sveltekit-preload-data="tap" href="/">
           <div class="flex flex-row container items-center justify-center">
-            <img src="/images/logo.png" alt="Supapanya Logo" class="h-8" />
+            <img src="/images/logo.png" alt="Supapanya Logo" class="h-8 object-cover" />
           </div>
         </a>
         <div class="flex md:hidden">
@@ -130,7 +129,8 @@
           transition:slide
         >
           <a
-            class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+            class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
+            data-sveltekit-preload-data="tap"
             href="/course">คอร์สเรียน</a
           >
           <button
@@ -142,7 +142,7 @@
             onclick={(e) => toggleSubMenu(e, 1, 'click')}
           >
             <p
-              class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+              class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
             >
               ประวัติ
               <svg
@@ -164,16 +164,16 @@
                 transition:slide
               >
                 <ul class="pb-2">
-                  <a href="/review">
+                  <a data-sveltekit-preload-data="tap" href="/review">
                     <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                     >
                       รีวิว
                     </li>
                   </a>
-                  <a href="/portfolio">
+                  <a data-sveltekit-preload-data="tap" href="/portfolio">
                     <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                     >
                       ความสำเร็จของเรา
                     </li>
@@ -191,7 +191,7 @@
             onclick={(e) => toggleSubMenu(e, 2, 'click')}
           >
             <p
-              class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+              class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
             >
               บทความ
               <svg
@@ -213,16 +213,16 @@
                 transition:slide
               >
                 <ul class="pb-2">
-                  <a href="/blog">
+                  <a data-sveltekit-preload-data="tap" href="/blog">
                     <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                     >
                       บทความที่น่าสนใจ
                     </li>
                   </a>
-                  <a href="/studytips">
+                  <a data-sveltekit-preload-data="tap" href="/studytips">
                     <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                     >
                       เกร็ดความรู้
                     </li>
@@ -232,7 +232,8 @@
             {/if}
           </button>
           <a
-            class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+            class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
+            data-sveltekit-preload-data="tap"
             href="/contact">ติดต่อเรา</a
           >
           {#if userData}
@@ -245,7 +246,7 @@
               onclick={(e) => toggleSubMenu(e, 3, 'click')}
             >
               <p
-                class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
               >
                 ห้องเรียน
                 <svg
@@ -269,16 +270,16 @@
                   transition:slide
                 >
                   <ul class="pb-2">
-                    <a href="/live">
+                    <a data-sveltekit-preload-data="tap" href="/live">
                       <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                       >
                         ห้องเรียนออนไลน์
                       </li>
                     </a>
-                    <a href="/vod">
+                    <a data-sveltekit-preload-data="tap" href="/vod">
                       <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                       >
                         บันทึกการสอน
                       </li>
@@ -288,13 +289,15 @@
               {/if}
             </button>
             <a
-              class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+              class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
               onclick={() => (userData = null)}
+              data-sveltekit-preload-data="tap"
               href="/logout">ออกจากระบบ</a
             >
           {:else}
             <a
-              class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+              class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
+              data-sveltekit-preload-data="tap"
               href="/login">เข้าสู่ระบบ</a
             >
           {/if}
@@ -308,7 +311,7 @@
               onclick={(e) => toggleSubMenu(e, 4, 'click')}
             >
               <p
-                class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
               >
                 Admin
                 <svg
@@ -332,23 +335,23 @@
                   transition:slide
                 >
                   <ul class="pb-2">
-                    <a href="/register">
+                    <a data-sveltekit-preload-data="tap" href="/register">
                       <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                       >
                         Register
                       </li>
                     </a>
-                    <a href="/vodlist">
+                    <a data-sveltekit-preload-data="tap" href="/vodlist">
                       <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                       >
                         Video List
                       </li>
                     </a>
-                    <a href="/vodedit">
+                    <a data-sveltekit-preload-data="tap" href="/vodedit">
                       <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
+                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
                       >
                         Add Video
                       </li>
