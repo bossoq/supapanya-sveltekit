@@ -25,84 +25,24 @@
   })
 
   let showMenu = false
-  let showNav1 = false
-  let showNav2 = false
-  let showNav3 = false
-  let showNav4 = false
+  let showNav = [false, false, false, false]
 
   const toggleNavbar = (e: Event) => {
     e.preventDefault()
     showMenu = !showMenu
   }
   const toggleSubMenu = (e: Event, num: number, event: string) => {
-    if (num === 1) {
-      if (event === 'in' && !mobileMenu) {
-        showNav1 = true
-        showNav2 = false
-        showNav3 = false
-        showNav4 = false
-      } else if (event === 'out' && !mobileMenu) {
-        showNav1 = false
-        showNav2 = false
-        showNav3 = false
-        showNav4 = false
-      } else if (event === 'click' && mobileMenu) {
-        showNav1 = !showNav1
-        showNav2 = false
-        showNav3 = false
-        showNav4 = false
-      }
-    } else if (num === 2) {
-      if (event === 'in' && !mobileMenu) {
-        showNav1 = false
-        showNav2 = true
-        showNav3 = false
-        showNav4 = false
-      } else if (event === 'out' && !mobileMenu) {
-        showNav1 = false
-        showNav2 = false
-        showNav3 = false
-        showNav4 = false
-      } else if (event === 'click' && mobileMenu) {
-        showNav1 = false
-        showNav2 = !showNav2
-        showNav3 = false
-        showNav4 = false
-      }
-    } else if (num === 3) {
-      if (event === 'in' && !mobileMenu) {
-        showNav1 = false
-        showNav2 = false
-        showNav3 = true
-        showNav4 = false
-      } else if (event === 'out' && !mobileMenu) {
-        showNav1 = false
-        showNav2 = false
-        showNav3 = false
-        showNav4 = false
-      } else if (event === 'click' && mobileMenu) {
-        showNav1 = false
-        showNav2 = false
-        showNav3 = !showNav3
-        showNav4 = false
-      }
-    } else if (num === 4) {
-      if (event === 'in' && !mobileMenu) {
-        showNav1 = false
-        showNav2 = false
-        showNav3 = false
-        showNav4 = true
-      } else if (event === 'out' && !mobileMenu) {
-        showNav1 = false
-        showNav2 = false
-        showNav3 = false
-        showNav4 = false
-      } else if (event === 'click' && mobileMenu) {
-        showNav1 = false
-        showNav2 = false
-        showNav3 = false
-        showNav4 = !showNav4
-      }
+    e.preventDefault()
+    if (event === 'in' && !mobileMenu) {
+      showNav = showNav.map((_, i) => {
+        return i === num - 1 ? true : false
+      })
+    } else if (event === 'out' && !mobileMenu) {
+      showNav = [false, false, false, false]
+    } else if (event === 'click' && mobileMenu) {
+      showNav = showNav.map((value, i) => {
+        return i === num - 1 ? !value : false
+      })
     }
   }
 </script>
@@ -206,7 +146,7 @@
             >
               ประวัติ
               <svg
-                class="w-5 h-5 ml-1 {showNav1 ? 'transition rotate-180' : 'transition rotate-0'}"
+                class="w-5 h-5 ml-1 {showNav[0] ? 'transition rotate-180' : 'transition rotate-0'}"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +157,7 @@
                 /></svg
               >
             </p>
-            {#if showNav1}
+            {#if showNav[0]}
               <div
                 id="dropdownNavbarReviewItem"
                 class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
@@ -255,7 +195,7 @@
             >
               บทความ
               <svg
-                class="w-5 h-5 ml-1 {showNav2 ? 'transition rotate-180' : 'transition rotate-0'}"
+                class="w-5 h-5 ml-1 {showNav[1] ? 'transition rotate-180' : 'transition rotate-0'}"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -266,7 +206,7 @@
                 /></svg
               >
             </p>
-            {#if showNav2}
+            {#if showNav[1]}
               <div
                 id="dropdownNavbarBlogItem"
                 class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
@@ -293,10 +233,6 @@
           </button>
           <a
             class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
-            href="/blog">บทความ</a
-          >
-          <a
-            class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key"
             href="/contact">ติดต่อเรา</a
           >
           {#if userData}
@@ -313,7 +249,9 @@
               >
                 ห้องเรียน
                 <svg
-                  class="w-5 h-5 ml-1 {showNav3 ? 'transition rotate-180' : 'transition rotate-0'}"
+                  class="w-5 h-5 ml-1 {showNav[2]
+                    ? 'transition rotate-180'
+                    : 'transition rotate-0'}"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -324,7 +262,7 @@
                   /></svg
                 >
               </p>
-              {#if showNav3}
+              {#if showNav[2]}
                 <div
                   id="dropdownNavbarLiveItem"
                   class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
@@ -374,7 +312,9 @@
               >
                 Admin
                 <svg
-                  class="w-5 h-5 ml-1 {showNav4 ? 'transition rotate-180' : 'transition rotate-0'}"
+                  class="w-5 h-5 ml-1 {showNav[3]
+                    ? 'transition rotate-180'
+                    : 'transition rotate-0'}"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -385,7 +325,7 @@
                   /></svg
                 >
               </p>
-              {#if showNav4}
+              {#if showNav[3]}
                 <div
                   id="dropdownNavbarAdminItem"
                   class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
