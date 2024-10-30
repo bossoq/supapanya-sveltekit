@@ -14,6 +14,7 @@
   import Focus from '@tiptap/extension-focus'
   import BubbleMenu from '@tiptap/extension-bubble-menu'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
+  import { toastsList } from '$lib/store'
 
   export let content: JSONContent = {
     type: 'doc',
