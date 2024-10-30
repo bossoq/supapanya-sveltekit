@@ -29,7 +29,7 @@ const resizeImage = async (data: Buffer, imageType = 'full'): Promise<string> =>
   if (metadata.width && metadata.height) {
     const aspectRatio = metadata.width / metadata.height
     const newWidth = Math.min(metadata.width, imageType === 'full' ? 2048 : 640)
-    const newHeight = newWidth / aspectRatio
+    const newHeight = Math.round(newWidth / aspectRatio)
     const resizedImage = await image.resize(newWidth, newHeight).webp().toBuffer()
     return `data:image/webp;base64,${resizedImage.toString('base64')}`
   } else {
