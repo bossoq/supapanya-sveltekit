@@ -505,7 +505,7 @@
           method: 'POST',
           body: formData
         })
-        const { success, image }: { success: boolean, image: string } = await response.json()
+        const { success, image }: { success: boolean; image: string } = await response.json()
         if (success) {
           editor.chain().focus().setImage({ src: image }).run()
         } else {
