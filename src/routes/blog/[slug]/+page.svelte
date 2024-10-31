@@ -37,7 +37,7 @@
         })}</span
       >
     </section>
-    <h1 class="text-center text-2xl md:text-4xl font-bold text-gray-800">{blog.postTitle}</h1>
+    <h1 class="text-center text-2xl md:text-4xl font-bold text-gray-800 py-4">{blog.postTitle}</h1>
     <TipTapRender content={blog.postContent as JSONContent} />
   </div>
 </div>
