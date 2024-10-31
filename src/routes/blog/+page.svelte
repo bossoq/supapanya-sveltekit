@@ -68,7 +68,7 @@
                   <button
                     class="bg-amber-400 text-white p-1 hover:bg-amber-700 transition-all ease-in-out duration-300"
                     aria-label="แก้ไขบทความ"
-                    on:click={() => (window.location.href = `/blog/${blog.postLink}/edit`)}
+                    on:click={() => (window.location.href = `/blog/${blog.id}/edit`)}
                   >
                     <svg class="aspect-square w-4" fill="currentColor">
                       <use xlink:href="{remixiconUrl}#ri-pencil-line" />
@@ -77,7 +77,7 @@
                   <button
                     class="bg-red-400 text-white p-1 hover:bg-red-700 transition-all ease-in-out duration-300"
                     aria-label="ลบบทความ"
-                    on:click={() => (window.location.href = `/blog/${blog.postLink}/delete`)}
+                    on:click={() => (window.location.href = `/blog/${blog.id}/delete`)}
                   >
                     <svg class="aspect-square w-4" fill="currentColor">
                       <use xlink:href="{remixiconUrl}#ri-delete-bin-line" />

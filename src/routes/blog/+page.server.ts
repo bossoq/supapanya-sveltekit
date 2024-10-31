@@ -5,6 +5,7 @@ export const load: PageServerLoad = async ({ locals }) => {
   const prisma = new PrismaClient()
   const blogs = await prisma.postTable.findMany({
     select: {
+      id: true,
       user: {
         select: {
           displayName: true
