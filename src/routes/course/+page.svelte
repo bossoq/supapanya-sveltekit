@@ -1,5 +1,5 @@
 <script lang="ts">
-  import TipTapRender from '$lib/components/TipTapRender.svelte'
+  import TipTapView from '$lib/components/TipTapView.svelte'
   import { toastsList } from '$lib/store'
   import type { JSONContent } from '@tiptap/core'
   import type { PageServerData } from './$types'
@@ -143,6 +143,6 @@
 
 <div class="flex flex-col items-center bg-white gap-6 h-[calc(100vh-10.2rem)]">
   <div class="container flex flex-col">
-    <TipTapRender bind:content bind:editMode editable={user?.meta.isAdmin} {handleSave} />
+    <TipTapView bind:content bind:editMode editable={user?.meta.isAdmin} {handleSave} />
   </div>
 </div>
