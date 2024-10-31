@@ -87,7 +87,10 @@
     Link.configure({
       openOnClick: false,
       autolink: true,
-      defaultProtocol: 'https://'
+      defaultProtocol: 'https://',
+      HTMLAttributes: {
+        class: 'text-[#485fc7] hover:text-[unset]'
+      }
     }),
     Image.extend({
       addAttributes() {
