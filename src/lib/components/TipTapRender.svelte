@@ -38,7 +38,7 @@
       heading: false,
       paragraph: {
         HTMLAttributes: {
-          class: 'w-full'
+          class: 'w-full text-lg md:text-xl py-2'
         }
       },
       orderedList: {
