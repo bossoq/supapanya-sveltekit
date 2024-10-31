@@ -34,6 +34,7 @@
     ]
   }
   export let handleSave: (payload: JSONContent) => void
+  export let autoSave = false
   let element: Element
   let bubbleLinkElement: HTMLElement
   let bubblePictureElement: HTMLElement
@@ -210,6 +211,9 @@
       },
       onTransaction: () => {
         editor = editor
+        if (autoSave) {
+          handleSave(editor.getJSON())
+        }
       },
       autofocus: 'start',
       editable: true
