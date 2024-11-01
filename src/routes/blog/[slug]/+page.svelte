@@ -39,5 +39,11 @@
     </section>
     <h1 class="text-center text-2xl md:text-4xl font-bold text-gray-800 py-4">{blog.postTitle}</h1>
     <TipTapRender content={blog.postContent as JSONContent} />
+    <p class="py-8 text-lg md:text-xl italic">
+      เป็นอย่างไรกันบ้างคะ ข้อแนะนำดีๆเกี่ยวกับรูปแบบการเรียน
+      ผู้ปกครองหรือน้องๆคนไหนที่เห็นข้อดีแบบนี้แล้วสนใจที่จะเรียนพิเศษกับทางสถาบันศุภปัญญาไอ.เค.
+      สามารถติดต่อมาได้ที่ 062 225 6359 (ครูก้อย) หรือ Inbox เข้ามาที่เพจได้เลยค่ะ
+      สถาบันศุภปัญญาไอ.เค. สถาบันที่มีประสบการณ์มากกว่า 20 ปี ดีที่สุดในย่านหนองแขม
+    </p>
   </div>
 </div>
