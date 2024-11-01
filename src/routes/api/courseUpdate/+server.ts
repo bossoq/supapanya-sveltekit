@@ -1,8 +1,23 @@
+import jwt from 'jwt-simple'
 import { json } from '@sveltejs/kit'
-import type { RequestHandler } from './$types'
 import { PrismaClient } from '@prisma/client'
+import { JWT_SECRET } from '$env/static/private'
+import type { RequestHandler } from './$types'
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ cookies, request }) => {
+  const accessToken = cookies.get('accessToken')
+  if (!accessToken || accessToken === null) {
+    return json({ success: false, message: 'Unauthorized' }, { status: 401 })
+  }
+  try {
+    const decrypted = jwt.decode(accessToken, JWT_SECRET, false, 'HS256') as UserInfo
+    if (!decrypted.meta.isAdmin) {
+      return json({ success: false, message: 'Forbidden' }, { status: 403 })
+    }
+  } catch (e) {
+    return json({ success: false, message: 'Unauthorized' }, { status: 401 })
+  }
+
   const data = await request.json()
   if (!data) {
     return json({ success: false, message: 'No data provided' }, { status: 400 })
