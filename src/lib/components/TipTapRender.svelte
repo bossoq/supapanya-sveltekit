@@ -43,17 +43,17 @@
       },
       orderedList: {
         HTMLAttributes: {
-          class: 'w-full'
+          class: 'w-full text-lg md:text-xl list-decimal font-bold'
         }
       },
       bulletList: {
         HTMLAttributes: {
-          class: 'w-full'
+          class: 'w-full text-lg md:text-xl list-disc font-bold'
         }
       },
       blockquote: {
         HTMLAttributes: {
-          class: 'w-full italic text-lg'
+          class: 'w-full italic'
         }
       },
       horizontalRule: {
