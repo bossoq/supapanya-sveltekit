@@ -43,6 +43,15 @@ declare global {
     authorId: number
     postContent: JSONContent
   }
+  interface BlogData {
+    id: number
+    postDate: Date
+    postTitle: string
+    postContent: JSONContent
+    postExcerpt: string | null
+    postLink: string
+    postPicture: string | null
+  }
 }
 
 export {}
