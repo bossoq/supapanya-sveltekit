@@ -43,6 +43,7 @@
   let showEditPicture = false
   let link = ''
   let file: File | undefined
+  let filePath = ''
 
   onMount(() => {
     editor = new Editor({
@@ -495,6 +496,7 @@
     onchange={(e) => {
       file = (e.target as HTMLInputElement).files?.[0]
     }}
+    bind:value={filePath}
   />
   <button
     class="p-1 bg-gray-600 text-white rounded-lg"
@@ -526,6 +528,7 @@
       } else {
         showEditPicture = false
       }
+      filePath = ''
     }}
   >
     <svg class="aspect-square w-5 text-green-500" fill="currentColor">
