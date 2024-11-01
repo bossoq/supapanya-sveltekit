@@ -10,31 +10,34 @@ datasource db {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model postTable {
-  id             BigInt    @id @default(autoincrement())
-  user           userTable @relation(fields: [authorId], references: [id])
-  authorId       BigInt
-  postDate       DateTime  @default(now()) @db.Timestamp(6)
-  postTitle      String
-  postContentBak String?
-  postContent    Json
-  postExcerpt    String?
-  postStatus     String
-  postModified   DateTime  @default(now()) @db.Timestamp(6)
-  postLink       String
-  postPicture    String?
-  postType       String
+  id                       BigInt    @id @default(autoincrement())
+  user                     userTable @relation(fields: [authorId], references: [id], onDelete: SetDefault)
+  authorId                 BigInt    @default(1)
+  postDate                 DateTime  @default(now()) @db.Timestamp(6)
+  postTitle                String
+  postContentBak           String?
+  postContent              Json
+  postExcerpt              String?
+  postStatus               String
+  postLink                 String
+  postPicture              String?
+  postType                 String
+  postModified             DateTime  @default(now()) @db.Timestamp(6)
+  userTable_postModifiedBy userTable @relation("postModifiedBy", fields: [modifiedBy], references: [id], onDelete: SetDefault)
+  modifiedBy               BigInt    @default(1)
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model userTable {
-  id             BigInt      @id(map: "userTable1_pkey") @default(autoincrement())
-  userLogin      String
-  userPassword   String
-  displayName    String
-  meta           Json        @db.Json
-  registeredDate DateTime    @default(now()) @db.Timestamp(6)
-  authorised     Boolean     @default(false)
-  posts          postTable[]
+  id                       BigInt      @id(map: "userTable1_pkey") @default(autoincrement())
+  userLogin                String
+  userPassword             String
+  displayName              String
+  meta                     Json        @db.Json
+  registeredDate           DateTime    @default(now()) @db.Timestamp(6)
+  authorised               Boolean     @default(false)
+  posts                    postTable[]
+  postTable_postModifiedBy postTable[] @relation("postModifiedBy")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
