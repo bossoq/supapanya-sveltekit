@@ -72,7 +72,7 @@
     <h2 class="text-2xl md:text-4xl font-semibold">บทความล่าสุด</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
       {#each data.props.posts as { title, link, picture }}
-        <a class="flex flex-col justify-center items-center" href="/blog/{link}">
+        <a class="flex flex-col items-center" href="/blog/{link}">
           <img
             src={picture}
             alt={title}

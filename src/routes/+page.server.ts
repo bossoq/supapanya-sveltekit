@@ -13,6 +13,10 @@ export const load: PageServerLoad = async () => {
     orderBy: {
       id: 'desc'
     },
+    where: {
+      postType: 'blog',
+      postStatus: 'publish'
+    },
     take: 3
   })
   return {
