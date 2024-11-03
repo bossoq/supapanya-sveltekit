@@ -5,7 +5,7 @@
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
-  const { user, props } = data
+  const { props } = data
   const blog = props.blog
 </script>
 
