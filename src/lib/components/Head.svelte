@@ -9,7 +9,9 @@
   export let cfToken: object | null
 
   $: {
+    // @ts-ignore
     if (typeof gtag !== 'undefined' && gtagId) {
+      // @ts-ignore
       gtag('config', gtagId, {
         page_title: document.title,
         page_path: $page.url.pathname
