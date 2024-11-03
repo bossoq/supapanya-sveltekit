@@ -1,7 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  import Fa from 'svelte-fa'
-  import { faSortAmountAsc, faSortAmountDesc } from '@fortawesome/free-solid-svg-icons'
+  import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
   import { getPoster } from '$lib/utils'
 
   export let videoList: VideoData[] = []
@@ -39,8 +38,10 @@
       bind:value={search}
       oninput={handleSearch}
     />
-    <button class="p-2 bg-teal-500 text-white rounded" onclick={handleSort}>
-      <Fa icon={sortAsc ? faSortAmountAsc : faSortAmountDesc} />
+    <button class="p-2 bg-teal-500 text-white rounded" onclick={handleSort} aria-label="sort">
+      <svg class="aspect-square w-5" fill="currentColor">
+        <use xlink:href="{remixiconUrl}#ri-{sortAsc ? 'sort-desc' : 'sort-asc'}" />
+      </svg>
     </button>
   </div>
   <div class="flex flex-row md:flex-col md:w-full overflow-y-auto hide-scrollbar">

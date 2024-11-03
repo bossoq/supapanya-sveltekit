@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Fa from 'svelte-fa'
-  import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+  import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
 </script>
 
 <footer class="w-full sticky bottom-0 center flex gap-2 justify-center bg-gray-100 text-gray-800">
@@ -14,7 +13,9 @@
         rel="noreferrer"
       >
         <div class="text-right flex flex-row gap-2 items-center justify-center">
-          <Fa icon={faFacebook} size="lg" />
+          <svg class="aspect-square w-6" fill="currentColor">
+            <use xlink:href="{remixiconUrl}#ri-facebook-circle-fill" />
+          </svg>
           <span>สถาบันศุภปัญญาไอ.เค.</span>
         </div>
       </a>

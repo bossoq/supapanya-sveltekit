@@ -3,9 +3,7 @@
   import { slide } from 'svelte/transition'
   import { onMount } from 'svelte'
   import { darkTheme } from '$lib/store'
-  import Fa from 'svelte-fa'
-  import { faFacebook } from '@fortawesome/free-brands-svg-icons'
-  import { faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+  import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
 
   export let themeIcons: string[]
   export let themeEnabler: boolean
@@ -51,18 +49,24 @@
   <div class="flex w-full h-8 sm:h-10 bg-blue-light-key text-white justify-center items-center">
     <div class="flex flex-row gap-6 container w-full items-center">
       <div id="top-bar-left" class="flex flex-row gap-6 mr-auto items-center">
-        <div class="flex flex-row gap-2">
-          <Fa icon={faPhoneAlt} size="lg" rotate={90} />
+        <div class="flex flex-row gap-2 items-center justify-center">
+          <svg class="aspect-square w-6" fill="currentColor">
+            <use xlink:href="{remixiconUrl}#ri-phone-fill" />
+          </svg>
           <a href="tel: +6662-225-6359" class="text-sm sm:text-lg">062 225 6359</a>
         </div>
-        <div class="hidden sm:flex flex-row gap-2">
-          <Fa icon={faEnvelope} size="lg" />
+        <div class="hidden sm:flex flex-row gap-2 items-center justify-center">
+          <svg class="aspect-square w-6" fill="currentColor">
+            <use xlink:href="{remixiconUrl}#ri-mail-fill" />
+          </svg>
           <a href="mailto:kittipos@picturo.us" class="text-sm sm:text-lg">kittipos@picturo.us</a>
         </div>
       </div>
       <div id="top-bar-right" class="flex flex-row gap-6 ml-auto items-center">
-        <div class="flex flex-row gap-2">
-          <Fa icon={faFacebook} size="lg" />
+        <div class="flex flex-row gap-2 items-center justify-center">
+          <svg class="aspect-square w-6" fill="currentColor">
+            <use xlink:href="{remixiconUrl}#ri-facebook-circle-fill" />
+          </svg>
           <a
             href="https://www.facebook.com/supapanyaik"
             target="_blank"
