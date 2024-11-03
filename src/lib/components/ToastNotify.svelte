@@ -13,7 +13,8 @@
     }
   })
 
-  const handleNotification = (uuid: string) => {
+  const handleNotification = (e: Event, uuid: string) => {
+    e.preventDefault()
     toastsList.update((toastsList) =>
       toastsList.filter((notification) => notification.uuid !== uuid)
     )
@@ -40,8 +41,8 @@
           'success'
             ? 'bg-green-100 text-green-500'
             : notification.type === 'danger'
-            ? 'bg-red-100 text-red-500'
-            : 'bg-orange-100 text-orange-500'}"
+              ? 'bg-red-100 text-red-500'
+              : 'bg-orange-100 text-orange-500'}"
         >
           {#if notification.type === 'success'}
             <svg
@@ -90,7 +91,7 @@
           class="-mx-1.5 -my-1.5 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300"
           data-dismiss-target="#toast-{notification.type}"
           aria-label="Close"
-          on:click|preventDefault={() => handleNotification(notification.uuid)}
+          onclick={(e) => handleNotification(e, notification.uuid)}
         >
           <span class="sr-only">Close</span>
           <svg
