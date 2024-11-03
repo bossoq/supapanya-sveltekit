@@ -1,19 +1,52 @@
 <script lang="ts">
-  import { modalViewed } from '$lib/store'
-  import VideoModal from '$lib/components/VideoModal.svelte'
+  import ModalComponent from '$lib/components/ModalComponent.svelte'
+  import Player from '$lib/components/Player.svelte'
+  import type { VideoSrc } from 'vidstack'
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
+  let modalViewed = false
+
+  const title = 'New Normal'
+  const src: VideoSrc[] = [
+    {
+      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_1080p.mp4',
+      type: 'video/mp4',
+      width: 1920,
+      height: 1080
+    },
+    {
+      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_720p.mp4',
+      type: 'video/mp4',
+      width: 1280,
+      height: 720
+    },
+    {
+      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_480p.mp4',
+      type: 'video/mp4',
+      width: 854,
+      height: 480
+    },
+    {
+      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_360p.mp4',
+      type: 'video/mp4',
+      width: 640,
+      height: 360
+    }
+  ]
+  const poster = 'https://vod.supapanya.com/NewNormal_Promote-FullHD/cover.jpg'
 
   const handleVideoModal = (e: Event) => {
     e.preventDefault()
-    modalViewed.set(true)
+    modalViewed = true
   }
 </script>
 
 <div class="flex flex-col items-center bg-white gap-6 h-screen">
-  {#if $modalViewed}
-    <VideoModal />
+  {#if modalViewed}
+    <ModalComponent bind:modalViewed>
+      <Player {title} {src} {poster} autoPlay restart />
+    </ModalComponent>
   {/if}
   <div class="container flex">
     <div

@@ -17,7 +17,6 @@ const storeSettings = () => {
 }
 
 export const darkTheme: Writable<boolean> = writable(storage.darkTheme ?? false)
-export const modalViewed: Writable<boolean> = writable(false)
 export const toastsList: Writable<ToastNotify[]> = writable([])
 
 darkTheme.subscribe((value) => {

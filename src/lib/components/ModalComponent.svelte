@@ -2,18 +2,19 @@
   import { fade } from 'svelte/transition'
   import Player from '$lib/components/Player.svelte'
   import type { VideoSrc } from 'vidstack'
-  import { modalViewed } from '$lib/store'
   import type { Action } from 'svelte/action'
+
+  let { modalViewed = $bindable() } = $props<{ modalViewed: boolean }>()
 
   const handleModalClass = (e: Event, disabled = false) => {
     e.preventDefault()
-    if (disabled && !$modalViewed) {
+    if (disabled && !modalViewed) {
       return
     }
-    if ($modalViewed) {
-      modalViewed.set(false)
+    if (modalViewed) {
+      modalViewed = false
     } else {
-      modalViewed.set(true)
+      modalViewed = true
     }
   }
 
