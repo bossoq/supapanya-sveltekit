@@ -1,10 +1,12 @@
 <script lang="ts">
   import { fade } from 'svelte/transition'
-  import Player from '$lib/components/Player.svelte'
-  import type { VideoSrc } from 'vidstack'
+  import type { Snippet } from 'svelte'
   import type { Action } from 'svelte/action'
 
-  let { modalViewed = $bindable() } = $props<{ modalViewed: boolean }>()
+  let { modalViewed = $bindable(), children } = $props<{
+    modalViewed: boolean
+    children: Snippet
+  }>()
 
   const handleModalClass = (e: Event, disabled = false) => {
     e.preventDefault()
@@ -31,35 +33,6 @@
       return () => document.removeEventListener('click', handleClick, true)
     })
   }
-
-  const title = 'New Normal'
-  const src: VideoSrc[] = [
-    {
-      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_1080p.mp4',
-      type: 'video/mp4',
-      width: 1920,
-      height: 1080
-    },
-    {
-      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_720p.mp4',
-      type: 'video/mp4',
-      width: 1280,
-      height: 720
-    },
-    {
-      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_480p.mp4',
-      type: 'video/mp4',
-      width: 854,
-      height: 480
-    },
-    {
-      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_360p.mp4',
-      type: 'video/mp4',
-      width: 640,
-      height: 360
-    }
-  ]
-  const poster = 'https://vod.supapanya.com/NewNormal_Promote-FullHD/cover.jpg'
 </script>
 
 <div
@@ -92,7 +65,7 @@
         <div class="bg-white px-4 pt-2 pb-4 sm:pt-5 sm:p-6 sm:pb-4 dark:bg-slate-800">
           <div class="flex items-start justify-center">
             <div class="container mt-3 text-center sm:mt-0 sm:mx-4 sm:text-left dark:text-white">
-              <Player {title} {src} {poster} autoPlay restart />
+              {@render children()}
             </div>
           </div>
         </div>
