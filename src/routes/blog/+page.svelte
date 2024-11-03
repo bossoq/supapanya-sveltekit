@@ -1,9 +1,56 @@
 <script lang="ts">
+  import ModalComponent from '$lib/components/ModalComponent.svelte'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
+  import { toastsList } from '$lib/store'
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
   const { user, props } = data
+  let modalViewed = false
+  let blogIdDelete: number | null = null
+  $: !modalViewed && (blogIdDelete = null)
+
+  const handleDeleteButton = (e: Event, id: number) => {
+    e.preventDefault()
+    modalViewed = true
+    blogIdDelete = id
+  }
+  const handleDeleteConfirm = async (e: Event) => {
+    e.preventDefault()
+    modalViewed = false
+    const response = await fetch('/api/blogDelete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: blogIdDelete, user })
+    })
+    const data = await response.json()
+    if (data.success) {
+      window.location.reload()
+      toastsList.update((toasts) => [
+        ...toasts,
+        {
+          uuid: Math.random().toString(36).substring(2),
+          message: 'ลบบทความสำเร็จ',
+          type: 'success'
+        }
+      ])
+    } else {
+      toastsList.update((toasts) => [
+        ...toasts,
+        {
+          uuid: Math.random().toString(36).substring(2),
+          message: 'ลบบทความไม่สำเร็จ',
+          type: 'error'
+        }
+      ])
+    }
+  }
+  const handleCancelDelete = (e: Event) => {
+    e.preventDefault()
+    modalViewed = false
+  }
 </script>
 
 <svelte:head>
@@ -11,13 +58,35 @@
 </svelte:head>
 
 <div class="flex flex-col items-center bg-white gap-6 h-[calc(100vh-10.2rem)] pt-4">
+  {#if modalViewed}
+    <ModalComponent bind:modalViewed>
+      <h3 class="mb-2 text-lg font-bold text-gray-500">ลบบทความ</h3>
+      <p class="text-md mb-5 font-normal text-gray-500">คุณต้องการลบบทความนี้ใช่หรือไม่?</p>
+      <section class="flex flex-row justify-center items-center">
+        <button
+          type="button"
+          class="mr-2 inline-flex items-center rounded-lg bg-teal-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-300"
+          onclick={(e) => handleDeleteConfirm(e)}
+        >
+          ยืนยัน
+        </button>
+        <button
+          type="button"
+          class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          onclick={(e) => handleCancelDelete(e)}
+        >
+          ยกเลิก
+        </button>
+      </section>
+    </ModalComponent>
+  {/if}
   <div class="container flex flex-col">
     {#if user?.meta.isAdmin}
       <section class="absolute bottom-20 right-24">
         <button
           class="bg-teal-400 text-white p-2 rounded-full hover:bg-teal-700 transition-all ease-in-out duration-300 hover:rotate-180"
           aria-label="เขียนบทความใหม่"
-          on:click={() => (window.location.href = '/blog/new')}
+          onclick={() => (window.location.href = '/blog/new')}
         >
           <svg class="aspect-square w-6" fill="currentColor">
             <use xlink:href="{remixiconUrl}#ri-add-line" />
@@ -68,7 +137,7 @@
                   <button
                     class="bg-amber-400 text-white p-1 hover:bg-amber-700 transition-all ease-in-out duration-300"
                     aria-label="แก้ไขบทความ"
-                    on:click={() => (window.location.href = `/blog/${blog.id}/edit`)}
+                    onclick={() => (window.location.href = `/blog/${blog.id}/edit`)}
                   >
                     <svg class="aspect-square w-4" fill="currentColor">
                       <use xlink:href="{remixiconUrl}#ri-pencil-line" />
@@ -77,7 +146,7 @@
                   <button
                     class="bg-red-400 text-white p-1 hover:bg-red-700 transition-all ease-in-out duration-300"
                     aria-label="ลบบทความ"
-                    on:click={() => (window.location.href = `/blog/${blog.id}/delete`)}
+                    onclick={(e) => handleDeleteButton(e, Number(blog.id))}
                   >
                     <svg class="aspect-square w-4" fill="currentColor">
                       <use xlink:href="{remixiconUrl}#ri-delete-bin-line" />
