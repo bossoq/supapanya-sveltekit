@@ -43,6 +43,114 @@
       })
     }
   }
+  const menus = [
+    {
+      name: 'คอร์สเรียน',
+      type: 'link',
+      link: '/course',
+      show: true
+    },
+    {
+      name: 'ประวัติ',
+      type: 'dropdown',
+      id: 1,
+      show: true,
+      dropdown: [
+        {
+          name: 'รีวิว',
+          type: 'link',
+          link: '/review'
+        },
+        {
+          name: 'ความสำเร็จของเรา',
+          type: 'link',
+          link: '/portfolio'
+        }
+      ]
+    },
+    {
+      name: 'บทความ',
+      type: 'dropdown',
+      id: 2,
+      show: true,
+      dropdown: [
+        {
+          name: 'บทความที่น่าสนใจ',
+          type: 'link',
+          link: '/blog'
+        },
+        {
+          name: 'เกร็ดความรู้',
+          type: 'link',
+          link: '/studytips'
+        }
+      ]
+    },
+    {
+      name: 'ติดต่อเรา',
+      type: 'link',
+      link: '/contact',
+      show: true
+    },
+    {
+      name: 'ห้องเรียน',
+      type: 'dropdown',
+      id: 3,
+      show: Boolean(userData),
+      dropdown: [
+        {
+          name: 'ห้องเรียนออนไลน์',
+          type: 'link',
+          link: '/live'
+        },
+        {
+          name: 'บันทึกการสอน',
+          type: 'link',
+          link: '/vod'
+        }
+      ]
+    },
+    {
+      name: 'ออกจากระบบ',
+      type: 'link',
+      link: '/logout',
+      show: Boolean(userData),
+      click: (e: Event) => {
+        e.preventDefault()
+        userData = null
+        window.location.href = '/'
+      }
+    },
+    {
+      name: 'เข้าสู่ระบบ',
+      type: 'link',
+      link: '/login',
+      show: !Boolean(userData)
+    },
+    {
+      name: 'Admin',
+      type: 'dropdown',
+      id: 4,
+      show: Boolean(userData) && Boolean(userData?.meta.isAdmin),
+      dropdown: [
+        {
+          name: 'Register',
+          type: 'link',
+          link: '/register'
+        },
+        {
+          name: 'Video List',
+          type: 'link',
+          link: '/vodlist'
+        },
+        {
+          name: 'Add Video',
+          type: 'link',
+          link: '/vodedit'
+        }
+      ]
+    }
+  ]
 </script>
 
 <header class="w-full sticky top-0">
@@ -133,305 +241,96 @@
           class="flex flex-col mt-8 md:flex-row md:items-center md:space-x-2 md:mt-0"
           transition:slide
         >
-          <a
-            class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-              '/course'
-            )
-              ? 'text-green-light-key border-b-green-light-key'
-              : ''}"
-            data-sveltekit-preload-data="tap"
-            href="/course">คอร์สเรียน</a
-          >
-          <button
-            class="flex flex-col items-center justify-between"
-            onmouseenter={(e) => toggleSubMenu(e, 1, 'in')}
-            onmouseleave={(e) => toggleSubMenu(e, 1, 'out')}
-            onfocusin={(e) => toggleSubMenu(e, 1, 'in')}
-            onfocusout={(e) => toggleSubMenu(e, 1, 'out')}
-            onclick={(e) => toggleSubMenu(e, 1, 'click')}
-          >
-            <p
-              class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                '/review'
-              ) || $page.url.pathname.includes('/portfolio')
-                ? 'text-green-light-key border-b-green-light-key'
-                : ''}"
-            >
-              ประวัติ
-              <svg
-                class="w-5 h-5 ml-1 {showNav[0] ? 'transition rotate-180' : 'transition rotate-0'}"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-                ><path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                /></svg
-              >
-            </p>
-            {#if showNav[0]}
-              <div
-                id="dropdownNavbarReviewItem"
-                class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
-                transition:slide
-              >
-                <ul class="pb-2">
-                  <a data-sveltekit-preload-data="tap" href="/review">
-                    <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                        '/review'
-                      )
-                        ? 'text-green-light-key border-b-green-light-key'
-                        : ''}"
-                    >
-                      รีวิว
-                    </li>
-                  </a>
-                  <a data-sveltekit-preload-data="tap" href="/portfolio">
-                    <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                        '/portfolio'
-                      )
-                        ? 'text-green-light-key border-b-green-light-key'
-                        : ''}"
-                    >
-                      ความสำเร็จของเรา
-                    </li>
-                  </a>
-                </ul>
-              </div>
-            {/if}
-          </button>
-          <button
-            class="flex flex-col items-center justify-between"
-            onmouseenter={(e) => toggleSubMenu(e, 2, 'in')}
-            onmouseleave={(e) => toggleSubMenu(e, 2, 'out')}
-            onfocusin={(e) => toggleSubMenu(e, 2, 'in')}
-            onfocusout={(e) => toggleSubMenu(e, 2, 'out')}
-            onclick={(e) => toggleSubMenu(e, 2, 'click')}
-          >
-            <p
-              class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                '/blog'
-              ) || $page.url.pathname.includes('/studytips')
-                ? 'text-green-light-key border-b-green-light-key'
-                : ''}"
-            >
-              บทความ
-              <svg
-                class="w-5 h-5 ml-1 {showNav[1] ? 'transition rotate-180' : 'transition rotate-0'}"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-                ><path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                /></svg
-              >
-            </p>
-            {#if showNav[1]}
-              <div
-                id="dropdownNavbarBlogItem"
-                class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
-                transition:slide
-              >
-                <ul class="pb-2">
-                  <a data-sveltekit-preload-data="tap" href="/blog">
-                    <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                        '/blog'
-                      )
-                        ? 'text-green-light-key border-b-green-light-key'
-                        : ''}"
-                    >
-                      บทความที่น่าสนใจ
-                    </li>
-                  </a>
-                  <a data-sveltekit-preload-data="tap" href="/studytips">
-                    <li
-                      class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                        '/studytips'
-                      )
-                        ? 'text-green-light-key border-b-green-light-key'
-                        : ''}"
-                    >
-                      เกร็ดความรู้
-                    </li>
-                  </a>
-                </ul>
-              </div>
-            {/if}
-          </button>
-          <a
-            class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-              '/contact'
-            )
-              ? 'text-green-light-key border-b-green-light-key'
-              : ''}"
-            data-sveltekit-preload-data="tap"
-            href="/contact">ติดต่อเรา</a
-          >
-          {#if userData}
-            <button
-              class="flex flex-col items-center justify-between"
-              onmouseenter={(e) => toggleSubMenu(e, 3, 'in')}
-              onmouseleave={(e) => toggleSubMenu(e, 3, 'out')}
-              onfocusin={(e) => toggleSubMenu(e, 3, 'in')}
-              onfocusout={(e) => toggleSubMenu(e, 3, 'out')}
-              onclick={(e) => toggleSubMenu(e, 3, 'click')}
-            >
-              <p
-                class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                  '/live'
-                ) || $page.url.pathname.includes('/vod')
+          {#snippet menuLink(
+            name: string,
+            link: string | undefined,
+            show: boolean,
+            click: (e: Event) => void = () => {}
+          )}
+            {#if show}
+              <a
+                class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
+                  link || ''
+                )
                   ? 'text-green-light-key border-b-green-light-key'
                   : ''}"
+                data-sveltekit-preload-data="tap"
+                onclick={click}
+                href={link}
               >
-                ห้องเรียน
-                <svg
-                  class="w-5 h-5 ml-1 {showNav[2]
-                    ? 'transition rotate-180'
-                    : 'transition rotate-0'}"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                  ><path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  /></svg
-                >
-              </p>
-              {#if showNav[2]}
-                <div
-                  id="dropdownNavbarLiveItem"
-                  class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
-                  transition:slide
-                >
-                  <ul class="pb-2">
-                    <a data-sveltekit-preload-data="tap" href="/live">
-                      <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                          '/live'
-                        )
-                          ? 'text-green-light-key border-b-green-light-key'
-                          : ''}"
-                      >
-                        ห้องเรียนออนไลน์
-                      </li>
-                    </a>
-                    <a data-sveltekit-preload-data="tap" href="/vod">
-                      <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                          '/vod'
-                        )
-                          ? 'text-green-light-key border-b-green-light-key'
-                          : ''}"
-                      >
-                        บันทึกการสอน
-                      </li>
-                    </a>
-                  </ul>
-                </div>
-              {/if}
-            </button>
-            <a
-              class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap"
-              onclick={() => (userData = null)}
-              data-sveltekit-preload-data="tap"
-              href="/logout">ออกจากระบบ</a
-            >
-          {:else}
-            <a
-              class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                '/login'
-              )
-                ? 'text-green-light-key border-b-green-light-key'
-                : ''}"
-              data-sveltekit-preload-data="tap"
-              href="/login">เข้าสู่ระบบ</a
-            >
-          {/if}
-          {#if userData && userData.meta.isAdmin}
-            <button
-              class="flex flex-col items-center justify-between"
-              onmouseenter={(e) => toggleSubMenu(e, 4, 'in')}
-              onmouseleave={(e) => toggleSubMenu(e, 4, 'out')}
-              onfocusin={(e) => toggleSubMenu(e, 4, 'in')}
-              onfocusout={(e) => toggleSubMenu(e, 4, 'out')}
-              onclick={(e) => toggleSubMenu(e, 4, 'click')}
-            >
-              <p
-                class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                  '/register'
-                ) ||
-                $page.url.pathname.includes('/vodlist') ||
-                $page.url.pathname.includes('/vodedit')
-                  ? 'text-green-light-key border-b-green-light-key'
-                  : ''}"
+                {name}
+              </a>
+            {/if}
+          {/snippet}
+          {#snippet menuDropdown(
+            name: string,
+            id: number | undefined,
+            show: boolean,
+            dropdown: { name: string; link: string }[] | undefined
+          )}
+            {#if show}
+              <button
+                class="flex flex-col items-center justify-between"
+                onmouseenter={(e) => id && toggleSubMenu(e, id, 'in')}
+                onmouseleave={(e) => id && toggleSubMenu(e, id, 'out')}
+                onfocusin={(e) => id && toggleSubMenu(e, id, 'in')}
+                onfocusout={(e) => id && toggleSubMenu(e, id, 'out')}
+                onclick={(e) => id && toggleSubMenu(e, id, 'click')}
               >
-                Admin
-                <svg
-                  class="w-5 h-5 ml-1 {showNav[3]
-                    ? 'transition rotate-180'
-                    : 'transition rotate-0'}"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                  ><path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  /></svg
+                <p
+                  class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {dropdown &&
+                  dropdown.some(({ link }) => $page.url.pathname.includes(link))
+                    ? 'text-green-light-key border-b-green-light-key'
+                    : ''}"
                 >
-              </p>
-              {#if showNav[3]}
-                <div
-                  id="dropdownNavbarAdminItem"
-                  class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
-                  transition:slide
-                >
-                  <ul class="pb-2">
-                    <a data-sveltekit-preload-data="tap" href="/register">
-                      <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                          '/register'
-                        )
-                          ? 'text-green-light-key border-b-green-light-key'
-                          : ''}"
-                      >
-                        Register
-                      </li>
-                    </a>
-                    <a data-sveltekit-preload-data="tap" href="/vodlist">
-                      <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                          '/vodlist'
-                        )
-                          ? 'text-green-light-key border-b-green-light-key'
-                          : ''}"
-                      >
-                        Video List
-                      </li>
-                    </a>
-                    <a data-sveltekit-preload-data="tap" href="/vodedit">
-                      <li
-                        class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
-                          '/vodedit'
-                        )
-                          ? 'text-green-light-key border-b-green-light-key'
-                          : ''}"
-                      >
-                        Add Video
-                      </li>
-                    </a>
-                  </ul>
-                </div>
-              {/if}
-            </button>
-          {/if}
+                  {name}
+                  <svg
+                    class="w-5 h-5 ml-1 {id && showNav[id - 1]
+                      ? 'transition rotate-180'
+                      : 'transition rotate-0'}"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </p>
+                {#if id && showNav[id - 1] && dropdown}
+                  <div
+                    class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
+                    transition:slide
+                  >
+                    <ul class="pb-2">
+                      {#each dropdown as { name, link }}
+                        <a data-sveltekit-preload-data="tap" href={link}>
+                          <li
+                            class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
+                              link
+                            )
+                              ? 'text-green-light-key border-b-green-light-key'
+                              : ''}"
+                          >
+                            {name}
+                          </li>
+                        </a>
+                      {/each}
+                    </ul>
+                  </div>
+                {/if}
+              </button>
+            {/if}
+          {/snippet}
+          {#each menus as { name, type, id, link, show, click, dropdown }}
+            {#if type === 'link'}
+              {@render menuLink(name, link, show, click)}
+            {:else if type === 'dropdown'}
+              {@render menuDropdown(name, id, show, dropdown)}
+            {/if}
+          {/each}
         </ul>
       {/if}
     </nav>
