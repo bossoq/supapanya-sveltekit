@@ -23,7 +23,7 @@
 
 {#if $toastsList.length > 0}
   <div
-    class="fixed bottom-4 left-4 z-20 overflow-y-auto"
+    class="fixed bottom-4 left-4 z-50 overflow-y-auto"
     aria-labelledby="modal-title"
     role="dialog"
     aria-modal="true"
