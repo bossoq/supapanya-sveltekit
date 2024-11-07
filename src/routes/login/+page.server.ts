@@ -7,6 +7,9 @@ import { JWT_SECRET } from '$env/static/private'
 
 export const actions = {
   default: async ({ cookies, request }) => {
+    if (request.method !== 'POST') {
+      return fail(405, { message: 'Method not allowed' })
+    }
     const data = await request.formData()
     const username = data.get('username')
     const password = data.get('password')
