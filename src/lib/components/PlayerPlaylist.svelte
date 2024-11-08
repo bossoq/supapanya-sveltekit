@@ -17,6 +17,7 @@
   let poster: string
 
   onMount(() => {
+    if (videoList.length === 0) return
     changeSrc(new CustomEvent('onMount', { detail: { id: videoList[0].id } }))
     const playerMount = setInterval(() => {
       if (player) {
@@ -50,6 +51,10 @@
   <div class="aspect-video flex justify-center col-span-2 max-h-[calc(60vh)]">
     {#if src && !isLoading}
       <Player bind:title bind:src bind:poster bind:player {autoPlay} {restart} />
+    {:else if videoList.length === 0}
+      <div class="flex justify-center items-center w-full h-full">
+        <p class="text-2xl text-gray-800">ไม่มีวิดีโอในรายการ</p>
+      </div>
     {:else}
       <div class="flex justify-center items-center w-full h-full">
         <!-- svelte-ignore element_invalid_self_closing_tag -->
