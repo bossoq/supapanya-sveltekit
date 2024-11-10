@@ -6,12 +6,6 @@ export const load: PageServerLoad = async ({ locals, params }) => {
   if (!params.slug) {
     error(404, 'Not found')
   }
-  if (!locals.user) {
-    error(401, 'Unauthorized')
-  }
-  if (!locals.user.meta.isAdmin) {
-    error(403, 'Forbidden')
-  }
   const prisma = new PrismaClient()
   const blog = await prisma.postTable.findFirst({
     select: {
