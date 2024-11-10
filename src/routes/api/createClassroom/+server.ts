@@ -5,6 +5,7 @@ import { JWT } from 'google-auth-library'
 import { SpacesServiceClient } from '@google-apps/meet'
 import {
   JWT_SECRET,
+  PUBSUB_TOPIC,
   SERVICE_CLIENT_EMAIL,
   SERVICE_PRIVATE_KEY,
   SERVICE_SUBJECT
@@ -117,7 +118,7 @@ const subscribeRecording = async (saclient: JWT, spaceName: string) => {
       includeResource: false
     },
     notificationEndpoint: {
-      pubsubTopic: 'projects/driveproject-285716/topics/workspace-events-topic'
+      pubsubTopic: PUBSUB_TOPIC
     }
   }
   const resp = await fetch('https://workspaceevents.googleapis.com/v1/subscriptions', {
