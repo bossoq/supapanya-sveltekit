@@ -19,27 +19,50 @@
     }
   }
   const handleChangeFile = async () => {
-    const file = fileInput.files && fileInput.files[0]
+    let file = fileInput.files && fileInput.files[0]
     if (!file) return
-    const formData = new FormData()
-    formData.append('image', file)
-    formData.append('imageType', 'preview')
-    const response = await fetch('/api/processImage', {
-      method: 'POST',
-      body: formData
-    })
-    const { success, image }: { success: boolean; image: string } = await response.json()
-    if (success) {
-      blog.postPicture = image
-    } else {
-      toastsList.update((toasts) => [
-        ...toasts,
-        {
-          uuid: Math.random().toString(36).substring(2),
-          message: 'อัพโหลดรูปภาพไม่สำเร็จ',
-          type: 'error'
-        }
-      ])
+    const img = new Image()
+    img.src = URL.createObjectURL(file)
+    img.onload = async () => {
+      let resizedFile = file
+      if (file.size > 4 * 1024 * 1024) {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        canvas.width = img.width
+        canvas.height = img.height
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height)
+        resizedFile = await new Promise<File>((resolve) => {
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                resolve(new File([blob], file ? file.name : 'temp.jpg', { type: 'image/jpeg' }))
+              }
+            },
+            'image/jpeg',
+            0.8
+          )
+        })
+      }
+      const formData = new FormData()
+      formData.append('image', resizedFile)
+      formData.append('imageType', 'preview')
+      const response = await fetch('/api/processImage', {
+        method: 'POST',
+        body: formData
+      })
+      const { success, image }: { success: boolean; image: string } = await response.json()
+      if (success) {
+        blog.postPicture = image
+      } else {
+        toastsList.update((toasts) => [
+          ...toasts,
+          {
+            uuid: Math.random().toString(36).substring(2),
+            message: 'อัพโหลดรูปภาพไม่สำเร็จ',
+            type: 'error'
+          }
+        ])
+      }
     }
   }
   const handleDeletePostPicture = () => {

@@ -5,7 +5,7 @@
   import Heading from '@tiptap/extension-heading'
   import Underline from '@tiptap/extension-underline'
   import Link from '@tiptap/extension-link'
-  import Image from '@tiptap/extension-image'
+  import TipTapImage from '@tiptap/extension-image'
   import TextAlign from '@tiptap/extension-text-align'
   import Table from '@tiptap/extension-table'
   import TableRow from '@tiptap/extension-table-row'
@@ -105,7 +105,7 @@
           autolink: true,
           defaultProtocol: 'https://'
         }),
-        Image.extend({
+        TipTapImage.extend({
           addAttributes() {
             return {
               src: {
@@ -448,6 +448,58 @@
       isDisable: () => false
     }
   ]
+  const handleChangeFile = async () => {
+    if (file) {
+      const img = new Image()
+      img.src = URL.createObjectURL(file)
+      img.onload = async () => {
+        if (!file) return
+        let resizedFile = file
+        if (file.size > 4 * 1024 * 1024) {
+          const canvas = document.createElement('canvas')
+          const ctx = canvas.getContext('2d')
+          canvas.width = img.width
+          canvas.height = img.height
+          ctx?.drawImage(img, 0, 0, canvas.width, canvas.height)
+          resizedFile = await new Promise<File>((resolve) => {
+            canvas.toBlob(
+              (blob) => {
+                if (blob) {
+                  resolve(new File([blob], file ? file.name : 'temp.jpg', { type: 'image/jpeg' }))
+                }
+              },
+              'image/jpeg',
+              0.8
+            )
+          })
+        }
+        const formData = new FormData()
+        formData.append('image', resizedFile)
+        formData.append('imageType', 'full')
+        const response = await fetch('/api/processImage', {
+          method: 'POST',
+          body: formData
+        })
+        const { success, image }: { success: boolean; image: string } = await response.json()
+        if (success) {
+          editor.chain().focus().setImage({ src: image }).run()
+        } else {
+          toastsList.update((toasts) => [
+            ...toasts,
+            {
+              uuid: Math.random().toString(36).substring(2),
+              type: 'error',
+              message: 'Failed to process image'
+            }
+          ])
+        }
+        showEditPicture = false
+      }
+    } else {
+      showEditPicture = false
+    }
+    filePath = ''
+  }
 </script>
 
 <div
@@ -502,34 +554,7 @@
     class="p-1 bg-gray-600 text-white rounded-lg"
     aria-label="Upload Image"
     disabled={!file}
-    onclick={async () => {
-      if (file) {
-        const formData = new FormData()
-        formData.append('image', file)
-        formData.append('imageType', 'full')
-        const response = await fetch('/api/processImage', {
-          method: 'POST',
-          body: formData
-        })
-        const { success, image }: { success: boolean; image: string } = await response.json()
-        if (success) {
-          editor.chain().focus().setImage({ src: image }).run()
-        } else {
-          toastsList.update((toasts) => [
-            ...toasts,
-            {
-              uuid: Math.random().toString(36).substring(2),
-              type: 'error',
-              message: 'Failed to process image'
-            }
-          ])
-        }
-        showEditPicture = false
-      } else {
-        showEditPicture = false
-      }
-      filePath = ''
-    }}
+    onclick={handleChangeFile}
   >
     <svg class="aspect-square w-5 text-green-500" fill="currentColor">
       <use xlink:href="{remixiconUrl}#ri-check-line" />
