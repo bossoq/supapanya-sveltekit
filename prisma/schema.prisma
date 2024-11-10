@@ -8,7 +8,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model postTable {
   id                       BigInt    @id @default(autoincrement())
   user                     userTable @relation(fields: [authorId], references: [id], onDelete: SetDefault)
@@ -27,20 +26,19 @@ model postTable {
   modifiedBy               BigInt    @default(1)
 }
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model userTable {
-  id                       BigInt      @id(map: "userTable1_pkey") @default(autoincrement())
+  id                       BigInt         @id(map: "userTable1_pkey") @default(autoincrement())
   userLogin                String
   userPassword             String
   displayName              String
-  meta                     Json        @db.Json
-  registeredDate           DateTime    @default(now()) @db.Timestamp(6)
-  authorised               Boolean     @default(false)
+  meta                     Json           @db.Json
+  registeredDate           DateTime       @default(now()) @db.Timestamp(6)
+  authorised               Boolean        @default(false)
   posts                    postTable[]
-  postTable_postModifiedBy postTable[] @relation("postModifiedBy")
+  postTable_postModifiedBy postTable[]    @relation("postModifiedBy")
+  videoProcess_teacher     videoProcess[]
 }
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model videoTable {
   id        BigInt   @id(map: "videoTable1_pkey") @default(autoincrement())
   name      String
@@ -49,4 +47,17 @@ model videoTable {
   allowAll  Boolean? @default(true)
   allowList Json?
   fileType  String   @default("HLS")
+}
+
+model videoProcess {
+  id           BigInt    @id @default(autoincrement())
+  createdAt    DateTime  @default(now()) @db.Timestamp(6)
+  spaceName    String
+  participants Json
+  subscribed   Boolean   @default(false)
+  downloaded   Boolean   @default(false)
+  processed    Boolean   @default(false)
+  teacherId    BigInt    @default(1)
+  teacher      userTable @relation(fields: [teacherId], references: [id], onDelete: SetDefault)
+  className    String
 }

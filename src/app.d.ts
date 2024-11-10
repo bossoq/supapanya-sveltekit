@@ -52,6 +52,23 @@ declare global {
     postLink: string
     postPicture: string | null
   }
+  interface User {
+    id: number
+    displayName: string
+  }
+  interface ListUsers {
+    success: boolean
+    message: string
+    users: User[]
+  }
+  interface Conference {
+    className: string | undefined
+    teacher: string | undefined
+    name: string
+    meetingUri: string
+    meetingCode: string | null | undefined
+    startTime: string
+  }
 }
 
 export {}
