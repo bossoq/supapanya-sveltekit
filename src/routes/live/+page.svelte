@@ -19,6 +19,7 @@
   let autoRefresh: NodeJS.Timeout
   let isRefreshing = false
   $: countdown = 5
+  let timeout: NodeJS.Timeout | null
 
   onMount(async () => {
     autoRefresh = setInterval(async () => {
@@ -97,11 +98,12 @@
             message: 'สร้างห้องเรียนสำเร็จ'
           }
         ])
-        const timeout = setInterval(() => {
+        timeout = setInterval(() => {
           countdown = countdown - 1
           if (countdown === 0) {
-            window.open(meetingUri, '_blank')
-            clearInterval(timeout)
+            if (modalViewed) window.open(meetingUri, '_blank')
+            if (timeout) clearInterval(timeout)
+            timeout = null
             isCreated = false
             countdown = 5
             modalViewed = false
@@ -131,7 +133,18 @@
         await refreshData()
       }, 3 * 1000)
       isCreating = false
+      selected = []
+      selectedStudents = []
+      className = ''
     }
+  }
+  const handleLink = () => {
+    if (timeout) clearInterval(timeout)
+    window.open(meetingUri, '_blank')
+    timeout = null
+    isCreated = false
+    countdown = 5
+    modalViewed = false
   }
 
   const getElapseTime = (startTime: string) => {
@@ -182,13 +195,13 @@
         />
         {#if isCreated}
           <p class="text-gray-600">ห้องเรียนถูกสร้างเรียบร้อยแล้ว</p>
-          <a
-            href={meetingUri}
-            target="_blank"
-            class="text-center p-2 my-2 text-md md:text-lg text-white bg-blue-500 hover:bg-blue-700 rounded-lg transition-all ease-in-out duration-200"
+          <button
+            type="button"
+            class="p-2 my-2 text-md md:text-lg text-white bg-blue-500 hover:bg-blue-700 rounded-lg transition-all ease-in-out duration-200 disabled:cursor-not-allowed"
+            onclick={handleLink}
           >
             เข้าห้องเรียนภายใน {countdown} วินาที (คลิกเพื่อเข้าห้องเรียนทันที)
-          </a>
+          </button>
         {:else}
           <button
             type="submit"
