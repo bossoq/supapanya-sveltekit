@@ -1,10 +1,13 @@
 <script lang="ts">
   import '../app.css'
+  import { injectAnalytics } from '@vercel/analytics/sveltekit'
+  import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit'
   import Head from '$lib/components/Head.svelte'
   import Header from '$lib/components/Header.svelte'
   import Footer from '$lib/components/Footer.svelte'
   import ToastNotify from '$lib/components/ToastNotify.svelte'
   import { darkTheme, toastsList } from '$lib/store'
+  import { dev } from '$app/environment'
   import { PUBLIC_GOOGLE_ANALYTICS } from '$env/static/public'
   import type { LayoutData } from './$types'
 
@@ -22,6 +25,8 @@
 
   export let data: LayoutData
   const userData = data.user
+  injectAnalytics({ mode: dev ? 'development' : 'production'})
+  injectSpeedInsights()
 </script>
 
 <Head {title} {description} {url} {imageUrl} {gtagId} {cfToken} />
