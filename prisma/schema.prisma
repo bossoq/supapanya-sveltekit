@@ -14,7 +14,6 @@ model postTable {
   authorId                 BigInt    @default(1)
   postDate                 DateTime  @default(now()) @db.Timestamp(6)
   postTitle                String
-  postContentBak           String?
   postContent              Json
   postExcerpt              String?
   postStatus               String
