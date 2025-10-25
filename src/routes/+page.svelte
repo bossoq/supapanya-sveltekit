@@ -50,7 +50,7 @@
   {/if}
   <div class="container flex">
     <div
-      class="flex w-full justify-center items-center h-[430px] bg-[url('/images/home.jpg')] bg-[100%_12%] bg-cover"
+      class="flex w-full justify-center items-center h-[430px] bg-[url('/images/home.jpg')] bg-[100%_12%] bg-cover grayscale"
     >
       <div class="flex flex-col justify-center items-center h-full w-full gap-2">
         <h1

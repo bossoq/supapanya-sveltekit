@@ -25,14 +25,14 @@
 
   export let data: LayoutData
   const userData = data.user
-  injectAnalytics({ mode: dev ? 'development' : 'production'})
+  injectAnalytics({ mode: dev ? 'development' : 'production' })
   injectSpeedInsights()
 </script>
 
 <Head {title} {description} {url} {imageUrl} {gtagId} {cfToken} />
 <div class="{$darkTheme && themeEnabler ? 'dark' : ''} w-full h-screen flex flex-col">
   <Header {themeIcons} {themeEnabler} {userData} />
-  <main class="overflow-y-scroll hide-scrollbar">
+  <main id="main" class="overflow-y-scroll hide-scrollbar">
     <ToastNotify {toastsList} />
     <slot />
   </main>

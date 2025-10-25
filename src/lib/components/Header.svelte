@@ -153,7 +153,7 @@
   ]
 </script>
 
-<header class="w-full sticky top-0">
+<header class="w-full sticky top-0 z-[9999]">
   <div class="flex w-full h-8 sm:h-10 bg-blue-light-key text-white justify-center items-center">
     <div class="flex flex-row gap-6 container w-full items-center">
       <div id="top-bar-left" class="flex flex-row gap-6 mr-auto items-center">
@@ -301,7 +301,7 @@
                 </p>
                 {#if id && showNav[id - 1] && dropdown}
                   <div
-                    class="text-left md:text-center z-20 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
+                    class="text-left md:text-center z-[9999] px-2 md:p-0 w-full md:absolute md:top-[calc(2rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
                     transition:slide
                   >
                     <ul class="pb-2">

@@ -79,3 +79,17 @@
 .tiptap a:hover {
   color: unset;
 }
+
+header,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+img,
+svg,
+button {
+  filter: grayscale(1);
+}
