@@ -27,6 +27,36 @@
     currentId = id
     dispatch('changeSrc', { id })
   }
+  const videoUrlToDateTime = (url: string): string => {
+    const datetimeMatch = url.match(/IKVideo_(\d{14})/)
+    if (datetimeMatch) {
+      const datetimeString = datetimeMatch[1]
+      const pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/
+      const datetimeObj = new Date(datetimeString.replace(pattern, '$1-$2-$3T$4:$5:$6Z'))
+      return datetimeObj
+        .toLocaleString('th-TH', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        })
+        .replace(' เวลา', '')
+    }
+    const dateMatch = url.match(/IKVideo_(\d{8})/)
+    if (dateMatch) {
+      const dateString = dateMatch[1]
+      const pattern = /(\d{4})(\d{2})(\d{2})/
+      const datetimeObj = new Date(dateString.replace(pattern, '$1-$2-$3T00:00:00'))
+      return datetimeObj.toLocaleDateString('th-TH', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    }
+    return ''
+  }
 </script>
 
 <section class="flex flex-col border-2 border-gray-100 p-2 shadow rounded w-full h-full">
@@ -59,11 +89,14 @@
             class="object-cover aspect-video w-36 md:w-24 lg:w-32 xl:w-36"
             loading="lazy"
           />
-          <h2
-            class="text-sm md:text-sm lg:text-md xl:text-lg text-gray-800 font-medium p-0 md:py-2"
-          >
-            {video.title}
-          </h2>
+          <section class="flex flex-col p-0 md:py-2">
+            <h2 class="text-sm md:text-sm lg:text-md xl:text-lg text-gray-800 font-medium">
+              {video.title}
+            </h2>
+            <p class="text-sm md:text-sm lg:text-md xl:text-lg text-gray-700 font-thin">
+              {videoUrlToDateTime(video.url)}
+            </p>
+          </section>
         </div>
       </button>
     {/each}
