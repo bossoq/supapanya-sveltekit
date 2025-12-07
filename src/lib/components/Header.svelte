@@ -301,7 +301,7 @@
                 </p>
                 {#if id && showNav[id - 1] && dropdown}
                   <div
-                    class="text-left md:text-center z-[9999] px-2 md:p-0 w-full md:absolute md:top-[calc(2rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
+                    class="text-left md:text-center z-[9999] px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
                     transition:slide
                   >
                     <ul class="pb-2">

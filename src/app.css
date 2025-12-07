@@ -80,7 +80,7 @@
   color: unset;
 }
 
-header,
+/* header,
 h1,
 h2,
 h3,
@@ -92,4 +92,4 @@ img,
 svg,
 button {
   filter: grayscale(1);
-}
+} */
