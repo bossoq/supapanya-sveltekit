@@ -27,7 +27,10 @@ export const load: PageServerLoad = async ({ locals }) => {
   })
   return {
     props: {
-      blogs: blogs
+      blogs: blogs.map((blog) => ({
+        ...blog,
+        id: Number(blog.id)
+      }))
     },
     user: locals.user
   }

@@ -1,21 +1,14 @@
-import jwt from 'jwt-simple'
 import { json } from '@sveltejs/kit'
 import { PrismaClient } from '@prisma/client'
-import { JWT_SECRET } from '$env/static/private'
 import type { RequestHandler } from './$types'
 
-export const POST: RequestHandler = async ({ cookies, request }) => {
-  const accessToken = cookies.get('accessToken')
-  if (!accessToken || accessToken === null) {
+export const POST: RequestHandler = async ({ request, locals }) => {
+  const user = locals.user
+  if (!user) {
     return json({ success: false, message: 'Unauthorized' }, { status: 401 })
   }
-  try {
-    const decrypted = jwt.decode(accessToken, JWT_SECRET, false, 'HS256') as UserInfo
-    if (!decrypted.meta.isAdmin) {
-      return json({ success: false, message: 'Forbidden' }, { status: 403 })
-    }
-  } catch (e) {
-    return json({ success: false, message: 'Unauthorized' }, { status: 401 })
+  if (!user.meta.isAdmin) {
+    return json({ success: false, message: 'Forbidden' }, { status: 403 })
   }
 
   const data = await request.json()
@@ -30,7 +23,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
       postStatus: 'publish'
     },
     data: {
-      postStatus: 'archive'
+      postStatus: 'archived'
     }
   })
   const review = await prisma.postTable.create({
@@ -46,5 +39,5 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
       postContent: true
     }
   })
-  return json({ success: true, message: 'Course updated', review })
+  return json({ success: true, message: 'Review updated', review })
 }
