@@ -16,7 +16,9 @@ const publicPaths = [
 const adminPaths = ['/register', '/vodedit', '/vodlist']
 
 const isPathAllowed = (path: string) => {
-  return publicPaths.includes(path) || publicPaths.some((publicPath) => path.startsWith(publicPath))
+  return publicPaths.some(
+    (publicPath) => path === publicPath || (publicPath !== '/' && path.startsWith(publicPath + '/'))
+  )
 }
 
 export const handle: Handle = async ({ event, resolve }) => {

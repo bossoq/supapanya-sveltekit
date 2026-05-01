@@ -5,11 +5,32 @@ import { PrismaClient } from '@prisma/client'
 import type { Actions } from './$types'
 import { JWT_SECRET } from '$env/static/private'
 
+// In-memory rate limiter: max 5 attempts per IP per 15 minutes
+const attempts = new Map<string, { count: number; resetAt: number }>()
+const MAX_ATTEMPTS = 5
+const WINDOW_MS = 15 * 60 * 1000
+
+const checkRateLimit = (ip: string): boolean => {
+  const now = Date.now()
+  const entry = attempts.get(ip)
+  if (!entry || now > entry.resetAt) {
+    attempts.set(ip, { count: 1, resetAt: now + WINDOW_MS })
+    return true
+  }
+  if (entry.count >= MAX_ATTEMPTS) return false
+  entry.count++
+  return true
+}
+
+const clearAttempts = (ip: string) => attempts.delete(ip)
+
 export const actions = {
-  default: async ({ cookies, request }) => {
-    if (request.method !== 'POST') {
-      return fail(405, { message: 'Method not allowed' })
+  default: async ({ cookies, request, getClientAddress }) => {
+    const ip = getClientAddress()
+    if (!checkRateLimit(ip)) {
+      return fail(429, { message: 'Too many login attempts. Please try again later.' })
     }
+
     const data = await request.formData()
     const username = data.get('username')
     const password = data.get('password')
@@ -34,6 +55,7 @@ export const actions = {
     if (user.authorised) {
       const match = await bcrypt.compare(password.toString(), user.userPassword)
       if (match) {
+        clearAttempts(ip)
         const userData = {
           id: Number(user.id),
           userLogin: user.userLogin,

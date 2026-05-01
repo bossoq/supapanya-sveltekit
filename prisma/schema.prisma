@@ -36,16 +36,27 @@ model userTable {
   posts                    postTable[]
   postTable_postModifiedBy postTable[]    @relation("postModifiedBy")
   videoProcess_teacher     videoProcess[]
+  videoAccess              videoAccess[]
 }
 
 model videoTable {
-  id        BigInt   @id(map: "videoTable1_pkey") @default(autoincrement())
-  name      String
-  baseUrl   String
-  type      String
-  allowAll  Boolean? @default(true)
-  allowList Json?
-  fileType  String   @default("HLS")
+  id          BigInt        @id(map: "videoTable1_pkey") @default(autoincrement())
+  name        String
+  baseUrl     String
+  type        String
+  allowAll    Boolean?      @default(true)
+  fileType    String        @default("HLS")
+  videoAccess videoAccess[]
+}
+
+model videoAccess {
+  id      BigInt     @id @default(autoincrement())
+  videoId BigInt
+  userId  BigInt
+  video   videoTable @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  user    userTable  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([videoId, userId])
 }
 
 model videoProcess {

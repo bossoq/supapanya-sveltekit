@@ -1,21 +1,17 @@
 import sharp from 'sharp'
-import jwt from 'jwt-simple'
 import { json } from '@sveltejs/kit'
-import { JWT_SECRET } from '$env/static/private'
 import type { RequestHandler } from './$types'
 
-export const POST: RequestHandler = async ({ cookies, request }) => {
-  const accessToken = cookies.get('accessToken')
-  if (!accessToken || accessToken === null) {
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+const MAX_SIZE_BYTES = 10 * 1024 * 1024 // 10 MB
+
+export const POST: RequestHandler = async ({ request, locals }) => {
+  const user = locals.user
+  if (!user) {
     return json({ success: false, message: 'Unauthorized' }, { status: 401 })
   }
-  try {
-    const decrypted = jwt.decode(accessToken, JWT_SECRET, false, 'HS256') as UserInfo
-    if (!decrypted.meta.isAdmin) {
-      return json({ success: false, message: 'Forbidden' }, { status: 403 })
-    }
-  } catch (e) {
-    return json({ success: false, message: 'Unauthorized' }, { status: 401 })
+  if (!user.meta.isAdmin) {
+    return json({ success: false, message: 'Forbidden' }, { status: 403 })
   }
 
   const data = await request.formData()
@@ -26,6 +22,12 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   const imageType = data.get('imageType')?.valueOf() as string | null
   if (!image || !imageType) {
     return json({ success: false, message: 'No image or image type provided' }, { status: 400 })
+  }
+  if (!ALLOWED_TYPES.includes(image.type)) {
+    return json({ success: false, message: 'Invalid image type' }, { status: 400 })
+  }
+  if (image.size > MAX_SIZE_BYTES) {
+    return json({ success: false, message: 'Image exceeds 10 MB limit' }, { status: 400 })
   }
   const imageBuffer = Buffer.from(await image.arrayBuffer())
   const resizedImage = await resizeImage(imageBuffer, imageType)

@@ -37,13 +37,13 @@ Prisma with PostgreSQL. Schema at `prisma/schema.prisma`. Key tables:
 - `videoTable` — HLS/MP4 video metadata
 - `videoProcess` — classroom session recordings
 
-Env vars needed: `DATABASE_URL`, `DIRECT_URL` (for migrations).
+Env vars needed: `DATABASE_URL`, `DIRECT_URL` (for migrations). Google Meet classroom features also require `SERVICE_CLIENT_EMAIL`, `SERVICE_PRIVATE_KEY`, `SERVICE_SUBJECT`, and `PUBSUB_TOPIC` (Google Cloud Pub/Sub topic for recording events).
 
 ### Routes and API
 
 Page routes under `src/routes/` follow SvelteKit file conventions (`+page.svelte`, `+page.server.ts`, `+layout.server.ts`). Server-side data loading uses Prisma directly — there is no separate backend service.
 
-API endpoints at `src/routes/api/` handle mutations (blog CRUD, image processing, classroom management). They read the JWT cookie directly and verify auth before acting.
+API endpoints at `src/routes/api/` handle mutations (blog CRUD, image processing, classroom management). They use `event.locals.user` (populated by `hooks.server.ts`) for auth — do not re-decode the JWT cookie in handlers.
 
 ### Content and Media
 
