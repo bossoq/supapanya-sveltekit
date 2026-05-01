@@ -1,15 +1,56 @@
-# Simple Sveltekit Template
+# Supapanya SvelteKit
 
-Build a web app with Sveltekit, quickly.
+A full-stack web application for content management, video streaming, and online classroom delivery.
+
+## Stack
+
+- **SvelteKit 2 + Svelte 5** with TypeScript
+- **PostgreSQL** via Prisma ORM
+- **Tailwind CSS** with dark mode support
+- **TipTap** rich text editor
+- **vidstack + HLS.js** for video playback
+- **JWT** authentication with HTTP-only cookies
 
 ## Setup
 
-- Clone/fork this repository
-- `yarn` or `npm install`
-- `yarn dev` or `npm run dev`
+```bash
+# Install dependencies
+yarn
 
-## What's included
+# Configure environment variables
+cp .env.example .env  # then fill in values
 
-- Sveltekit (TypeScript), built with [Vite](https://vitejs.dev)
-- Tailwind.css using [Tailwind](https://tailwindcss.com)
-- [Ko-fi](https://ko-fi.com)
+# Run database migrations
+npx prisma migrate dev
+
+# Start development server
+yarn dev
+```
+
+## Environment Variables
+
+| Variable | Description |
+|---|---|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `DIRECT_URL` | PostgreSQL direct connection (for migrations) |
+| `JWT_SECRET` | Secret key for signing JWT tokens |
+
+## Commands
+
+```bash
+yarn dev          # Start development server
+yarn build        # Production build
+yarn preview      # Preview production build
+yarn check        # Type-check
+yarn lint         # Check formatting and linting
+yarn format       # Auto-fix formatting
+```
+
+## Features
+
+- **Blog** — CRUD with rich text editor (TipTap), image upload and processing
+- **Courses** — Rich content delivery with video playlists
+- **Video on Demand** — HLS and MP4 streaming with multi-resolution support
+- **Live Classroom** — Session recording and participant tracking
+- **Authentication** — Role-based access (admin / user) with bcrypt password hashing
+- **Dark Mode** — Persisted to localStorage
