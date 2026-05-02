@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/postgres' }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET || 'dummy_secret_for_ci' }}
+      SERVICE_CLIENT_EMAIL: ${{ secrets.SERVICE_CLIENT_EMAIL || 'dummy@ci.com' }}
+      SERVICE_PRIVATE_KEY: ${{ secrets.SERVICE_PRIVATE_KEY || 'dummy_key' }}
+      SERVICE_SUBJECT: ${{ secrets.SERVICE_SUBJECT || 'dummy@ci.com' }}
+      PUBSUB_TOPIC: ${{ secrets.PUBSUB_TOPIC || 'dummy_topic' }}
+      PUBLIC_GOOGLE_ANALYTICS: ${{ secrets.PUBLIC_GOOGLE_ANALYTICS || 'G-DUMMY' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        run: yarn prisma generate
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Type check
+        run: yarn run check
+
+      - name: Run tests
+
+        run: yarn test
+
+      - name: Build
+        run: yarn build

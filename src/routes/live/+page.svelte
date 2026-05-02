@@ -119,7 +119,7 @@
           }
         ])
       }
-    } catch (error) {
+    } catch (_error) {
       toastsList.update((toasts) => [
         ...toasts,
         {
@@ -184,8 +184,8 @@
           options={students.map((student) => student.displayName)}
           placeholder="เลือกนักเรียน"
           bind:selected
-          on:change={(e) => {
-            if (e.detail.type === 'removeAll') selectedStudents = []
+          onchange={(e) => {
+            if (e.type === 'removeAll') selectedStudents = []
             else
               selectedStudents = students.filter((student) =>
                 selected.includes(student.displayName)

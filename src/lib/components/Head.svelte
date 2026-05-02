@@ -9,9 +9,9 @@
   export let cfToken: object | null
 
   $: {
-    // @ts-ignore
+    // @ts-expect-error gtag is defined in the script below
     if (typeof gtag !== 'undefined' && gtagId) {
-      // @ts-ignore
+      // @ts-expect-error gtag is defined in the script below
       gtag('config', gtagId, {
         page_title: document.title,
         page_path: $page.url.pathname

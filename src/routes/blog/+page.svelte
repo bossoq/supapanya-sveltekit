@@ -8,7 +8,7 @@
   const { user, props } = data
   let modalViewed = false
   let blogIdDelete: number | null = null
-  $: !modalViewed && (blogIdDelete = null)
+  $: if (!modalViewed) blogIdDelete = null
 
   const handleDeleteButton = (e: Event, id: number) => {
     e.preventDefault()

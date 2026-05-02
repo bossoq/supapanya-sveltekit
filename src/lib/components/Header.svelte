@@ -12,7 +12,11 @@
 
   onMount(() => {
     const mql = window.matchMedia('(min-width: 768px)')
-    mql.matches ? (mobileMenu = false) : (mobileMenu = true)
+    if (mql.matches) {
+      mobileMenu = false
+    } else {
+      mobileMenu = true
+    }
     mql.addEventListener('change', (e) => {
       if (e.matches) {
         mobileMenu = false
@@ -96,7 +100,7 @@
       name: 'ห้องเรียน',
       type: 'dropdown',
       id: 3,
-      show: Boolean(userData),
+      show: !!userData,
       dropdown: [
         {
           name: 'ห้องเรียนออนไลน์',
@@ -114,7 +118,7 @@
       name: 'ออกจากระบบ',
       type: 'link',
       link: '/logout',
-      show: Boolean(userData),
+      show: !!userData,
       click: (e: Event) => {
         e.preventDefault()
         userData = null
@@ -125,13 +129,13 @@
       name: 'เข้าสู่ระบบ',
       type: 'link',
       link: '/login',
-      show: !Boolean(userData)
+      show: !userData
     },
     {
       name: 'Admin',
       type: 'dropdown',
       id: 4,
-      show: Boolean(userData) && Boolean(userData?.meta.isAdmin),
+      show: !!userData && !!userData?.meta.isAdmin,
       dropdown: [
         {
           name: 'Register',

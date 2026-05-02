@@ -21,10 +21,7 @@ export const load: PageServerLoad = async ({ locals }) => {
       ? { type: 'vod' }
       : {
           type: 'vod',
-          OR: [
-            { allowAll: true },
-            { videoAccess: { some: { userId: user.id } } }
-          ]
+          OR: [{ allowAll: true }, { videoAccess: { some: { userId: user.id } } }]
         }
   })
   return {

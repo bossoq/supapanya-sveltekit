@@ -2,7 +2,12 @@ import { json } from '@sveltejs/kit'
 import { PrismaClient } from '@prisma/client'
 import { JWT } from 'google-auth-library'
 import { SpacesServiceClient } from '@google-apps/meet'
-import { PUBSUB_TOPIC, SERVICE_CLIENT_EMAIL, SERVICE_PRIVATE_KEY, SERVICE_SUBJECT } from '$env/static/private'
+import {
+  PUBSUB_TOPIC,
+  SERVICE_CLIENT_EMAIL,
+  SERVICE_PRIVATE_KEY,
+  SERVICE_SUBJECT
+} from '$env/static/private'
 import type { RequestHandler } from './$types'
 
 export const POST: RequestHandler = async ({ request, locals }) => {
@@ -44,7 +49,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
         className
       }
     })
-  } catch (e) {
+  } catch (_e) {
     return json({ message: 'Failed to create space' }, { status: 500 })
   }
   return json({
