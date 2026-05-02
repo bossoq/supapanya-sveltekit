@@ -100,10 +100,17 @@ export const actions = {
       return fail(400, { message: 'All fields are required' })
     }
 
+    const userIds = (data.getAll('userId') as string[]).map(Number).filter(Boolean)
+
     const prisma = new PrismaClient()
-    await prisma.videoTable.create({
+    const created = await prisma.videoTable.create({
       data: { name, baseUrl, fileType, allowAll, type: 'vod' }
     })
+    if (!allowAll && userIds.length > 0) {
+      await prisma.videoAccess.createMany({
+        data: userIds.map((userId) => ({ videoId: created.id, userId: BigInt(userId) }))
+      })
+    }
     return { success: true }
   },
 

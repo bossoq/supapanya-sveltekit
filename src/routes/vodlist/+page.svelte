@@ -13,6 +13,20 @@
 
   const emptyNew = () => ({ name: '', baseUrl: '', fileType: 'HLS', allowAll: true })
   let newVideo = emptyNew()
+  let newVideoUsers: typeof data.users = []
+  let newVideoSelectId = ''
+
+  $: newVideoAvailable = data.users.filter((u) => !newVideoUsers.some((v) => v.id === u.id))
+
+  function addNewVideoUser() {
+    const id = Number(newVideoSelectId)
+    const user = data.users.find((u) => u.id === id)
+    if (user) { newVideoUsers = [...newVideoUsers, user]; newVideoSelectId = '' }
+  }
+
+  function removeNewVideoUser(userId: number) {
+    newVideoUsers = newVideoUsers.filter((u) => u.id !== userId)
+  }
 
   let search = ''
   let sortCol = 'id'
@@ -136,7 +150,7 @@
       <span class="text-sm text-gray-400 whitespace-nowrap">{sorted.length} รายการ</span>
       <button
         type="button"
-        on:click={() => { newVideo = emptyNew(); creating = true }}
+        on:click={() => { newVideo = emptyNew(); newVideoUsers = []; newVideoSelectId = ''; creating = true }}
         class="ml-auto text-sm px-4 py-2 rounded-lg bg-teal-500 text-white hover:bg-teal-700 transition-colors whitespace-nowrap"
       >
         + เพิ่ม VOD
@@ -526,6 +540,62 @@
             >เปิดให้ทุกคนดู</label
           >
         </div>
+
+        {#if !newVideo.allowAll}
+          <div class="border-t border-gray-100 pt-4 flex flex-col gap-3">
+            <p class="text-sm font-medium text-gray-700">ผู้ที่เข้าถึงได้</p>
+
+            {#each newVideoUsers as user (user.id)}
+              <input type="hidden" name="userId" value={user.id} />
+            {/each}
+
+            {#if newVideoUsers.length === 0}
+              <p class="text-sm text-gray-400 italic">ยังไม่มีผู้ใช้ที่เข้าถึงได้</p>
+            {:else}
+              <div class="flex flex-col gap-1 max-h-40 overflow-y-auto">
+                {#each newVideoUsers as user (user.id)}
+                  <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                    <span class="text-sm text-gray-700">
+                      {user.displayName}
+                      <span class="text-xs text-gray-400">(@{user.userLogin})</span>
+                    </span>
+                    <button
+                      type="button"
+                      on:click={() => removeNewVideoUser(user.id)}
+                      class="text-xs text-red-400 hover:text-red-600 transition-colors ml-4"
+                    >
+                      ลบ
+                    </button>
+                  </div>
+                {/each}
+              </div>
+            {/if}
+
+            {#if newVideoAvailable.length > 0}
+              <div class="flex gap-2">
+                <select
+                  bind:value={newVideoSelectId}
+                  class="flex-1 bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+                >
+                  <option value="">-- เลือกผู้ใช้ --</option>
+                  {#each newVideoAvailable as user (user.id)}
+                    <option value={user.id}>{user.displayName} (@{user.userLogin})</option>
+                  {/each}
+                </select>
+                <button
+                  type="button"
+                  on:click={addNewVideoUser}
+                  disabled={!newVideoSelectId}
+                  class="px-3 py-2 rounded-lg text-sm font-medium text-white bg-teal-500 hover:bg-teal-700 disabled:opacity-40 transition-colors whitespace-nowrap"
+                >
+                  เพิ่มสิทธิ์
+                </button>
+              </div>
+            {:else}
+              <p class="text-xs text-gray-400">ผู้ใช้ทุกคนได้รับสิทธิ์แล้ว</p>
+            {/if}
+          </div>
+        {/if}
 
         <div class="flex justify-end gap-3 pt-2 border-t border-gray-100">
           <button
