@@ -48,7 +48,7 @@
   "type": "module",
   "dependencies": {
     "@google-apps/meet": "^0.3.0",
-    "@prisma/client": "^5.21.1",
+    "@prisma/client": "^7.8.0",
     "@tiptap/core": "^2.9.1",
     "@tiptap/extension-bubble-menu": "^2.9.1",
     "@tiptap/extension-focus": "^2.9.1",
@@ -70,7 +70,7 @@
     "hls.js": "^1.5.17",
     "jwt-simple": "^0.5.6",
     "media-icons": "^1.1.5",
-    "prisma": "^5.21.1",
+    "prisma": "^7.8.0",
     "remixicon": "^4.4.0",
     "sharp": "^0.33.5",
     "svelte-flatpickr": "^3.3.4",
