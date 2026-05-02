@@ -9,6 +9,7 @@ A full-stack web application for content management, video streaming, and online
 - **Tailwind CSS** with dark mode support
 - **TipTap** rich text editor
 - **vidstack + HLS.js** for video playback
+- **Vitest** for unit and component testing
 - **JWT** authentication with HTTP-only cookies
 
 ## Setup
@@ -48,7 +49,14 @@ yarn preview      # Preview production build
 yarn check        # Type-check
 yarn lint         # Check formatting and linting
 yarn format       # Auto-fix formatting
+yarn test         # Run unit tests with Vitest
+yarn test:watch   # Run tests in watch mode
 ```
+
+## Testing & CI
+
+- **Unit Testing**: Powered by Vitest and JSDOM. Tests are located alongside source files (e.g., `*.test.ts`).
+- **CI Workflow**: A GitHub Actions workflow (`ci.yml`) automatically runs linting, type-checking, tests, and builds on every push to `main` or `master`.
 
 ## Features
 
