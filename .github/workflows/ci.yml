@@ -12,6 +12,11 @@ jobs:
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/postgres' }}
       JWT_SECRET: ${{ secrets.JWT_SECRET || 'dummy_secret_for_ci' }}
+      SERVICE_CLIENT_EMAIL: ${{ secrets.SERVICE_CLIENT_EMAIL || 'dummy@ci.com' }}
+      SERVICE_PRIVATE_KEY: ${{ secrets.SERVICE_PRIVATE_KEY || 'dummy_key' }}
+      SERVICE_SUBJECT: ${{ secrets.SERVICE_SUBJECT || 'dummy@ci.com' }}
+      PUBSUB_TOPIC: ${{ secrets.PUBSUB_TOPIC || 'dummy_topic' }}
+      PUBLIC_GOOGLE_ANALYTICS: ${{ secrets.PUBLIC_GOOGLE_ANALYTICS || 'G-DUMMY' }}
 
     steps:
       - uses: actions/checkout@v4
