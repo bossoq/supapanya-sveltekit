@@ -7,18 +7,47 @@ export const load: PageServerLoad = async ({ locals }) => {
   if (!locals.user.meta.isAdmin) error(403, 'Forbidden')
 
   const prisma = new PrismaClient()
-  const videos = await prisma.videoTable.findMany({
-    where: { type: 'vod' },
-    orderBy: { id: 'asc' },
-    select: { id: true, name: true, baseUrl: true, fileType: true, allowAll: true }
-  })
+  const [videos, users] = await Promise.all([
+    prisma.videoTable.findMany({
+      where: { type: 'vod' },
+      orderBy: { id: 'asc' },
+      select: {
+        id: true,
+        name: true,
+        baseUrl: true,
+        fileType: true,
+        allowAll: true,
+        videoAccess: {
+          select: {
+            userId: true,
+            user: { select: { displayName: true, userLogin: true } }
+          }
+        }
+      }
+    }),
+    prisma.userTable.findMany({
+      orderBy: { displayName: 'asc' },
+      select: { id: true, displayName: true, userLogin: true }
+    })
+  ])
+
   return {
     videos: videos.map((v) => ({
       id: Number(v.id),
       name: v.name,
       baseUrl: v.baseUrl,
       fileType: v.fileType,
-      allowAll: v.allowAll ?? true
+      allowAll: v.allowAll ?? true,
+      videoAccess: v.videoAccess.map((a) => ({
+        userId: Number(a.userId),
+        displayName: a.user.displayName,
+        userLogin: a.user.userLogin
+      }))
+    })),
+    users: users.map((u) => ({
+      id: Number(u.id),
+      displayName: u.displayName,
+      userLogin: u.userLogin
     }))
   }
 }
@@ -55,6 +84,38 @@ export const actions = {
 
     const prisma = new PrismaClient()
     await prisma.videoTable.delete({ where: { id: BigInt(id) } })
+    return { success: true }
+  },
+
+  addAccess: async ({ locals, request }) => {
+    if (!locals.user?.meta.isAdmin) return fail(403, { message: 'Forbidden' })
+
+    const data = await request.formData()
+    const videoId = Number(data.get('videoId'))
+    const userId = Number(data.get('userId'))
+    if (!videoId || !userId) return fail(400, { message: 'Missing fields' })
+
+    const prisma = new PrismaClient()
+    await prisma.videoAccess.upsert({
+      where: { videoId_userId: { videoId: BigInt(videoId), userId: BigInt(userId) } },
+      create: { videoId: BigInt(videoId), userId: BigInt(userId) },
+      update: {}
+    })
+    return { success: true }
+  },
+
+  removeAccess: async ({ locals, request }) => {
+    if (!locals.user?.meta.isAdmin) return fail(403, { message: 'Forbidden' })
+
+    const data = await request.formData()
+    const videoId = Number(data.get('videoId'))
+    const userId = Number(data.get('userId'))
+    if (!videoId || !userId) return fail(400, { message: 'Missing fields' })
+
+    const prisma = new PrismaClient()
+    await prisma.videoAccess.deleteMany({
+      where: { videoId: BigInt(videoId), userId: BigInt(userId) }
+    })
     return { success: true }
   }
 } satisfies Actions
