@@ -142,11 +142,6 @@
           name: 'Video List',
           type: 'link',
           link: '/vodlist'
-        },
-        {
-          name: 'Add Video',
-          type: 'link',
-          link: '/vodedit'
         }
       ]
     }
