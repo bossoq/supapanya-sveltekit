@@ -9,6 +9,10 @@
 
   $: videos = data.videos
   let editing: Video | null = null
+  let creating = false
+
+  const emptyNew = () => ({ name: '', baseUrl: '', fileType: 'HLS', allowAll: true })
+  let newVideo = emptyNew()
 
   let search = ''
   let sortCol = 'id'
@@ -130,6 +134,13 @@
         class="w-full max-w-sm bg-gray-50 border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
       />
       <span class="text-sm text-gray-400 whitespace-nowrap">{sorted.length} รายการ</span>
+      <button
+        type="button"
+        on:click={() => { newVideo = emptyNew(); creating = true }}
+        class="ml-auto text-sm px-4 py-2 rounded-lg bg-teal-500 text-white hover:bg-teal-700 transition-colors whitespace-nowrap"
+      >
+        + เพิ่ม VOD
+      </button>
     </div>
 
     <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
@@ -429,6 +440,109 @@
           </button>
         </div>
       </div>
+    </div>
+  </div>
+{/if}
+
+{#if creating}
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="w-full max-w-lg bg-white rounded-xl shadow-xl p-6 flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-gray-800">เพิ่ม VOD ใหม่</h2>
+        <button
+          type="button"
+          on:click={() => (creating = false)}
+          class="text-gray-400 hover:text-gray-700 text-xl leading-none"
+          aria-label="ปิด"
+        >
+          &times;
+        </button>
+      </div>
+
+      <form
+        method="post"
+        action="?/create"
+        use:enhance={() =>
+          async ({ update }) => {
+            await update({ reset: false })
+            creating = false
+          }}
+        class="flex flex-col gap-4"
+      >
+        <div>
+          <label for="new-name" class="block mb-1 text-sm font-medium text-gray-700">ชื่อ</label>
+          <input
+            type="text"
+            id="new-name"
+            name="name"
+            bind:value={newVideo.name}
+            required
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="new-baseUrl" class="block mb-1 text-sm font-medium text-gray-700"
+            >Base URL</label
+          >
+          <input
+            type="text"
+            id="new-baseUrl"
+            name="baseUrl"
+            bind:value={newVideo.baseUrl}
+            required
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm font-mono focus:ring-teal-500 focus:border-teal-500 outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="new-fileType" class="block mb-1 text-sm font-medium text-gray-700"
+            >ประเภทไฟล์</label
+          >
+          <select
+            id="new-fileType"
+            name="fileType"
+            bind:value={newVideo.fileType}
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+          >
+            <option value="HLS">HLS</option>
+            <option value="MP4">MP4</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input
+            type="checkbox"
+            id="new-allowAll"
+            name="allowAll"
+            bind:checked={newVideo.allowAll}
+            class="w-4 h-4 rounded accent-teal-500"
+          />
+          <label for="new-allowAll" class="text-sm font-medium text-gray-700"
+            >เปิดให้ทุกคนดู</label
+          >
+        </div>
+
+        <div class="flex justify-end gap-3 pt-2 border-t border-gray-100">
+          <button
+            type="button"
+            on:click={() => (creating = false)}
+            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors"
+          >
+            ยกเลิก
+          </button>
+          <button
+            type="submit"
+            class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-teal-500 hover:bg-teal-700 transition-colors"
+          >
+            บันทึก
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 {/if}

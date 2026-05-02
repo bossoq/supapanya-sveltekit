@@ -87,6 +87,26 @@ export const actions = {
     return { success: true }
   },
 
+  create: async ({ locals, request }) => {
+    if (!locals.user?.meta.isAdmin) return fail(403, { message: 'Forbidden' })
+
+    const data = await request.formData()
+    const name = data.get('name')?.toString().trim()
+    const baseUrl = data.get('baseUrl')?.toString().trim()
+    const fileType = data.get('fileType')?.toString().trim()
+    const allowAll = data.get('allowAll') === 'on'
+
+    if (!name || !baseUrl || !fileType) {
+      return fail(400, { message: 'All fields are required' })
+    }
+
+    const prisma = new PrismaClient()
+    await prisma.videoTable.create({
+      data: { name, baseUrl, fileType, allowAll, type: 'vod' }
+    })
+    return { success: true }
+  },
+
   addAccess: async ({ locals, request }) => {
     if (!locals.user?.meta.isAdmin) return fail(403, { message: 'Forbidden' })
 
