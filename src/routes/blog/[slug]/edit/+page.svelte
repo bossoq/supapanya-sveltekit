@@ -160,6 +160,7 @@
           name="postDate"
           bind:value={blog.postDate}
           options={dateOptions}
+          children={undefined}
         />
       </div>
       <div class="w-full flex flex-col gap-2 justify-center">
