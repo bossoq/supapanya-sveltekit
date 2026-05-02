@@ -32,6 +32,7 @@ Passwords are hashed with `bcryptjs`. Login/logout live at `/login` and `/logout
 ### Database
 
 Prisma with PostgreSQL. Schema at `prisma/schema.prisma`. Key tables:
+
 - `userTable` — users with a `meta` JSON column holding `{ isAdmin, role, live }`
 - `postTable` — blog posts and course content; `postContent` is TipTap JSON; `postType` distinguishes `'blog'` from `'course'`
 - `videoTable` — HLS/MP4 video metadata
@@ -54,6 +55,7 @@ API endpoints at `src/routes/api/` handle mutations (blog CRUD, image processing
 ### Stores
 
 `src/lib/store.ts` exports two stores:
+
 - `darkTheme` — boolean, persisted to localStorage
 - `toastsList` — array of toast notifications consumed by `ToastNotify.svelte`
 

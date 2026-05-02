@@ -32,6 +32,7 @@
 </script>
 
 <div class="w-full text-gray-800">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html generateHTML(content, [
     StarterKit.configure({
       codeBlock: false,

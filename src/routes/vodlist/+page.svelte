@@ -21,7 +21,10 @@
   function addNewVideoUser() {
     const id = Number(newVideoSelectId)
     const user = data.users.find((u) => u.id === id)
-    if (user) { newVideoUsers = [...newVideoUsers, user]; newVideoSelectId = '' }
+    if (user) {
+      newVideoUsers = [...newVideoUsers, user]
+      newVideoSelectId = ''
+    }
   }
 
   function removeNewVideoUser(userId: number) {
@@ -66,13 +69,17 @@
 
   $: sorted = [...filtered].sort((a, b) => {
     let va: unknown =
-      sortCol === 'accessCount' ? a.videoAccess.length :
-      sortCol === 'datetime' ? sortableDateTime(a.baseUrl) :
-      (a as Record<string, unknown>)[sortCol]
+      sortCol === 'accessCount'
+        ? a.videoAccess.length
+        : sortCol === 'datetime'
+          ? sortableDateTime(a.baseUrl)
+          : (a as Record<string, unknown>)[sortCol]
     let vb: unknown =
-      sortCol === 'accessCount' ? b.videoAccess.length :
-      sortCol === 'datetime' ? sortableDateTime(b.baseUrl) :
-      (b as Record<string, unknown>)[sortCol]
+      sortCol === 'accessCount'
+        ? b.videoAccess.length
+        : sortCol === 'datetime'
+          ? sortableDateTime(b.baseUrl)
+          : (b as Record<string, unknown>)[sortCol]
     if (va === vb) return 0
     if (sortDir === 'asc') return (va as string | number) < (vb as string | number) ? -1 : 1
     return (va as string | number) > (vb as string | number) ? -1 : 1
@@ -150,7 +157,12 @@
       <span class="text-sm text-gray-400 whitespace-nowrap">{sorted.length} รายการ</span>
       <button
         type="button"
-        on:click={() => { newVideo = emptyNew(); newVideoUsers = []; newVideoSelectId = ''; creating = true }}
+        on:click={() => {
+          newVideo = emptyNew()
+          newVideoUsers = []
+          newVideoSelectId = ''
+          creating = true
+        }}
         class="ml-auto text-sm px-4 py-2 rounded-lg bg-teal-500 text-white hover:bg-teal-700 transition-colors whitespace-nowrap"
       >
         + เพิ่ม VOD
@@ -162,38 +174,81 @@
         <thead class="text-xs text-gray-500 bg-gray-50">
           <tr>
             <th class="px-4 py-3 w-16">
-              <button type="button" on:click={() => toggleSort('id')} class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors">
-                ID <span class="{sortCol === 'id' ? 'text-teal-500' : 'text-gray-300'}">{sortIcon('id')}</span>
+              <button
+                type="button"
+                on:click={() => toggleSort('id')}
+                class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors"
+              >
+                ID <span class={sortCol === 'id' ? 'text-teal-500' : 'text-gray-300'}
+                  >{sortIcon('id')}</span
+                >
               </button>
             </th>
             <th class="px-4 py-3">
-              <button type="button" on:click={() => toggleSort('name')} class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors">
-                ชื่อ <span class="{sortCol === 'name' ? 'text-teal-500' : 'text-gray-300'}">{sortIcon('name')}</span>
+              <button
+                type="button"
+                on:click={() => toggleSort('name')}
+                class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors"
+              >
+                ชื่อ <span class={sortCol === 'name' ? 'text-teal-500' : 'text-gray-300'}
+                  >{sortIcon('name')}</span
+                >
               </button>
             </th>
             <th class="px-4 py-3">
-              <button type="button" on:click={() => toggleSort('baseUrl')} class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors">
-                Base URL <span class="{sortCol === 'baseUrl' ? 'text-teal-500' : 'text-gray-300'}">{sortIcon('baseUrl')}</span>
+              <button
+                type="button"
+                on:click={() => toggleSort('baseUrl')}
+                class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors"
+              >
+                Base URL <span class={sortCol === 'baseUrl' ? 'text-teal-500' : 'text-gray-300'}
+                  >{sortIcon('baseUrl')}</span
+                >
               </button>
             </th>
             <th class="px-4 py-3 w-44">
-              <button type="button" on:click={() => toggleSort('datetime')} class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors">
-                วันที่ <span class="{sortCol === 'datetime' ? 'text-teal-500' : 'text-gray-300'}">{sortIcon('datetime')}</span>
+              <button
+                type="button"
+                on:click={() => toggleSort('datetime')}
+                class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors"
+              >
+                วันที่ <span class={sortCol === 'datetime' ? 'text-teal-500' : 'text-gray-300'}
+                  >{sortIcon('datetime')}</span
+                >
               </button>
             </th>
             <th class="px-4 py-3 w-28">
-              <button type="button" on:click={() => toggleSort('fileType')} class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors">
-                ประเภท <span class="{sortCol === 'fileType' ? 'text-teal-500' : 'text-gray-300'}">{sortIcon('fileType')}</span>
+              <button
+                type="button"
+                on:click={() => toggleSort('fileType')}
+                class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors"
+              >
+                ประเภท <span class={sortCol === 'fileType' ? 'text-teal-500' : 'text-gray-300'}
+                  >{sortIcon('fileType')}</span
+                >
               </button>
             </th>
             <th class="px-4 py-3 w-28">
-              <button type="button" on:click={() => toggleSort('allowAll')} class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors">
-                เปิดทั้งหมด <span class="{sortCol === 'allowAll' ? 'text-teal-500' : 'text-gray-300'}">{sortIcon('allowAll')}</span>
+              <button
+                type="button"
+                on:click={() => toggleSort('allowAll')}
+                class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors"
+              >
+                เปิดทั้งหมด <span class={sortCol === 'allowAll' ? 'text-teal-500' : 'text-gray-300'}
+                  >{sortIcon('allowAll')}</span
+                >
               </button>
             </th>
             <th class="px-4 py-3 w-52">
-              <button type="button" on:click={() => toggleSort('accessCount')} class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors">
-                ผู้เข้าถึง <span class="{sortCol === 'accessCount' ? 'text-teal-500' : 'text-gray-300'}">{sortIcon('accessCount')}</span>
+              <button
+                type="button"
+                on:click={() => toggleSort('accessCount')}
+                class="flex items-center gap-1 uppercase font-semibold hover:text-gray-800 transition-colors"
+              >
+                ผู้เข้าถึง <span
+                  class={sortCol === 'accessCount' ? 'text-teal-500' : 'text-gray-300'}
+                  >{sortIcon('accessCount')}</span
+                >
               </button>
             </th>
             <th class="px-4 py-3 w-24 text-center uppercase font-semibold">จัดการ</th>
@@ -234,7 +289,9 @@
                 {:else}
                   <div class="flex flex-wrap gap-1">
                     {#each video.videoAccess.slice(0, 2) as a}
-                      <span class="px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-700">{a.displayName}</span>
+                      <span class="px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-700"
+                        >{a.displayName}</span
+                      >
                     {/each}
                     {#if video.videoAccess.length > 2}
                       <span class="text-xs text-gray-400">+{video.videoAccess.length - 2}</span>
@@ -272,7 +329,9 @@
     role="dialog"
     aria-modal="true"
   >
-    <div class="w-full max-w-lg bg-white rounded-xl shadow-xl p-6 flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
+    <div
+      class="w-full max-w-lg bg-white rounded-xl shadow-xl p-6 flex flex-col gap-4 max-h-[90vh] overflow-y-auto"
+    >
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-bold text-gray-800">แก้ไข VOD #{editing.id}</h2>
         <button
@@ -323,7 +382,9 @@
         </div>
 
         <div>
-          <label for="fileType" class="block mb-1 text-sm font-medium text-gray-700">ประเภทไฟล์</label>
+          <label for="fileType" class="block mb-1 text-sm font-medium text-gray-700"
+            >ประเภทไฟล์</label
+          >
           <select
             id="fileType"
             name="fileType"
@@ -372,7 +433,10 @@
                   >
                     <input type="hidden" name="videoId" value={editing.id} />
                     <input type="hidden" name="userId" value={access.userId} />
-                    <button type="submit" class="text-xs text-red-400 hover:text-red-600 transition-colors ml-4">
+                    <button
+                      type="submit"
+                      class="text-xs text-red-400 hover:text-red-600 transition-colors ml-4"
+                    >
                       ลบ
                     </button>
                   </form>
@@ -536,9 +600,7 @@
             bind:checked={newVideo.allowAll}
             class="w-4 h-4 rounded accent-teal-500"
           />
-          <label for="new-allowAll" class="text-sm font-medium text-gray-700"
-            >เปิดให้ทุกคนดู</label
-          >
+          <label for="new-allowAll" class="text-sm font-medium text-gray-700">เปิดให้ทุกคนดู</label>
         </div>
 
         {#if !newVideo.allowAll}

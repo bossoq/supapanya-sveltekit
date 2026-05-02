@@ -119,7 +119,7 @@
           }
         ])
       }
-    } catch (error) {
+    } catch (_error) {
       toastsList.update((toasts) => [
         ...toasts,
         {

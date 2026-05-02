@@ -32,7 +32,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         decrypted = jwt.decode(accessToken, JWT_SECRET, false, 'HS256') as UserInfo
         user = decrypted.userLogin
         role = decrypted.meta.role
-      } catch (e) {
+      } catch (_e) {
         event.cookies.set('accessToken', '', {
           httpOnly: true,
           sameSite: 'lax',

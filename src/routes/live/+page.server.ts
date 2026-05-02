@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
         students
       }
     }
-  } catch (e) {
+  } catch (_e) {
     return redirect(301, '/login')
   }
   if (!userId) {

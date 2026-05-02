@@ -29,15 +29,15 @@ yarn dev
 
 ## Environment Variables
 
-| Variable | Description |
-|---|---|
-| `DATABASE_URL` | PostgreSQL connection string |
-| `DIRECT_URL` | PostgreSQL direct connection (for migrations) |
-| `JWT_SECRET` | Secret key for signing JWT tokens |
-| `SERVICE_CLIENT_EMAIL` | Google service account email (for Google Meet) |
-| `SERVICE_PRIVATE_KEY` | Google service account private key |
-| `SERVICE_SUBJECT` | Google Workspace user to impersonate |
-| `PUBSUB_TOPIC` | Google Cloud Pub/Sub topic for Meet recording events |
+| Variable               | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| `DATABASE_URL`         | PostgreSQL connection string                         |
+| `DIRECT_URL`           | PostgreSQL direct connection (for migrations)        |
+| `JWT_SECRET`           | Secret key for signing JWT tokens                    |
+| `SERVICE_CLIENT_EMAIL` | Google service account email (for Google Meet)       |
+| `SERVICE_PRIVATE_KEY`  | Google service account private key                   |
+| `SERVICE_SUBJECT`      | Google Workspace user to impersonate                 |
+| `PUBSUB_TOPIC`         | Google Cloud Pub/Sub topic for Meet recording events |
 
 ## Commands
 
