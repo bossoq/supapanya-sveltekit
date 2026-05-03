@@ -1,12 +1,11 @@
 import { error } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ locals, params }) => {
   if (!params.slug) {
     error(404, 'Not found')
   }
-  const prisma = new PrismaClient()
   const blog = await prisma.postTable.findFirst({
     select: {
       user: {

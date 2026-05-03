@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import { JWT } from 'google-auth-library'
 import { ConferenceRecordsServiceClient, SpacesServiceClient } from '@google-apps/meet'
 import { SERVICE_CLIENT_EMAIL, SERVICE_PRIVATE_KEY, SERVICE_SUBJECT } from '$env/static/private'
@@ -14,7 +14,6 @@ export const GET: RequestHandler = async ({ locals }) => {
     return json({ success: true, conferences: [] })
   }
 
-  const prisma = new PrismaClient()
   const saclient = createJWT()
   const conferences = await listConferences(saclient)
   if (conferences.length === 0) {
