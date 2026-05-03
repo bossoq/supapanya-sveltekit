@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import type { RequestHandler } from './$types'
 
 export const DELETE: RequestHandler = async ({ request, locals }) => {
@@ -16,7 +16,6 @@ export const DELETE: RequestHandler = async ({ request, locals }) => {
     return json({ success: false, message: 'No data provided' }, { status: 400 })
   }
   const { id } = data as { id: number }
-  const prisma = new PrismaClient()
   const blog = await prisma.postTable.update({
     data: {
       postStatus: 'archived',

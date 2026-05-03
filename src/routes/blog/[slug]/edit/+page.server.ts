@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ locals, params }) => {
@@ -12,7 +12,6 @@ export const load: PageServerLoad = async ({ locals, params }) => {
   if (!locals.user.meta.isAdmin) {
     error(403, 'Forbidden')
   }
-  const prisma = new PrismaClient()
   const blog = await prisma.postTable.findUnique({
     select: {
       id: true,

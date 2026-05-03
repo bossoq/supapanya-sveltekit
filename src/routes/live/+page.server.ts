@@ -1,6 +1,6 @@
 import jwt from 'jwt-simple'
 import { redirect } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import { JWT } from 'google-auth-library'
 import { ConferenceRecordsServiceClient, SpacesServiceClient } from '@google-apps/meet'
 import {
@@ -40,7 +40,6 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
   if (!userId) {
     return redirect(301, '/login')
   }
-  const prisma = new PrismaClient()
   if (isAdmin) {
     const retStudents = await prisma.userTable.findMany({
       where: {

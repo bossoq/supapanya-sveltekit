@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ locals }) => {
-  const prisma = new PrismaClient()
   const blogs = await prisma.postTable.findMany({
     select: {
       id: true,

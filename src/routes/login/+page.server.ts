@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jwt-simple'
 import { fail, redirect } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import type { Actions } from './$types'
 import { JWT_SECRET } from '$env/static/private'
 
@@ -42,7 +42,6 @@ export const actions = {
       return fail(400, { message: 'Password is required' })
     }
 
-    const prisma = new PrismaClient()
 
     const user = await prisma.userTable.findFirst({
       where: {

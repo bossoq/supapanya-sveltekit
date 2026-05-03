@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 import { error, fail, redirect } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import type { Actions, PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -27,7 +27,6 @@ export const actions = {
       return fail(400, { message: 'Password must be at least 8 characters' })
     }
 
-    const prisma = new PrismaClient()
     const existing = await prisma.userTable.findFirst({ where: { userLogin: username } })
     if (existing) return fail(409, { message: 'Username already taken' })
 

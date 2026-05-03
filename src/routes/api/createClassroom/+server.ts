@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import { JWT } from 'google-auth-library'
 import { SpacesServiceClient } from '@google-apps/meet'
 import {
@@ -31,7 +31,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
     return json({ message: 'Invalid participants' }, { status: 400 })
   }
 
-  const prisma = new PrismaClient()
   const saclient = createJWT()
   const space = await createSpace(saclient)
   if (!space.name) {

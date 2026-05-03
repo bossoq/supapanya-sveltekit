@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '$lib/server/db'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -8,7 +8,6 @@ export const load: PageServerLoad = async ({ locals }) => {
     return redirect(301, '/login')
   }
 
-  const prisma = new PrismaClient()
   const videos = await prisma.videoTable.findMany({
     select: {
       id: true,
