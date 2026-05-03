@@ -42,7 +42,6 @@ export const actions = {
       return fail(400, { message: 'Password is required' })
     }
 
-
     const user = await prisma.userTable.findFirst({
       where: {
         userLogin: username.toString().toLowerCase()
