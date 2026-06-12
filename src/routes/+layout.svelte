@@ -30,7 +30,7 @@
 </script>
 
 <Head {title} {description} {url} {imageUrl} {gtagId} {cfToken} />
-<div class="{$darkTheme && themeEnabler ? 'dark' : ''} w-full h-screen flex flex-col">
+<div class="{$darkTheme && themeEnabler ? 'dark' : ''} grayscale w-full h-screen flex flex-col">
   <Header {themeIcons} {themeEnabler} {userData} />
   <main id="main" class="overflow-y-scroll hide-scrollbar">
     <ToastNotify {toastsList} />
