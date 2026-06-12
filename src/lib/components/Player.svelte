@@ -39,7 +39,7 @@
 
 <!-- svelte-ignore element_invalid_self_closing_tag -->
 <media-player
-  class="w-full aspect-video bg-slate-900 text-white overflow-hidden rounded-md ring-media-focus data-[focus]:ring-4 grayscale-0"
+  class="w-full aspect-video bg-slate-900 text-white overflow-hidden rounded-md ring-media-focus data-[focus]:ring-4 relative z-[9999]"
   bind:this={player}
 >
   <media-provider>
