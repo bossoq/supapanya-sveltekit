@@ -220,8 +220,7 @@
           rows="5"
           maxlength="500"
           class="text-md block w-full appearance-none rounded border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-none invalid:text-red-600"
-          bind:value={blog.postExcerpt}
-        ></textarea>
+          bind:value={blog.postExcerpt}></textarea>
       </div>
       <div class="w-full flex flex-col gap-2 justify-center">
         <label for="postContent" class="min-w-fit w-28 text-md block font-bold tracking-wide">
