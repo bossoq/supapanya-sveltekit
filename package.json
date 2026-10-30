@@ -58,7 +58,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@google-apps/meet": "^0.3.0",
+    "@google-apps/meet": "^0.11.0",
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
     "@tiptap/core": "^2.9.1",
@@ -80,7 +80,7 @@
     "@vercel/speed-insights": "^1.1.0",
     "bcryptjs": "^2.4.3",
     "flatpickr": "^4.6.13",
-    "google-auth-library": "^9.14.2",
+    "google-auth-library": "^11.3.2",
     "hls.js": "^1.7.4",
     "jwt-simple": "^0.5.6",
     "media-icons": "^1.1.5",
