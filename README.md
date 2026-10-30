@@ -16,16 +16,16 @@ A full-stack web application for content management, video streaming, and online
 
 ```bash
 # Install dependencies
-yarn
+pnpm install
 
 # Configure environment variables
 cp .env.example .env  # then fill in values
 
 # Run database migrations
-npx prisma migrate dev
+pnpm exec prisma migrate dev
 
 # Start development server
-yarn dev
+pnpm dev
 ```
 
 ## Environment Variables
@@ -43,14 +43,14 @@ yarn dev
 ## Commands
 
 ```bash
-yarn dev          # Start development server
-yarn build        # Production build
-yarn preview      # Preview production build
-yarn check        # Type-check
-yarn lint         # Check formatting and linting
-yarn format       # Auto-fix formatting
-yarn test         # Run unit tests with Vitest
-yarn test:watch   # Run tests in watch mode
+pnpm dev          # Start development server
+pnpm build        # Production build
+pnpm preview      # Preview production build
+pnpm check        # Type-check
+pnpm lint         # Check formatting and linting
+pnpm format       # Auto-fix formatting
+pnpm test         # Run unit tests with Vitest
+pnpm test:watch   # Run tests in watch mode
 ```
 
 ## Testing & CI

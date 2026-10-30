@@ -5,19 +5,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-yarn dev          # Start development server
-yarn build        # Production build
-yarn preview      # Preview production build
-yarn check        # Type-check with svelte-check
-yarn check:watch  # Type-check in watch mode
-yarn lint         # Check formatting (prettier) and linting (eslint)
-yarn format       # Auto-fix formatting with prettier
+pnpm dev          # Start development server
+pnpm build        # Production build
+pnpm preview      # Preview production build
+pnpm check        # Type-check with svelte-check
+pnpm check:watch  # Type-check in watch mode
+pnpm lint         # Check formatting (prettier) and linting (eslint)
+pnpm format       # Auto-fix formatting with prettier
 ```
 
 There is no test suite configured.
 
-After adding/modifying Prisma schema: `npx prisma generate` (runs automatically via `postinstall`).
-For DB migrations: `npx prisma migrate dev`.
+After adding/modifying Prisma schema: `pnpm exec prisma generate` (runs automatically via `postinstall`).
+For DB migrations: `pnpm exec prisma migrate dev`.
 
 ## Architecture
 

@@ -1,0 +1,11 @@
+allowBuilds:
+  '@prisma/engines': true
+  esbuild: true
+  prisma: true
+  protobufjs: false
+  sharp: true
+
+overrides:
+  svelte: ^5.0.0
+  picomatch: ^2.3.1
+  yaml: ^1.10.2

@@ -21,26 +21,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Generate Prisma Client
-        run: yarn prisma generate
+        run: pnpm exec prisma generate
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Type check
-        run: yarn run check
+        run: pnpm run check
 
       - name: Run tests
 
-        run: yarn test
+        run: pnpm test
 
       - name: Build
-        run: yarn build
+        run: pnpm build
