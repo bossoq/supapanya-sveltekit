@@ -8,9 +8,9 @@ import globals from 'globals'
 export default [
   js.configs.recommended,
   ...ts.configs.recommended,
-  ...svelte.configs['flat/recommended'],
+  ...svelte.configs.recommended,
   prettier,
-  ...svelte.configs['flat/prettier'],
+  ...svelte.configs.prettier,
   {
     languageOptions: {
       globals: {
@@ -30,6 +30,12 @@ export default [
   {
     rules: {
       'no-undef': 'off',
+      // Added to recommended in eslint-plugin-svelte 3; existing code predates them
+      'svelte/no-navigation-without-resolve': 'off',
+      'svelte/require-each-key': 'off',
+      'svelte/no-reactive-reassign': 'off',
+      'svelte/no-reactive-literals': 'off',
+      'svelte/no-immutable-reactive-statements': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
