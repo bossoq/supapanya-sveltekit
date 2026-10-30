@@ -1,9 +1,8 @@
 import bcrypt from 'bcryptjs'
-import jwt from 'jwt-simple'
 import { fail, redirect } from '@sveltejs/kit'
 import { prisma } from '$lib/server/db'
 import type { Actions } from './$types'
-import { JWT_SECRET } from '$env/static/private'
+import { signToken } from '$lib/server/jwt'
 
 // In-memory rate limiter: max 5 attempts per IP per 15 minutes
 const attempts = new Map<string, { count: number; resetAt: number }>()
@@ -64,7 +63,7 @@ export const actions = {
             live: false
           }
         }
-        const accessToken = jwt.encode(userData, JWT_SECRET, 'HS256')
+        const accessToken = await signToken(userData as UserInfo)
         cookies.set('accessToken', accessToken, {
           maxAge: 60 * 60 * 24 * 7,
           httpOnly: true,

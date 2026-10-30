@@ -1,7 +1,6 @@
 import { redirect } from '@sveltejs/kit'
-import jwt from 'jwt-simple'
 import type { Handle } from '@sveltejs/kit'
-import { JWT_SECRET } from '$env/static/private'
+import { verifyToken } from '$lib/server/jwt'
 
 const publicPaths = [
   '/',
@@ -29,7 +28,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     const accessToken = event.cookies.get('accessToken')
     if (accessToken) {
       try {
-        decrypted = jwt.decode(accessToken, JWT_SECRET, false, 'HS256') as UserInfo
+        decrypted = await verifyToken(accessToken)
         user = decrypted.userLogin
         role = decrypted.meta.role
       } catch (_e) {
