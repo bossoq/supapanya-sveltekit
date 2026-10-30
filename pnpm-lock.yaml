@@ -103,9 +103,6 @@ importers:
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
-      svelte-flatpickr:
-        specifier: ^3.3.4
-        version: 3.3.5(svelte@5.55.5(@typescript-eslint/types@8.59.1))
       vidstack:
         specifier: ^1.12.11
         version: 1.12.13
@@ -3333,11 +3330,6 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
-
-  svelte-flatpickr@3.3.5:
-    resolution: {integrity: sha512-D2uVdQi5jn/mMS3AK4gI/30Ho80fBYM0ZfZ44pHg8L4bMZq4c0mjajExZU4WF1EoOf7Qt8njQ9DBtkjJwfl3Cg==}
-    peerDependencies:
-      svelte: ^5.0.0
 
   svelte-multiselect@11.7.0:
     resolution: {integrity: sha512-3sDWIJKM4c/eX1ob7pFWCzdFlc7aaMtsWH6aGshnRcdGYLsSJlBYJ1hJGzYWXoM/7CDGY16s0ajU4y2uB0+82A==}
@@ -6664,11 +6656,6 @@ snapshots:
       postcss: 8.5.13
       postcss-scss: 4.0.9(postcss@8.5.13)
     optionalDependencies:
-      svelte: 5.55.5(@typescript-eslint/types@8.59.1)
-
-  svelte-flatpickr@3.3.5(svelte@5.55.5(@typescript-eslint/types@8.59.1)):
-    dependencies:
-      flatpickr: 4.6.13
       svelte: 5.55.5(@typescript-eslint/types@8.59.1)
 
   svelte-multiselect@11.7.0(acorn@8.16.0)(svelte@5.55.5(@typescript-eslint/types@8.59.1)):
