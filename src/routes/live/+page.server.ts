@@ -1,41 +1,24 @@
-import jwt from 'jwt-simple'
 import { redirect } from '@sveltejs/kit'
 import { prisma } from '$lib/server/db'
 import { JWT } from 'google-auth-library'
 import { ConferenceRecordsServiceClient, SpacesServiceClient } from '@google-apps/meet'
-import {
-  JWT_SECRET,
-  SERVICE_CLIENT_EMAIL,
-  SERVICE_PRIVATE_KEY,
-  SERVICE_SUBJECT
-} from '$env/static/private'
+import { SERVICE_CLIENT_EMAIL, SERVICE_PRIVATE_KEY, SERVICE_SUBJECT } from '$env/static/private'
 import type { PageServerLoad } from './$types'
 
-export const load: PageServerLoad = async ({ locals, cookies }) => {
-  const accessToken = cookies.get('accessToken')
-  if (!accessToken || accessToken === null) {
-    return redirect(301, '/login')
-  }
+export const load: PageServerLoad = async ({ locals }) => {
   if (!locals.user) {
     return redirect(301, '/login')
   }
-  let userId: number | undefined
-  let isAdmin = false
+  const userId = locals.user.id
+  const isAdmin = locals.user.meta.isAdmin
   let students: User[] = []
   let conferences: Conference[] = []
-  try {
-    const decrypted = jwt.decode(accessToken, JWT_SECRET, false, 'HS256') as UserInfo
-    userId = decrypted.id
-    isAdmin = decrypted.meta.isAdmin
-    if (!decrypted.meta.live) {
-      return {
-        user: locals.user,
-        conferences: [],
-        students
-      }
+  if (!locals.user.meta.live) {
+    return {
+      user: locals.user,
+      conferences: [],
+      students
     }
-  } catch (_e) {
-    return redirect(301, '/login')
   }
   if (!userId) {
     return redirect(301, '/login')
