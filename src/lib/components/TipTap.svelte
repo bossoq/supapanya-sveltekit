@@ -7,7 +7,7 @@
   import Link from '@tiptap/extension-link'
   import TipTapImage from '@tiptap/extension-image'
   import TextAlign from '@tiptap/extension-text-align'
-  import Table from '@tiptap/extension-table'
+  import { Table } from '@tiptap/extension-table'
   import TableRow from '@tiptap/extension-table-row'
   import TableCell from '@tiptap/extension-table-cell'
   import TableHeader from '@tiptap/extension-table-header'
@@ -52,6 +52,9 @@
         StarterKit.configure({
           codeBlock: false,
           heading: false,
+          link: false,
+          underline: false,
+          trailingNode: false,
           paragraph: {
             HTMLAttributes: {
               class: 'w-full'
@@ -79,7 +82,6 @@
           }
         }),
         Heading.extend({
-          levels: [1, 2],
           renderHTML({ node, HTMLAttributes }) {
             const level = this.options.levels.includes(node.attrs.level)
               ? node.attrs.level
@@ -155,48 +157,32 @@
           mode: 'all',
           className: 'border border-blue-500 rounded'
         }),
-        BubbleMenu.configure({
-          shouldShow: () => {
+        BubbleMenu.extend({ name: 'bubbleMenuLink' }).configure({
+          shouldShow: ({ editor }) => {
             link = editor.getAttributes('link').href || ''
             return showEditLink || editor.isActive('link')
           },
           updateDelay: 0,
           element: bubbleLinkElement,
-          tippyOptions: {
-            popperOptions: {
-              modifiers: [
-                {
-                  name: 'flip',
-                  enabled: false
-                }
-              ]
-            },
-            maxWidth: 450,
-            appendTo: element,
-            onHidden: () => {
+          appendTo: element as HTMLElement,
+          options: {
+            flip: false,
+            onHide: () => {
               showEditLink = false
             }
           },
           pluginKey: 'bubbleMenuLink'
         }),
-        BubbleMenu.configure({
+        BubbleMenu.extend({ name: 'bubbleMenuPicture' }).configure({
           shouldShow: () => {
             return showEditPicture
           },
           updateDelay: 0,
           element: bubblePictureElement,
-          tippyOptions: {
-            popperOptions: {
-              modifiers: [
-                {
-                  name: 'flip',
-                  enabled: false
-                }
-              ]
-            },
-            maxWidth: 450,
-            appendTo: element,
-            onHidden: () => {
+          appendTo: element as HTMLElement,
+          options: {
+            flip: false,
+            onHide: () => {
               showEditPicture = false
             }
           },
@@ -504,7 +490,7 @@
 
 <div
   bind:this={bubbleLinkElement}
-  class="flex flex-row items-center justify-center gap-2 bg-gray-800 text-white p-1 rounded-lg shadow-lg"
+  class="flex flex-row items-center justify-center gap-2 w-max max-w-[450px] bg-gray-800 text-white p-1 rounded-lg shadow-lg"
   style="visibility: hidden;"
 >
   <label for="link" class="text-white">Link: </label>
@@ -537,7 +523,7 @@
 </div>
 <div
   bind:this={bubblePictureElement}
-  class="flex flex-row items-center justify-center gap-2 bg-gray-800 text-white p-1 rounded-lg shadow-lg"
+  class="flex flex-row items-center justify-center gap-2 w-max max-w-[450px] bg-gray-800 text-white p-1 rounded-lg shadow-lg"
   style="visibility: hidden;"
 >
   <input

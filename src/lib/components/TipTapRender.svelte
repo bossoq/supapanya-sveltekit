@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { mergeAttributes, type JSONContent } from '@tiptap/core'
-  import { generateHTML } from '@tiptap/html'
+  import { getSchema, mergeAttributes, type Extensions, type JSONContent } from '@tiptap/core'
+  import { DOMSerializer, Node } from '@tiptap/pm/model'
+  import { createHTMLDocument } from 'zeed-dom'
   import StarterKit from '@tiptap/starter-kit'
   import Heading from '@tiptap/extension-heading'
   import Underline from '@tiptap/extension-underline'
   import Link from '@tiptap/extension-link'
   import Image from '@tiptap/extension-image'
   import TextAlign from '@tiptap/extension-text-align'
-  import Table from '@tiptap/extension-table'
+  import { Table } from '@tiptap/extension-table'
   import TableRow from '@tiptap/extension-table-row'
   import TableCell from '@tiptap/extension-table-cell'
   import TableHeader from '@tiptap/extension-table-header'
@@ -29,6 +30,17 @@
       }
     ]
   }
+
+  // Serialize with zeed-dom (as @tiptap/html v2 did) so SSR and the browser produce the same HTML
+  // without a full DOM implementation on the server
+  const generateHTML = (doc: JSONContent, extensions: Extensions) => {
+    const schema = getSchema(extensions)
+    const fragment = DOMSerializer.fromSchema(schema).serializeFragment(
+      Node.fromJSON(schema, doc).content,
+      { document: createHTMLDocument() as unknown as Document }
+    ) as unknown as ReturnType<typeof createHTMLDocument>
+    return fragment.render()
+  }
 </script>
 
 <div class="w-full text-gray-800">
@@ -37,6 +49,9 @@
     StarterKit.configure({
       codeBlock: false,
       heading: false,
+      link: false,
+      underline: false,
+      trailingNode: false,
       paragraph: {
         HTMLAttributes: {
           class: 'w-full text-lg md:text-xl py-2'
@@ -64,7 +79,6 @@
       }
     }),
     Heading.extend({
-      levels: [1, 2],
       renderHTML({ node, HTMLAttributes }) {
         const level = this.options.levels.includes(node.attrs.level)
           ? node.attrs.level
