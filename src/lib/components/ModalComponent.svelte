@@ -3,10 +3,13 @@
   import type { Snippet } from 'svelte'
   import type { Action } from 'svelte/action'
 
-  let { modalViewed = $bindable(), children } = $props<{
+  let {
+    modalViewed = $bindable(),
+    children
+  }: {
     modalViewed: boolean
     children: Snippet
-  }>()
+  } = $props()
 
   const handleModalClass = (e: Event, disabled = false) => {
     e.preventDefault()
