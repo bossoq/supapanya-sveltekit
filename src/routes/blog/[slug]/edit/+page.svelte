@@ -1,6 +1,6 @@
 <script lang="ts">
   import TipTap from '$lib/components/TipTap.svelte'
-  import Flatpickr from 'svelte-flatpickr'
+  import DatePicker from '$lib/components/DatePicker.svelte'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
   import 'flatpickr/dist/flatpickr.css'
   import { toastsList } from '$lib/store'
@@ -154,13 +154,12 @@
         <label for="postDate" class="min-w-fit w-28 text-md block font-bold tracking-wide">
           วันที่บทความ
         </label>
-        <Flatpickr
+        <DatePicker
           class="text-md block w-full appearance-none rounded border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-none"
           id="postDate"
           name="postDate"
           bind:value={blog.postDate}
           options={dateOptions}
-          children={undefined}
         />
       </div>
       <div class="w-full flex flex-col gap-2 justify-center">
