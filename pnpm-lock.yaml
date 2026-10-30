@@ -86,8 +86,8 @@ importers:
         specifier: ^1.7.4
         version: 1.7.4
       jwt-simple:
-        specifier: ^0.5.6
-        version: 0.5.6
+        specifier: ^0.6.1
+        version: 0.6.1
       media-icons:
         specifier: ^1.1.5
         version: 1.1.5
@@ -2555,9 +2555,10 @@ packages:
   jws@4.0.1:
     resolution: {integrity: sha512-EKI/M/yqPncGUUh44xz0PxSidXFr/+r0pA70+gIYhjv+et7yxM+s29Y+VGDkovRofQem0fs7Uvf4+YmAdyRduA==}
 
-  jwt-simple@0.5.6:
-    resolution: {integrity: sha512-40aUybvhH9t2h71ncA1/1SbtTNCVZHgsTsTgqPUxGWDmUDrXyDf2wMNQKEbdBjbf4AI+fQhbECNTV6lWxQKUzg==}
-    engines: {node: '>= 0.4.0'}
+  jwt-simple@0.6.1:
+    resolution: {integrity: sha512-YSWn9wnJsO9rPZvudS3AMolvQBeiI3QCyOx/U91ClPTVDXzQKnEMgvNnd4E8DFwjfGeEWktPv/EcwOPCIM/eZA==}
+    engines: {node: '>= 6.6.0'}
+    deprecated: jwt-simple is no longer maintained. Please migrate to jose or jsonwebtoken.
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -5916,7 +5917,7 @@ snapshots:
       jwa: 2.0.1
       safe-buffer: 5.2.1
 
-  jwt-simple@0.5.6: {}
+  jwt-simple@0.6.1: {}
 
   keyv@4.5.4:
     dependencies:
