@@ -5,6 +5,9 @@ allowBuilds:
   protobufjs: false
   sharp: true
 
+minimumReleaseAgeExclude:
+  - jwt-simple@0.6.1
+
 overrides:
   svelte: ^5.0.0
   picomatch: ^2.3.1
