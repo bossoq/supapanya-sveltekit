@@ -169,6 +169,7 @@
           </label>
           {#if blog.postPicture !== ''}
             <button
+              type="button"
               class="bg-red-400 text-white p-1 hover:bg-red-700 transition-all ease-in-out duration-300"
               aria-label="ลบรูป"
               onclick={handleDeletePostPicture}
