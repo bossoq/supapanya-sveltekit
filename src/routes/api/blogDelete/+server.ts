@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit'
-import { prisma } from '$lib/server/db'
+import { prisma } from '#lib/server/db.js'
 import type { RequestHandler } from './$types'
 
 export const DELETE: RequestHandler = async ({ request, locals }) => {

@@ -4,7 +4,7 @@ A full-stack web application for content management, video streaming, and online
 
 ## Stack
 
-- **SvelteKit 2 + Svelte 5** with TypeScript
+- **SvelteKit 3 + Svelte 5** with TypeScript
 - **PostgreSQL** via Prisma ORM
 - **Tailwind CSS** with dark mode support
 - **TipTap** rich text editor

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ModalComponent from '$lib/components/ModalComponent.svelte'
+  import ModalComponent from '#lib/components/ModalComponent.svelte'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
 
   let modalViewed = false

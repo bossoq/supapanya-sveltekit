@@ -1,9 +1,9 @@
 <script lang="ts">
-  import TipTap from '$lib/components/TipTap.svelte'
-  import DatePicker from '$lib/components/DatePicker.svelte'
+  import TipTap from '#lib/components/TipTap.svelte'
+  import DatePicker from '#lib/components/DatePicker.svelte'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
   import 'flatpickr/dist/flatpickr.css'
-  import { toastsList } from '$lib/store'
+  import { toastsList } from '#lib/store.js'
   import type { PageServerData } from './$types'
   import type { JSONContent } from '@tiptap/core'
 

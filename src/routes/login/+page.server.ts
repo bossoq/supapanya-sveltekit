@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs'
 import { fail, redirect } from '@sveltejs/kit'
-import { prisma } from '$lib/server/db'
+import { prisma } from '#lib/server/db.js'
 import type { Actions } from './$types'
-import { signToken } from '$lib/server/jwt'
+import { signToken } from '#lib/server/jwt.js'
 
 // In-memory rate limiter: max 5 attempts per IP per 15 minutes
 const attempts = new Map<string, { count: number; resetAt: number }>()

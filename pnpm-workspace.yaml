@@ -9,3 +9,9 @@ overrides:
   svelte: ^5.0.0
   picomatch: ^2.3.1
   yaml: ^1.10.2
+
+# Optional peer used only by their /sveltekit entry points, which we don't import (see +layout.svelte)
+peerDependencyRules:
+  allowedVersions:
+    '@vercel/analytics>@sveltejs/kit': '3'
+    '@vercel/speed-insights>@sveltejs/kit': '3'

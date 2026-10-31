@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte'
   import MultiSelect from 'svelte-multiselect'
-  import ModalComponent from '$lib/components/ModalComponent.svelte'
+  import ModalComponent from '#lib/components/ModalComponent.svelte'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
-  import { toastsList } from '$lib/store'
+  import { toastsList } from '#lib/store.js'
   import type { PageServerData } from './$types'
 
   export let data: PageServerData

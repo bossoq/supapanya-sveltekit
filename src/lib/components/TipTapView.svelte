@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { JSONContent } from '@tiptap/core'
-  import TipTap from '$lib/components/TipTap.svelte'
-  import TipTapRender from '$lib/components/TipTapRender.svelte'
+  import TipTap from '#lib/components/TipTap.svelte'
+  import TipTapRender from '#lib/components/TipTapRender.svelte'
 
   export let content: JSONContent = {
     type: 'doc',

@@ -4,7 +4,7 @@ This project is a SvelteKit application designed for a website with blog, user m
 
 ## Tech Stack
 
-- **Framework:** SvelteKit 2.x (using Svelte 5)
+- **Framework:** SvelteKit 3.x (using Svelte 5)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS 3.x with PostCSS
 - **Database & ORM:** PostgreSQL with Prisma 7.x
@@ -69,5 +69,5 @@ This project is a SvelteKit application designed for a website with blog, user m
 
 - **Svelte 5:** Use Svelte 5 syntax (runes like `$state`, `$derived`, `$effect`) where applicable if the project has transitioned, though check existing components first for patterns. (Note: `package.json` specifies `svelte: ^5.0.0`).
 - **BigInt IDs:** Be mindful of `BigInt` IDs when returning data from API routes; they may need string conversion for JSON serialization.
-- **Paths:** Always use `$lib` alias for imports from `src/lib`.
+- **Paths:** Always use `#lib` alias for imports from `src/lib`.
 - **Surgical Edits:** When modifying routes or components, maintain the existing structure and style.

@@ -1,10 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { convertVideo, getPoster } from '$lib/utils'
-  import Player from '$lib/components/Player.svelte'
+  import { convertVideo, getPoster } from '#lib/utils.js'
+  import Player from '#lib/components/Player.svelte'
   import type { HLSSrc, VideoSrc } from 'vidstack'
   import type { MediaPlayerElement } from 'vidstack/elements'
-  import Playlist from '$lib/components/Playlist.svelte'
+  import Playlist from '#lib/components/Playlist.svelte'
 
   export let restart = false
   export let autoPlay = false

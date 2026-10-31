@@ -21,7 +21,7 @@ For DB migrations: `pnpm exec prisma migrate dev`.
 
 ## Architecture
 
-**Stack:** SvelteKit 2 + Svelte 5, TypeScript, PostgreSQL via Prisma, Tailwind CSS.
+**Stack:** SvelteKit 3 + Svelte 5, TypeScript, PostgreSQL via Prisma, Tailwind CSS.
 
 ### Authentication
 
@@ -38,7 +38,7 @@ Prisma with PostgreSQL. Schema at `prisma/schema.prisma`. Key tables:
 - `videoTable` — HLS/MP4 video metadata
 - `videoProcess` — classroom session recordings
 
-Env vars needed: `DATABASE_URL`, `DIRECT_URL` (for migrations). Google Meet classroom features also require `SERVICE_CLIENT_EMAIL`, `SERVICE_PRIVATE_KEY`, `SERVICE_SUBJECT`, and `PUBSUB_TOPIC` (Google Cloud Pub/Sub topic for recording events).
+Env vars needed: `DATABASE_URL`, `DIRECT_URL` (for migrations). App code reads env vars from `$app/env/private` / `$app/env/public`, and every variable must be declared in `src/env.ts`. Google Meet classroom features also require `SERVICE_CLIENT_EMAIL`, `SERVICE_PRIVATE_KEY`, `SERVICE_SUBJECT`, and `PUBSUB_TOPIC` (Google Cloud Pub/Sub topic for recording events).
 
 ### Routes and API
 
@@ -51,6 +51,10 @@ API endpoints at `src/routes/api/` handle mutations (blog CRUD, image processing
 - **Rich text:** TipTap editor (`src/lib/components/TipTap.svelte`). Content stored and retrieved as TipTap JSON. Use `TipTapRender.svelte` or `TipTapView.svelte` to display it.
 - **Video:** vidstack player with HLS.js. `src/lib/utils.ts` contains helpers for building multi-resolution MP4 and HLS source lists. The `Player.svelte` component wraps vidstack.
 - **Images:** Server-side resizing via `sharp` in `/api/processImage`.
+
+### Imports and config
+
+Import from `src/lib` with the `#lib/...` subpath alias (declared in `package.json` `imports`; add `.js` for TS modules, e.g. `#lib/server/db.js`). SvelteKit config lives in the `sveltekit({...})` plugin in `vite.config.ts` — there is no `svelte.config.js`.
 
 ### Stores
 
