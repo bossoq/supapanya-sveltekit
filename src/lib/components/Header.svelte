@@ -2,6 +2,7 @@
   import { page } from '$app/state'
   import { slide } from 'svelte/transition'
   import { onMount } from 'svelte'
+  import { afterNavigate } from '$app/navigation'
   import { darkTheme } from '#lib/store.js'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
 
@@ -29,6 +30,13 @@
 
   let showMenu = false
   let showNav = [false, false, false, false]
+
+  // The header stays mounted across pages, so close the mobile menu and any open submenu after
+  // navigating
+  afterNavigate(() => {
+    showMenu = false
+    showNav = [false, false, false, false]
+  })
 
   const toggleNavbar = (e: Event) => {
     e.preventDefault()
