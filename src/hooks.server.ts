@@ -4,6 +4,7 @@ import { verifyToken } from '#lib/server/jwt.js'
 
 const publicPaths = [
   '/',
+  '/blog',
   '/login',
   '/logout',
   '/contact',
