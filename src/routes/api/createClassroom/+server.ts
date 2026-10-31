@@ -1,4 +1,3 @@
-import { json } from '@sveltejs/kit'
 import { prisma } from '#lib/server/db.js'
 import { JWT } from 'google-auth-library'
 import { SpacesServiceClient } from '@google-apps/meet'
@@ -13,10 +12,10 @@ import type { RequestHandler } from './$types'
 export const POST: RequestHandler = async ({ request, locals }) => {
   const user = locals.user
   if (!user) {
-    return json({ message: 'Unauthorized' }, { status: 401 })
+    return Response.json({ message: 'Unauthorized' }, { status: 401 })
   }
   if (!user.meta.isAdmin) {
-    return json({ message: 'Forbidden' }, { status: 403 })
+    return Response.json({ message: 'Forbidden' }, { status: 403 })
   }
 
   const { className, participants } = (await request.json()) as {
@@ -25,16 +24,16 @@ export const POST: RequestHandler = async ({ request, locals }) => {
   }
 
   if (!className || typeof className !== 'string') {
-    return json({ message: 'Invalid class name' }, { status: 400 })
+    return Response.json({ message: 'Invalid class name' }, { status: 400 })
   }
   if (!Array.isArray(participants) || participants.length === 0) {
-    return json({ message: 'Invalid participants' }, { status: 400 })
+    return Response.json({ message: 'Invalid participants' }, { status: 400 })
   }
 
   const saclient = createJWT()
   const space = await createSpace(saclient)
   if (!space.name) {
-    return json({ message: 'Failed to create space' }, { status: 500 })
+    return Response.json({ message: 'Failed to create space' }, { status: 500 })
   }
   const resp = await subscribeRecording(saclient, space.name)
   const subscribed = resp.status === 200
@@ -49,9 +48,9 @@ export const POST: RequestHandler = async ({ request, locals }) => {
       }
     })
   } catch (_e) {
-    return json({ message: 'Failed to create space' }, { status: 500 })
+    return Response.json({ message: 'Failed to create space' }, { status: 500 })
   }
-  return json({
+  return Response.json({
     success: true,
     message: 'Space Created',
     meetingUri: space.meetingUri
