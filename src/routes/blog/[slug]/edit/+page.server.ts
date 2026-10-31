@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
 import { prisma } from '#lib/server/db.js'
 import type { PageServerLoad } from './$types'
 
@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
     error(404, 'Not found')
   }
   if (!locals.user) {
-    error(401, 'Unauthorized')
+    redirect(302, '/login')
   }
   if (!locals.user.meta.isAdmin) {
     error(403, 'Forbidden')

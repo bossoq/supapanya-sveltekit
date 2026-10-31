@@ -4,12 +4,14 @@ import { verifyToken } from '#lib/server/jwt.js'
 
 const publicPaths = [
   '/',
+  '/blog',
   '/login',
   '/logout',
   '/contact',
   '/course',
   '/portfolio',
   '/review',
+  '/sitemap.xml',
   '/studytips'
 ]
 const adminPaths = ['/register', '/vodedit', '/vodlist']
