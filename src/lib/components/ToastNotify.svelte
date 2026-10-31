@@ -31,13 +31,13 @@
     {#each $toastsList as notification}
       <div
         id="toast-{notification.type}"
-        class="mb-4 flex w-full items-center rounded-lg bg-white p-4 text-gray-500 shadow"
+        class="mb-4 flex w-full items-center rounded-lg bg-white p-4 text-gray-500 shadow-sm"
         role="alert"
         in:slide={{ delay: 250, duration: 300, axis: 'y' }}
         out:fade={{ delay: 0, duration: 300 }}
       >
         <div
-          class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg {notification.type ===
+          class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg {notification.type ===
           'success'
             ? 'bg-green-100 text-green-500'
             : notification.type === 'danger'

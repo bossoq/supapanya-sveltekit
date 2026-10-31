@@ -6,7 +6,7 @@ This project is a SvelteKit application designed for a website with blog, user m
 
 - **Framework:** SvelteKit 3.x (using Svelte 5)
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS 3.x with PostCSS
+- **Styling:** Tailwind CSS 4.x (CSS-based config in `src/app.css`, via `@tailwindcss/vite`)
 - **Database & ORM:** PostgreSQL with Prisma 7.x
 - **Authentication:** Custom JWT-based authentication using cookies
 - **Video Player:** Vidstack with hls.js support

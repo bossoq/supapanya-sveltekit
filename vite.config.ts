@@ -1,11 +1,13 @@
 import adapter from '@sveltejs/adapter-vercel'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import { sveltekit } from '@sveltejs/kit/vite'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vitest/config'
 import { vite as vidstack } from 'vidstack/plugins'
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     vidstack(),
     sveltekit({
       // Consult https://kit.svelte.dev/docs/integrations#preprocessors

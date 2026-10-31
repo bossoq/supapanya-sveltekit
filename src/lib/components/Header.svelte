@@ -152,7 +152,7 @@
   ]
 </script>
 
-<header class="w-full sticky top-0 z-[9999]">
+<header class="w-full sticky top-0 z-9999">
   <div class="flex w-full h-8 sm:h-10 bg-blue-light-key text-white justify-center items-center">
     <div class="flex flex-row gap-6 container w-full items-center">
       <div id="top-bar-left" class="flex flex-row gap-6 mr-auto items-center">
@@ -186,7 +186,7 @@
           <div class="hidden sm:flex flex-row gap-2">
             <button
               onclick={() => ($darkTheme = !$darkTheme)}
-              class="text-xs sm:text-base cursor-pointer select-none bg-sky-800 text-white rounded p-2"
+              class="text-xs sm:text-base cursor-pointer select-none bg-sky-800 text-white rounded-sm p-2"
             >
               {$darkTheme ? themeIcons[1] : themeIcons[0]}
             </button>
@@ -194,7 +194,7 @@
           <div class="flex sm:hidden flex-row gap-2">
             <button
               onclick={() => ($darkTheme = !$darkTheme)}
-              class="text-xs sm:text-base cursor-pointer select-none bg-sky-800 text-white rounded p-2"
+              class="text-xs sm:text-base cursor-pointer select-none bg-sky-800 text-white rounded-sm p-2"
             >
               {$darkTheme ? themeIcons[1].slice(0, 2) : themeIcons[0].slice(0, 2)}
             </button>
@@ -214,7 +214,7 @@
         <div class="flex md:hidden">
           <button
             type="button"
-            class="text-gray-800 hover:text-gray-400 focus:outline-none focus:text-gray-400"
+            class="text-gray-800 hover:text-gray-400 focus:outline-hidden focus:text-gray-400"
             aria-labelledby="Show Navigation"
             onclick={toggleNavbar}
           >
@@ -300,7 +300,7 @@
                 </p>
                 {#if id && showNav[id - 1] && dropdown}
                   <div
-                    class="text-left md:text-center z-[9999] px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow md:w-44"
+                    class="text-left md:text-center z-9999 px-2 md:p-0 w-full md:absolute md:top-[calc(5rem+8px)] bg-white divide-y divide-gray-100 rounded-lg md:shadow-sm md:w-44"
                     transition:slide
                   >
                     <ul class="pb-2">
