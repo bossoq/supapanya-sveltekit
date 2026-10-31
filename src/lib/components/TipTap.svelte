@@ -155,7 +155,7 @@
         }),
         Focus.configure({
           mode: 'all',
-          className: 'border border-blue-500 rounded'
+          className: 'border border-blue-500 rounded-sm'
         }),
         BubbleMenu.extend({ name: 'bubbleMenuLink' }).configure({
           shouldShow: ({ editor }) => {
@@ -193,7 +193,7 @@
       editorProps: {
         attributes: {
           class:
-            'flex flex-col items-center border-2 border-gray-800 rounded-b-lg p-4 focus:outline-none text-gray-800'
+            'flex flex-col items-center border-2 border-gray-800 rounded-b-lg p-4 focus:outline-hidden text-gray-800'
         }
       },
       onTransaction: () => {

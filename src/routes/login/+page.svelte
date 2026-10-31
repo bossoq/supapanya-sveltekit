@@ -8,7 +8,7 @@
   <div
     class="flex flex-col items-center justify-center px-6 mx-auto h-[calc(100vh-9.6rem)] md:h-[calc(100vh-10.2rem)]"
   >
-    <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+    <div class="w-full bg-white rounded-lg shadow-sm md:mt-0 sm:max-w-md xl:p-0">
       <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-800 md:text-2xl">
           เข้าสู่ระบบ
@@ -42,7 +42,7 @@
           </div>
           <button
             type="submit"
-            class="w-full text-white bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            class="w-full text-white bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:outline-hidden focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >เข้าสู่ระบบ</button
           >
         </form>

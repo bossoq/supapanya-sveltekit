@@ -63,7 +63,7 @@
     {/if}
   </div>
   <div
-    class="md:aspect-[8/9] flex justify-center col-span-1 max-h-[calc(35vh)] md:max-h-[calc(60vh)]"
+    class="md:aspect-8/9 flex justify-center col-span-1 max-h-[calc(35vh)] md:max-h-[calc(60vh)]"
   >
     <Playlist bind:videoList bind:currentId={videoId} on:changeSrc={changeSrc} />
   </div>

@@ -152,7 +152,7 @@
         type="search"
         bind:value={search}
         placeholder="ค้นหาชื่อ, URL, หรือ ID..."
-        class="w-full max-w-sm bg-gray-50 border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+        class="w-full max-w-sm bg-gray-50 border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:ring-teal-500 focus:border-teal-500 outline-hidden"
       />
       <span class="text-sm text-gray-400 whitespace-nowrap">{sorted.length} รายการ</span>
       <button
@@ -169,7 +169,7 @@
       </button>
     </div>
 
-    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-xs">
       <table class="w-full text-sm text-left text-gray-700">
         <thead class="text-xs text-gray-500 bg-gray-50">
           <tr>
@@ -283,13 +283,15 @@
               </td>
               <td class="px-4 py-3">
                 {#if video.allowAll}
-                  <span class="px-2 py-0.5 rounded text-xs bg-green-100 text-green-700">ทุกคน</span>
+                  <span class="px-2 py-0.5 rounded-sm text-xs bg-green-100 text-green-700"
+                    >ทุกคน</span
+                  >
                 {:else if video.videoAccess.length === 0}
-                  <span class="px-2 py-0.5 rounded text-xs bg-red-100 text-red-500">ไม่มี</span>
+                  <span class="px-2 py-0.5 rounded-sm text-xs bg-red-100 text-red-500">ไม่มี</span>
                 {:else}
                   <div class="flex flex-wrap gap-1">
                     {#each video.videoAccess.slice(0, 2) as a}
-                      <span class="px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-700"
+                      <span class="px-2 py-0.5 rounded-sm text-xs bg-blue-100 text-blue-700"
                         >{a.displayName}</span
                       >
                     {/each}
@@ -303,7 +305,7 @@
                 <button
                   type="button"
                   on:click={() => startEdit(video)}
-                  class="text-xs px-3 py-1.5 rounded bg-teal-500 text-white hover:bg-teal-700 transition-colors"
+                  class="text-xs px-3 py-1.5 rounded-sm bg-teal-500 text-white hover:bg-teal-700 transition-colors"
                 >
                   แก้ไข
                 </button>
@@ -365,7 +367,7 @@
             name="name"
             bind:value={editing.name}
             required
-            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-hidden"
           />
         </div>
 
@@ -377,7 +379,7 @@
             name="baseUrl"
             bind:value={editing.baseUrl}
             required
-            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm font-mono focus:ring-teal-500 focus:border-teal-500 outline-none"
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm font-mono focus:ring-teal-500 focus:border-teal-500 outline-hidden"
           />
         </div>
 
@@ -389,7 +391,7 @@
             id="fileType"
             name="fileType"
             bind:value={editing.fileType}
-            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-hidden"
           >
             <option value="HLS">HLS</option>
             <option value="MP4">MP4</option>
@@ -402,7 +404,7 @@
             id="allowAll"
             name="allowAll"
             bind:checked={editing.allowAll}
-            class="w-4 h-4 rounded accent-teal-500"
+            class="w-4 h-4 rounded-sm accent-teal-500"
           />
           <label for="allowAll" class="text-sm font-medium text-gray-700">เปิดให้ทุกคนดู</label>
         </div>
@@ -417,7 +419,7 @@
           {:else}
             <div class="flex flex-col gap-1 max-h-40 overflow-y-auto">
               {#each editing.videoAccess as access (access.userId)}
-                <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                <div class="flex items-center justify-between bg-gray-50 rounded-sm px-3 py-2">
                   <span class="text-sm text-gray-700">
                     {access.displayName}
                     <span class="text-xs text-gray-400">(@{access.userLogin})</span>
@@ -459,7 +461,7 @@
               <input type="hidden" name="videoId" value={editing.id} />
               <select
                 name="userId"
-                class="flex-1 bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+                class="flex-1 bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2 text-sm focus:ring-teal-500 focus:border-teal-500 outline-hidden"
               >
                 {#each availableUsers as user (user.id)}
                   <option value={user.id}>{user.displayName} (@{user.userLogin})</option>
@@ -559,7 +561,7 @@
             name="name"
             bind:value={newVideo.name}
             required
-            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-hidden"
           />
         </div>
 
@@ -573,7 +575,7 @@
             name="baseUrl"
             bind:value={newVideo.baseUrl}
             required
-            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm font-mono focus:ring-teal-500 focus:border-teal-500 outline-none"
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm font-mono focus:ring-teal-500 focus:border-teal-500 outline-hidden"
           />
         </div>
 
@@ -585,7 +587,7 @@
             id="new-fileType"
             name="fileType"
             bind:value={newVideo.fileType}
-            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+            class="w-full bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2.5 text-sm focus:ring-teal-500 focus:border-teal-500 outline-hidden"
           >
             <option value="HLS">HLS</option>
             <option value="MP4">MP4</option>
@@ -598,7 +600,7 @@
             id="new-allowAll"
             name="allowAll"
             bind:checked={newVideo.allowAll}
-            class="w-4 h-4 rounded accent-teal-500"
+            class="w-4 h-4 rounded-sm accent-teal-500"
           />
           <label for="new-allowAll" class="text-sm font-medium text-gray-700">เปิดให้ทุกคนดู</label>
         </div>
@@ -616,7 +618,7 @@
             {:else}
               <div class="flex flex-col gap-1 max-h-40 overflow-y-auto">
                 {#each newVideoUsers as user (user.id)}
-                  <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                  <div class="flex items-center justify-between bg-gray-50 rounded-sm px-3 py-2">
                     <span class="text-sm text-gray-700">
                       {user.displayName}
                       <span class="text-xs text-gray-400">(@{user.userLogin})</span>
@@ -637,7 +639,7 @@
               <div class="flex gap-2">
                 <select
                   bind:value={newVideoSelectId}
-                  class="flex-1 bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2 text-sm focus:ring-teal-500 focus:border-teal-500 outline-none"
+                  class="flex-1 bg-gray-50 border border-gray-300 text-gray-800 rounded-lg p-2 text-sm focus:ring-teal-500 focus:border-teal-500 outline-hidden"
                 >
                   <option value="">-- เลือกผู้ใช้ --</option>
                   {#each newVideoAvailable as user (user.id)}

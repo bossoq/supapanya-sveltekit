@@ -22,7 +22,7 @@
       <p class="text-gray-500 mb-6">{page.error?.message ?? ''}</p>
       <a
         href="/"
-        class="text-white bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5"
+        class="text-white bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:outline-hidden focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5"
       >
         กลับหน้าหลัก
       </a>

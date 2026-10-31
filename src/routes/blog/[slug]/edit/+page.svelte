@@ -132,7 +132,7 @@
           id="postTitle"
           name="postTitle"
           maxlength="100"
-          class="text-md block w-full appearance-none rounded border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-none invalid:text-red-600"
+          class="text-md block w-full appearance-none rounded-sm border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-hidden invalid:text-red-600"
           bind:value={blog.postTitle}
         />
       </div>
@@ -146,7 +146,7 @@
           name="postLink"
           pattern="[a-zA-Z0-9\-]+"
           maxlength="100"
-          class="text-md block w-full appearance-none rounded border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-none invalid:text-red-600"
+          class="text-md block w-full appearance-none rounded-sm border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-hidden invalid:text-red-600"
           bind:value={blog.postLink}
         />
       </div>
@@ -155,7 +155,7 @@
           วันที่บทความ
         </label>
         <DatePicker
-          class="text-md block w-full appearance-none rounded border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-none"
+          class="text-md block w-full appearance-none rounded-sm border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-hidden"
           id="postDate"
           name="postDate"
           bind:value={blog.postDate}
@@ -183,7 +183,7 @@
         <button
           type="button"
           aria-label="upload post picture"
-          class="h-56 text-md flex flex-col items-center justify-center w-full appearance-none rounded border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-none text-slate-500 hover:text-slate-800 transition-all ease-in-out duration-200"
+          class="h-56 text-md flex flex-col items-center justify-center w-full appearance-none rounded-sm border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-hidden text-slate-500 hover:text-slate-800 transition-all ease-in-out duration-200"
           onclick={handleClickUpload}
         >
           {#if blog.postPicture === ''}
@@ -220,7 +220,7 @@
           name="postExcerpt"
           rows="5"
           maxlength="500"
-          class="text-md block w-full appearance-none rounded border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-none invalid:text-red-600"
+          class="text-md block w-full appearance-none rounded-sm border border-gray-200 px-4 py-3 leading-tight focus:border-gray-500 focus:bg-white focus:outline-hidden invalid:text-red-600"
           bind:value={blog.postExcerpt}></textarea>
       </div>
       <div class="w-full flex flex-col gap-2 justify-center">
@@ -232,7 +232,7 @@
       <div class="w-full flex flex-col gap-2 justify-center">
         <button
           type="submit"
-          class="bg-teal-500 text-white p-3 rounded hover:bg-teal-700 transition-all ease-in-out duration-300"
+          class="bg-teal-500 text-white p-3 rounded-sm hover:bg-teal-700 transition-all ease-in-out duration-300"
         >
           บันทึก
         </button>

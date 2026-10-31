@@ -163,7 +163,7 @@
 <div class="flex flex-col items-center bg-white gap-6 h-[calc(100vh-10.2rem)]">
   {#if modalViewed}
     <ModalComponent bind:modalViewed>
-      <form class="flex flex-col gap-4 w-[42rem] h-[calc(100vh-10.2rem)]" method="POST">
+      <form class="flex flex-col gap-4 w-2xl h-[calc(100vh-10.2rem)]" method="POST">
         <h1 class="text-2xl md:text-4xl text-gray-800 font-bold py-2">สร้างห้องเรียนใหม่</h1>
         <label for="name" class="text-lg text-gray-800">ชื่อห้องเรียน</label>
         <input

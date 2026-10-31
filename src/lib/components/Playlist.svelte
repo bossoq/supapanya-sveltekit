@@ -59,16 +59,16 @@
   }
 </script>
 
-<section class="flex flex-col border-2 border-gray-100 p-2 shadow rounded w-full h-full">
+<section class="flex flex-col border-2 border-gray-100 p-2 shadow-sm rounded-sm w-full h-full">
   <div class="flex flex-row items-center gap-2 pb-2">
     <input
       type="search"
       placeholder="ค้นหาวิดีโอ"
-      class="border-2 border-gray-100 p-2 rounded w-full text-sm md:text-base"
+      class="border-2 border-gray-100 p-2 rounded-sm w-full text-sm md:text-base"
       bind:value={search}
       oninput={handleSearch}
     />
-    <button class="p-2 bg-teal-500 text-white rounded" onclick={handleSort} aria-label="sort">
+    <button class="p-2 bg-teal-500 text-white rounded-sm" onclick={handleSort} aria-label="sort">
       <svg class="aspect-square w-5" fill="currentColor">
         <use xlink:href="{remixiconUrl}#ri-{sortAsc ? 'sort-desc' : 'sort-asc'}" />
       </svg>

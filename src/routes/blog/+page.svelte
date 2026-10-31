@@ -65,14 +65,14 @@
       <section class="flex flex-row justify-center items-center">
         <button
           type="button"
-          class="mr-2 inline-flex items-center rounded-lg bg-teal-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-300"
+          class="mr-2 inline-flex items-center rounded-lg bg-teal-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-teal-800 focus:outline-hidden focus:ring-2 focus:ring-teal-300"
           onclick={(e) => handleDeleteConfirm(e)}
         >
           ยืนยัน
         </button>
         <button
           type="button"
-          class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:outline-hidden focus:ring-2 focus:ring-gray-200"
           onclick={(e) => handleCancelDelete(e)}
         >
           ยกเลิก
@@ -104,7 +104,7 @@
             <figure>
               <img
                 src={blog.postPicture}
-                class="object-cover aspect-[3/2] hover:scale-105 transition-all ease-in-out duration-300"
+                class="object-cover aspect-3/2 hover:scale-105 transition-all ease-in-out duration-300"
                 alt={blog.postTitle}
                 loading="lazy"
               />

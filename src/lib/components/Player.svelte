@@ -39,12 +39,12 @@
 
 <!-- svelte-ignore element_invalid_self_closing_tag -->
 <media-player
-  class="w-full aspect-video bg-slate-900 text-white overflow-hidden rounded-md ring-media-focus data-[focus]:ring-4 relative z-[9999]"
+  class="w-full aspect-video bg-slate-900 text-white overflow-hidden rounded-md ring-media-focus data-focus:ring-4 relative z-9999"
   bind:this={player}
 >
   <media-provider>
     <media-poster
-      class="absolute inset-0 block h-full w-full rounded-md opacity-0 transition-opacity data-[visible]:opacity-100 [&>img]:h-full [&>img]:w-full [&>img]:object-cover"
+      class="absolute inset-0 block h-full w-full rounded-md opacity-0 transition-opacity data-visible:opacity-100 [&>img]:h-full [&>img]:w-full [&>img]:object-cover"
       alt="Video Poster"
       crossOrigin
     />

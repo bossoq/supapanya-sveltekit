@@ -65,4 +65,4 @@ Import from `src/lib` with the `#lib/...` subpath alias (declared in `package.js
 
 ### Styling
 
-Tailwind with dark-mode class strategy. Custom brand colors: `blue-light-key` (#41bfd0), `blue-dark-key` (#1e3d59), `green-light-key` (#60ceb0). Vidstack's Tailwind plugin is included. No semicolons, single quotes, 100-char print width (see `.prettierrc`).
+Tailwind CSS 4, configured in CSS in `src/app.css` (there is no `tailwind.config.*`; it runs via `@tailwindcss/vite`). Dark mode uses the class strategy (`@custom-variant dark`). Custom brand colors are in `@theme`: `blue-light-key` (#41bfd0), `blue-dark-key` (#1e3d59), `green-light-key` (#60ceb0). No semicolons, single quotes, 100-char print width (see `.prettierrc`).
