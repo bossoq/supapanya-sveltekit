@@ -10,6 +10,7 @@ const publicPaths = [
   '/course',
   '/portfolio',
   '/review',
+  '/sitemap.xml',
   '/studytips'
 ]
 const adminPaths = ['/register', '/vodedit', '/vodlist']

@@ -46,7 +46,6 @@
         dataLayer.push(arguments)
       }
       gtag('js', new Date())
-      gtag('config', { gtagId })
     </script>
   {/if}
   {#if cfToken}
