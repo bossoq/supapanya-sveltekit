@@ -502,6 +502,7 @@
     bind:value={link}
   />
   <button
+    type="button"
     class="p-1 bg-gray-600 text-white rounded-lg"
     aria-label="Insert Link"
     disabled={link.match(/^https:\/\/.*/) === null && link !== ''}
@@ -537,6 +538,7 @@
     bind:value={filePath}
   />
   <button
+    type="button"
     class="p-1 bg-gray-600 text-white rounded-lg"
     aria-label="Upload Image"
     disabled={!file}
@@ -557,12 +559,13 @@
           <hr class="border-r border-white h-7 mx-0.5" />
         {:else}
           <button
+            type="button"
             class="hover:bg-gray-600 p-1 rounded-lg transition-all ease-in-out duration-200 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:bg-inherit"
             onclick={() => action()}
             class:bg-gray-600={isActive()}
             aria-label={title}
             {title}
-            disabled={isDisable()}
+            disabled={editor && isDisable()}
           >
             <svg class="aspect-square w-5" fill="currentColor">
               <use xlink:href={remixiconUrl + '#ri-' + icon} />
