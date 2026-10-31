@@ -44,7 +44,9 @@ export const handle: Handle = async ({ event, resolve }) => {
       }
     }
   }
-  const url = new URL(event.request.url)
+  // event.url has SvelteKit's /__data.json suffix stripped, so client-side navigations are
+  // checked against the page path, not the data request path
+  const url = event.url
 
   if (!user && !isPathAllowed(url.pathname)) {
     return redirect(302, '/login')
