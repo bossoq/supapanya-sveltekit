@@ -1,19 +1,18 @@
-import { json } from '@sveltejs/kit'
 import { prisma } from '#lib/server/db.js'
 import type { RequestHandler } from './$types'
 
 export const POST: RequestHandler = async ({ request, locals }) => {
   const user = locals.user
   if (!user) {
-    return json({ success: false, message: 'Unauthorized' }, { status: 401 })
+    return Response.json({ success: false, message: 'Unauthorized' }, { status: 401 })
   }
   if (!user.meta.isAdmin) {
-    return json({ success: false, message: 'Forbidden' }, { status: 403 })
+    return Response.json({ success: false, message: 'Forbidden' }, { status: 403 })
   }
 
   const data = await request.json()
   if (!data) {
-    return json({ success: false, message: 'No data provided' }, { status: 400 })
+    return Response.json({ success: false, message: 'No data provided' }, { status: 400 })
   }
   const payload = data as CourseData
   await prisma.postTable.updateMany({
@@ -38,5 +37,5 @@ export const POST: RequestHandler = async ({ request, locals }) => {
       postContent: true
     }
   })
-  return json({ success: true, message: 'Course updated', course })
+  return Response.json({ success: true, message: 'Course updated', course })
 }

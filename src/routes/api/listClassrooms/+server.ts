@@ -1,4 +1,3 @@
-import { json } from '@sveltejs/kit'
 import { prisma } from '#lib/server/db.js'
 import { JWT } from 'google-auth-library'
 import { ConferenceRecordsServiceClient, SpacesServiceClient } from '@google-apps/meet'
@@ -8,16 +7,16 @@ import type { RequestHandler } from './$types'
 export const GET: RequestHandler = async ({ locals }) => {
   const user = locals.user
   if (!user) {
-    return json({ success: false, message: 'Unauthorized' }, { status: 401 })
+    return Response.json({ success: false, message: 'Unauthorized' }, { status: 401 })
   }
   if (!user.meta.live) {
-    return json({ success: true, conferences: [] })
+    return Response.json({ success: true, conferences: [] })
   }
 
   const saclient = createJWT()
   const conferences = await listConferences(saclient)
   if (conferences.length === 0) {
-    return json({ success: true, conferences: [] })
+    return Response.json({ success: true, conferences: [] })
   }
   const participantsFilter = user.meta.isAdmin ? {} : { array_contains: user.id }
   const allowSpaces = await prisma.videoProcess.findMany({
@@ -44,7 +43,7 @@ export const GET: RequestHandler = async ({ locals }) => {
         teacher: space?.teacher.displayName
       }
     })
-  return json({ success: true, conferences: allowConferences })
+  return Response.json({ success: true, conferences: allowConferences })
 }
 
 const createJWT = () => {
