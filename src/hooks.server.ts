@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit'
-import type { Handle } from '@sveltejs/kit'
-import { verifyToken } from '$lib/server/jwt'
+import type { Handle } from '@sveltejs/kit/hooks'
+import { verifyToken } from '#lib/server/jwt.js'
 
 const publicPaths = [
   '/',

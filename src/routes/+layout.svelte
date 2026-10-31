@@ -1,14 +1,16 @@
 <script lang="ts">
   import '../app.css'
-  import { injectAnalytics } from '@vercel/analytics/sveltekit'
-  import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit'
-  import Head from '$lib/components/Head.svelte'
-  import Header from '$lib/components/Header.svelte'
-  import Footer from '$lib/components/Footer.svelte'
-  import ToastNotify from '$lib/components/ToastNotify.svelte'
-  import { darkTheme, toastsList } from '$lib/store'
-  import { dev } from '$app/environment'
-  import { PUBLIC_GOOGLE_ANALYTICS } from '$env/static/public'
+  import { inject, pageview } from '@vercel/analytics'
+  import { injectSpeedInsights } from '@vercel/speed-insights'
+  import { afterNavigate } from '$app/navigation'
+  import { page } from '$app/state'
+  import Head from '#lib/components/Head.svelte'
+  import Header from '#lib/components/Header.svelte'
+  import Footer from '#lib/components/Footer.svelte'
+  import ToastNotify from '#lib/components/ToastNotify.svelte'
+  import { darkTheme, toastsList } from '#lib/store.js'
+  import { browser, dev } from '$app/env'
+  import { PUBLIC_GOOGLE_ANALYTICS } from '$app/env/public'
   import type { LayoutData } from './$types'
 
   const url = 'https://supapanya.com'
@@ -25,8 +27,23 @@
 
   export let data: LayoutData
   const userData = data.user
-  injectAnalytics({ mode: dev ? 'development' : 'production' })
-  injectSpeedInsights()
+  // The packages' /sveltekit entry points import $app/stores, which SvelteKit 3 removed, so this
+  // does the same thing with the framework-agnostic entry points
+  let speedInsights: ReturnType<typeof injectSpeedInsights> = null
+  if (browser) {
+    inject({
+      mode: dev ? 'development' : 'production',
+      disableAutoTrack: true,
+      framework: 'sveltekit'
+    })
+    speedInsights = injectSpeedInsights({ route: page.route.id, framework: 'sveltekit' })
+  }
+  afterNavigate(({ to }) => {
+    if (to?.route.id) {
+      pageview({ route: to.route.id, path: to.url.pathname })
+      speedInsights?.setRoute(to.route.id)
+    }
+  })
 </script>
 
 <Head {title} {description} {url} {imageUrl} {gtagId} {cfToken} />

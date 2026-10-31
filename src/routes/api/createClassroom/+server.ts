@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit'
-import { prisma } from '$lib/server/db'
+import { prisma } from '#lib/server/db.js'
 import { JWT } from 'google-auth-library'
 import { SpacesServiceClient } from '@google-apps/meet'
 import {
@@ -7,7 +7,7 @@ import {
   SERVICE_CLIENT_EMAIL,
   SERVICE_PRIVATE_KEY,
   SERVICE_SUBJECT
-} from '$env/static/private'
+} from '$app/env/private'
 import type { RequestHandler } from './$types'
 
 export const POST: RequestHandler = async ({ request, locals }) => {

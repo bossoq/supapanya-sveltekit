@@ -1,6 +1,6 @@
 <script lang="ts">
-  import TipTapView from '$lib/components/TipTapView.svelte'
-  import { toastsList } from '$lib/store'
+  import TipTapView from '#lib/components/TipTapView.svelte'
+  import { toastsList } from '#lib/store.js'
   import type { JSONContent } from '@tiptap/core'
   import type { PageServerData } from './$types'
 

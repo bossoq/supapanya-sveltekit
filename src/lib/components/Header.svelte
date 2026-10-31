@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { page } from '$app/stores'
+  import { page } from '$app/state'
   import { slide } from 'svelte/transition'
   import { onMount } from 'svelte'
-  import { darkTheme } from '$lib/store'
+  import { darkTheme } from '#lib/store.js'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
 
   export let themeIcons: string[]
@@ -248,7 +248,7 @@
           )}
             {#if show}
               <a
-                class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
+                class="hover:transition-all ease-in-out duration-200 rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {page.url.pathname.includes(
                   link || ''
                 )
                   ? 'text-green-light-key border-b-green-light-key'
@@ -278,7 +278,7 @@
               >
                 <p
                   class="hover:transition-all ease-in-out duration-200 w-full flex justify-between items-center rounded hover:bg-gray-50 p-1 text-gray-800 border-4 border-transparent hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {dropdown &&
-                  dropdown.some(({ link }) => $page.url.pathname.includes(link))
+                  dropdown.some(({ link }) => page.url.pathname.includes(link))
                     ? 'text-green-light-key border-b-green-light-key'
                     : ''}"
                 >
@@ -307,7 +307,7 @@
                       {#each dropdown as { name, link }}
                         <a data-sveltekit-preload-data="tap" href={link}>
                           <li
-                            class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {$page.url.pathname.includes(
+                            class="hover:transition-all ease-in-out duration-200 border-4 border-transparent hover:bg-gray-50 hover:text-green-light-key hover:border-b-green-light-key focus:bg-gray-50 focus:text-green-light-key focus:border-b-green-light-key whitespace-nowrap {page.url.pathname.includes(
                               link
                             )
                               ? 'text-green-light-key border-b-green-light-key'

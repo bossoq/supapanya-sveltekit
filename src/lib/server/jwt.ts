@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify } from 'jose'
-import { JWT_SECRET } from '$env/static/private'
+import { JWT_SECRET } from '$app/env/private'
 
 const secret = new TextEncoder().encode(JWT_SECRET)
 

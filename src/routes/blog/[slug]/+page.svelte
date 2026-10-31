@@ -1,5 +1,5 @@
 <script lang="ts">
-  import TipTapRender from '$lib/components/TipTapRender.svelte'
+  import TipTapRender from '#lib/components/TipTapRender.svelte'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
   import type { JSONContent } from '@tiptap/core'
   import type { PageServerData } from './$types'

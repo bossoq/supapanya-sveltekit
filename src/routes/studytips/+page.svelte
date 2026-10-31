@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageServerData } from './$types'
-  import PlayerPlaylist from '$lib/components/PlayerPlaylist.svelte'
+  import PlayerPlaylist from '#lib/components/PlayerPlaylist.svelte'
 
   export let data: PageServerData
   let videoList = data.props.videos

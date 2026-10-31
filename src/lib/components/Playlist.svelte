@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
-  import { getPoster } from '$lib/utils'
+  import { getPoster } from '#lib/utils.js'
 
   export let videoList: VideoData[] = []
   export let currentId: number = 0

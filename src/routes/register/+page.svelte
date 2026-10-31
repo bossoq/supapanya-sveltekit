@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from '$app/stores'
+  import { page } from '$app/state'
   import type { ActionData } from './$types'
 
   export let form: ActionData
@@ -15,7 +15,7 @@
           สร้างบัญชีผู้ใช้
         </h1>
 
-        {#if $page.url.searchParams.get('success')}
+        {#if page.url.searchParams.get('success')}
           <div class="text-green-600 text-sm font-medium bg-green-50 rounded-lg p-3">
             สร้างบัญชีสำเร็จแล้ว
           </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from '$app/stores'
+  import { afterNavigate } from '$app/navigation'
 
   export let title: string
   export let description: string
@@ -8,16 +8,16 @@
   export let gtagId: string | null
   export let cfToken: object | null
 
-  $: {
+  afterNavigate(({ to }) => {
     // @ts-expect-error gtag is defined in the script below
-    if (typeof gtag !== 'undefined' && gtagId) {
+    if (typeof gtag !== 'undefined' && gtagId && to) {
       // @ts-expect-error gtag is defined in the script below
       gtag('config', gtagId, {
         page_title: document.title,
-        page_path: $page.url.pathname
+        page_path: to.url.pathname
       })
     }
-  }
+  })
 </script>
 
 <svelte:head>

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ModalComponent from '$lib/components/ModalComponent.svelte'
-  import Player from '$lib/components/Player.svelte'
+  import ModalComponent from '#lib/components/ModalComponent.svelte'
+  import Player from '#lib/components/Player.svelte'
   import type { VideoSrc } from 'vidstack'
   import type { PageServerData } from './$types'
 
