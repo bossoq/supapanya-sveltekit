@@ -42,6 +42,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>สถาบันศุภปัญญาไอ.เค.</title>
+</svelte:head>
+
 <div class="flex flex-col items-center bg-white gap-6 h-screen">
   {#if modalViewed}
     <ModalComponent bind:modalViewed>
