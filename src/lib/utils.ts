@@ -1,4 +1,5 @@
-import type { HLSSrc, VideoSrc } from 'vidstack'
+export type HLSSrc = { src: string; type: 'application/x-mpegurl' }
+export type VideoSrc = { src: string; type: 'video/mp4'; width: number; height: number }
 
 const resolutions = [
   {
@@ -54,4 +55,16 @@ export const convertVideo = (baseUrl: string, videoType: string): HLSSrc | Video
 
 export const getPoster = (baseUrl: string): string => {
   return `${baseUrl}/cover.jpg`
+}
+
+// Pick the smallest MP4 that still covers the player's width in device pixels; fall back to the
+// largest. Video.js 10 has no quality menu for progressive MP4s, so this replaces vidstack's menu.
+export const pickVideoSrc = (
+  sources: VideoSrc[],
+  cssWidth: number,
+  pixelRatio: number
+): VideoSrc => {
+  const target = cssWidth * pixelRatio
+  const bySize = [...sources].sort((a, b) => a.width - b.width)
+  return bySize.find((source) => source.width >= target) ?? bySize[bySize.length - 1]
 }

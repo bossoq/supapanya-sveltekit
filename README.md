@@ -8,7 +8,7 @@ A full-stack web application for content management, video streaming, and online
 - **PostgreSQL** via Prisma ORM
 - **Tailwind CSS** with dark mode support
 - **TipTap** rich text editor
-- **vidstack + HLS.js** for video playback
+- **Video.js 10 + hls.js** for video playback
 - **Vitest** for unit and component testing
 - **JWT** authentication with HTTP-only cookies
 

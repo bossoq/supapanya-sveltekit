@@ -1,7 +1,7 @@
 <script lang="ts">
   import ModalComponent from '#lib/components/ModalComponent.svelte'
   import Player from '#lib/components/Player.svelte'
-  import type { VideoSrc } from 'vidstack'
+  import type { VideoSrc } from '#lib/utils.js'
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
@@ -49,7 +49,10 @@
 <div class="flex flex-col items-center bg-white gap-6 h-screen">
   {#if modalViewed}
     <ModalComponent bind:modalViewed>
-      <Player {title} {src} {poster} autoPlay restart />
+      <!-- The modal sizes to its content, so the player needs its own width -->
+      <div class="w-[min(85vw,960px)]">
+        <Player {title} {src} {poster} autoPlay restart />
+      </div>
     </ModalComponent>
   {/if}
   <div class="container flex">
