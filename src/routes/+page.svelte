@@ -1,39 +1,18 @@
 <script lang="ts">
   import ModalComponent from '#lib/components/ModalComponent.svelte'
   import Player from '#lib/components/Player.svelte'
-  import type { VideoSrc } from '#lib/utils.js'
+  import type { HLSSrc } from '#lib/utils.js'
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
   let modalViewed = false
 
   const title = 'New Normal'
-  const src: VideoSrc[] = [
-    {
-      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_1080p.mp4',
-      type: 'video/mp4',
-      width: 1920,
-      height: 1080
-    },
-    {
-      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_720p.mp4',
-      type: 'video/mp4',
-      width: 1280,
-      height: 720
-    },
-    {
-      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_480p.mp4',
-      type: 'video/mp4',
-      width: 854,
-      height: 480
-    },
-    {
-      src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/NewNormal_Promote-FullHD_360p.mp4',
-      type: 'video/mp4',
-      width: 640,
-      height: 360
-    }
-  ]
+  // the video server no longer serves the promo's MP4 files, only its HLS stream
+  const src: HLSSrc = {
+    src: 'https://vod.supapanya.com/NewNormal_Promote-FullHD/index.m3u8',
+    type: 'application/x-mpegurl'
+  }
   const poster = 'https://vod.supapanya.com/NewNormal_Promote-FullHD/cover.jpg'
 
   const handleVideoModal = (e: Event) => {
