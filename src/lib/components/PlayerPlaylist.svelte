@@ -1,16 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { convertVideo, getPoster } from '#lib/utils.js'
+  import { convertVideo, getPoster, type HLSSrc, type VideoSrc } from '#lib/utils.js'
   import Player from '#lib/components/Player.svelte'
-  import type { HLSSrc, VideoSrc } from 'vidstack'
-  import type { MediaPlayerElement } from 'vidstack/elements'
   import Playlist from '#lib/components/Playlist.svelte'
 
   export let restart = false
   export let autoPlay = false
   export let videoList: VideoData[] = []
   let isLoading = false
-  let player: MediaPlayerElement
   let videoId: number
   let title: string
   let src: HLSSrc | VideoSrc[]
@@ -19,18 +16,14 @@
   onMount(() => {
     if (videoList.length === 0) return
     changeSrc(new CustomEvent('onMount', { detail: { id: videoList[0].id } }))
-    const playerMount = setInterval(() => {
-      if (player) {
-        player.addEventListener('ended', () => {
-          const vid = videoList.findIndex((video) => video.id === videoId)
-          if (vid === -1 || vid === videoList.length - 1) return
-          const nextId = videoList[vid + 1].id
-          changeSrc(new CustomEvent('nextVid', { detail: { id: nextId } }))
-        })
-        clearInterval(playerMount)
-      }
-    }, 100)
   })
+
+  // Player is recreated for each video, so it takes the callback rather than us holding a listener
+  const playNext = () => {
+    const vid = videoList.findIndex((video) => video.id === videoId)
+    if (vid === -1 || vid === videoList.length - 1) return
+    changeSrc(new CustomEvent('nextVid', { detail: { id: videoList[vid + 1].id } }))
+  }
 
   const changeSrc = (e: CustomEvent<{ id: number }>) => {
     isLoading = true
@@ -50,7 +43,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-2 align-middle">
   <div class="aspect-video flex justify-center col-span-2 max-h-[calc(60vh)]">
     {#if src && !isLoading}
-      <Player bind:title bind:src bind:poster bind:player {autoPlay} {restart} />
+      <Player {title} {src} {poster} {autoPlay} {restart} onEnded={playNext} />
     {:else if videoList.length === 0}
       <div class="flex justify-center items-center w-full h-full">
         <p class="text-2xl text-gray-800">ไม่มีวิดีโอในรายการ</p>

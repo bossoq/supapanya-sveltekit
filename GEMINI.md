@@ -9,7 +9,7 @@ This project is a SvelteKit application designed for a website with blog, user m
 - **Styling:** Tailwind CSS 4.x (CSS-based config in `src/app.css`, via `@tailwindcss/vite`)
 - **Database & ORM:** PostgreSQL with Prisma 7.x
 - **Authentication:** Custom JWT-based authentication using cookies
-- **Video Player:** Vidstack with hls.js support
+- **Video Player:** Video.js 10 (`@videojs/html`) with hls.js via `@videojs/hlsjs-video`
 - **Editor:** Tiptap for rich text content
 - **Deployment:** Optimized for Vercel
 
@@ -44,7 +44,7 @@ This project is a SvelteKit application designed for a website with blog, user m
 ### 5. Video Handling
 
 - Utilities in `src/lib/utils.ts` handle HLS and multi-resolution MP4 sources.
-- `Vidstack` is used for the player component (`src/lib/components/Player.svelte`).
+- Video.js 10 is used for the player component (`src/lib/components/Player.svelte`).
 
 ### 6. Components
 

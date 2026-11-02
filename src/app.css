@@ -107,10 +107,6 @@
   font-display: swap;
 }
 
-.vds-accessibility-menu {
-  display: none !important;
-}
-
 .tiptap a {
   color: #485fc7;
   cursor: pointer;

@@ -49,7 +49,7 @@ API endpoints at `src/routes/api/` handle mutations (blog CRUD, image processing
 ### Content and Media
 
 - **Rich text:** TipTap editor (`src/lib/components/TipTap.svelte`). Content stored and retrieved as TipTap JSON. Use `TipTapRender.svelte` or `TipTapView.svelte` to display it.
-- **Video:** vidstack player with HLS.js. `src/lib/utils.ts` contains helpers for building multi-resolution MP4 and HLS source lists. The `Player.svelte` component wraps vidstack.
+- **Video:** Video.js 10 (`@videojs/html`), with `<hlsjs-video>` for HLS. `Player.svelte` loads the custom elements client-side in `onMount`. `src/lib/utils.ts` builds MP4/HLS sources; MP4s have no quality menu, so `pickVideoSrc` picks one from the player width × pixel ratio. Playback position is saved to `localStorage` by `Player.svelte` (Video.js doesn't yet).
 - **Images:** Server-side resizing via `sharp` in `/api/processImage`.
 
 ### Imports and config

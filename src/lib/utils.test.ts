@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { convertVideo, getPoster } from './utils'
+import { convertVideo, getPoster, pickVideoSrc, type VideoSrc } from './utils'
 
 describe('convertVideo', () => {
   describe('MP4', () => {
@@ -82,5 +82,23 @@ describe('getPoster', () => {
 
   it('works with an empty base URL', () => {
     expect(getPoster('')).toBe('/cover.jpg')
+  })
+})
+
+describe('pickVideoSrc', () => {
+  const sources = convertVideo('https://cdn.example.com/clip', 'MP4') as VideoSrc[]
+
+  it('picks the smallest source covering the width in device pixels', () => {
+    expect(pickVideoSrc(sources, 390, 3).width).toBe(1280) // phone: 1170px -> 720p
+    expect(pickVideoSrc(sources, 360, 2).width).toBe(854) // small phone: 720px -> 480p
+    expect(pickVideoSrc(sources, 600, 1).width).toBe(640) // 600px -> 360p
+  })
+
+  it('falls back to the largest source when none is wide enough', () => {
+    expect(pickVideoSrc(sources, 1280, 2).width).toBe(1920)
+  })
+
+  it('does not depend on the order of the sources', () => {
+    expect(pickVideoSrc([...sources].reverse(), 390, 3).width).toBe(1280)
   })
 })
