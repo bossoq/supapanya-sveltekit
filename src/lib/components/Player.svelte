@@ -73,7 +73,7 @@
 
 <div
   bind:this={container}
-  class="w-full aspect-video bg-slate-900 text-white overflow-hidden rounded-md relative z-9999"
+  class="w-full aspect-video bg-slate-900 text-white overflow-hidden rounded-md"
 >
   {#if ready}
     <video-player content-title={title} {poster} class="block w-full h-full">
