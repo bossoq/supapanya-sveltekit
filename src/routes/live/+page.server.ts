@@ -99,6 +99,9 @@ const createJWT = () => {
     ],
     subject: SERVICE_SUBJECT
   })
+  // The Meet client turns on self-signed JWTs, which skip domain-wide delegation (subject) and fail
+  // with "insufficient OAuth scopes"; setting it here stops it overriding ours
+  saclient.useJWTAccessWithScope = false
   return saclient
 }
 
