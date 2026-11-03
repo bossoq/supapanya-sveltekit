@@ -47,7 +47,7 @@ export const GET: RequestHandler = async ({ locals }) => {
 }
 
 const createJWT = () => {
-  return new JWT({
+  const saclient = new JWT({
     email: SERVICE_CLIENT_EMAIL,
     key: SERVICE_PRIVATE_KEY,
     scopes: [
@@ -56,6 +56,10 @@ const createJWT = () => {
     ],
     subject: SERVICE_SUBJECT
   })
+  // The Meet client turns on self-signed JWTs, which skip domain-wide delegation (subject) and fail
+  // with "insufficient OAuth scopes"; setting it here stops it overriding ours
+  saclient.useJWTAccessWithScope = false
+  return saclient
 }
 
 const listConferences = async (saclient: JWT) => {
