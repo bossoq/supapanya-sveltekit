@@ -38,6 +38,9 @@
 @layer base {
   html {
     font-family: 'Sukhumvit Set';
+    /* The build lowers light-dark() (used by svelte-multiselect) to variables that are only
+       defined where color-scheme is set; without it those colors are dropped */
+    color-scheme: light;
   }
 
   /* Tailwind v4 no longer gives buttons a pointer cursor; keep v3's behaviour */
@@ -114,17 +117,3 @@
 .tiptap a:hover {
   color: unset;
 }
-
-/* header,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-img,
-svg,
-button {
-  filter: grayscale(1);
-} */
