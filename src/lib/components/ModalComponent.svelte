@@ -39,7 +39,7 @@
 </script>
 
 <div
-  class="fixed z-20 inset-0 overflow-y-auto"
+  class="fixed z-40 inset-0 overflow-y-auto"
   aria-labelledby="modal-title"
   role="dialog"
   aria-modal="true"
@@ -47,7 +47,7 @@
 >
   <div class="block items-end justify-center min-h-screen text-center">
     <div
-      class="flex items-center justify-center w-full h-screen bg-gray-500 bg-opacity-75"
+      class="flex items-center justify-center w-full h-screen bg-gray-500/75"
       aria-hidden="true"
       id="baseBg"
     >
@@ -55,7 +55,7 @@
         >&#8203;</span
       > -->
       <div
-        class="flex align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-fit h-fit"
+        class="relative flex align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-fit h-fit"
         use:clickOutside
         onclickOutside={(e) => handleModalClass(e, true)}
       >

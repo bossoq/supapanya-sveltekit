@@ -160,7 +160,8 @@
   ]
 </script>
 
-<header class="w-full sticky top-0 z-9999">
+<!-- below modals (z-40) and toasts (z-50) so dialogs cover the header -->
+<header class="w-full sticky top-0 z-30">
   <div class="flex w-full h-8 sm:h-10 bg-blue-light-key text-white justify-center items-center">
     <div class="flex flex-row gap-6 container w-full items-center">
       <div id="top-bar-left" class="flex flex-row gap-6 mr-auto items-center">
